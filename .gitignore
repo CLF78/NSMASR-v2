@@ -1,7 +1,9 @@
-# Kamek build files
+# CodeWarrior compiler
+cw/
+
+# Kamek build files/directories
 *.o
 *.dol
 *.bin
-
-# CodeWarrior compiler
-cw/
+game/build/
+loader/build
