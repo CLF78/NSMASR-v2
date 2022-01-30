@@ -40,10 +40,10 @@ struct DVDCommandBlock {
 };
 
 struct DVDFileInfo {
-	DVDCommandBlock cb;
-	u32 startAddr;
-	u32 length;
-	DVDCallback callback;
+    DVDCommandBlock cb;
+    u32 startAddr;
+    u32 length;
+    DVDCallback callback;
 };
 
 #ifdef __cplusplus

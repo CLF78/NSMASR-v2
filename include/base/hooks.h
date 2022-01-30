@@ -12,22 +12,22 @@
 
 
 #define kmIdentifier(key, counter) \
-	_k##key##counter
+    _k##key##counter
 #define kmHookInt(counter) \
-	__declspec (section ".kamek") static const u32 kmIdentifier(Hook, counter)
+    __declspec (section ".kamek") static const u32 kmIdentifier(Hook, counter)
 
 // general hook definition macros
 // TODO: debugging data (file, line, ...) for diagnostic use by Kamek maybe? :3
 #define kmHook0(type) \
-	kmHookInt(__COUNTER__)[2] = { 0, (type) }
+    kmHookInt(__COUNTER__)[2] = { 0, (type) }
 #define kmHook1(type, arg0) \
-	kmHookInt(__COUNTER__)[3] = { 1, (type), (u32)(arg0) }
+    kmHookInt(__COUNTER__)[3] = { 1, (type), (u32)(arg0) }
 #define kmHook2(type, arg0, arg1) \
-	kmHookInt(__COUNTER__)[4] = { 2, (type), (u32)(arg0), (u32)(arg1) }
+    kmHookInt(__COUNTER__)[4] = { 2, (type), (u32)(arg0), (u32)(arg1) }
 #define kmHook3(type, arg0, arg1, arg2) \
-	kmHookInt(__COUNTER__)[5] = { 3, (type), (u32)(arg0), (u32)(arg1), (u32)(arg2) }
+    kmHookInt(__COUNTER__)[5] = { 3, (type), (u32)(arg0), (u32)(arg1), (u32)(arg2) }
 #define kmHook4(type, arg0, arg1, arg2, arg3) \
-	kmHookInt(__COUNTER__)[6] = { 4, (type), (u32)(arg0), (u32)(arg1), (u32)(arg2), (u32)(arg3) }
+    kmHookInt(__COUNTER__)[6] = { 4, (type), (u32)(arg0), (u32)(arg1), (u32)(arg2), (u32)(arg3) }
 
 // kmCondWrite
 //   Write value to address, conditionally
@@ -58,25 +58,25 @@
 //   directly underneath. If exitPoint is not NULL, the function will
 //   branch to exitPoint when done; otherwise, it executes blr as normal
 #define kmBranchDefInt(counter, addr, exitPoint, returnType, ...) \
-	static returnType kmIdentifier(UserFunc, counter) (__VA_ARGS__); \
-	kmBranch(addr, kmIdentifier(UserFunc, counter)); \
-	kmPatchExitPoint(kmIdentifier(UserFunc, counter), exitPoint); \
-	static returnType kmIdentifier(UserFunc, counter) (__VA_ARGS__)
+    static returnType kmIdentifier(UserFunc, counter) (__VA_ARGS__); \
+    kmBranch(addr, kmIdentifier(UserFunc, counter)); \
+    kmPatchExitPoint(kmIdentifier(UserFunc, counter), exitPoint); \
+    static returnType kmIdentifier(UserFunc, counter) (__VA_ARGS__)
 
 #define kmBranchDefCpp(addr, exitPoint, returnType, ...) \
-	kmBranchDefInt(__COUNTER__, addr, exitPoint, returnType, __VA_ARGS__)
+    kmBranchDefInt(__COUNTER__, addr, exitPoint, returnType, __VA_ARGS__)
 #define kmBranchDefAsm(addr, exitPoint) \
-	kmBranchDefInt(__COUNTER__, addr, exitPoint, asm void, )
+    kmBranchDefInt(__COUNTER__, addr, exitPoint, asm void, )
 
 // kmCallDefCpp, kmCallDefAsm
 //   Set up a branch with link (bl) from a specific instruction to a function
 //   defined directly underneath.
 #define kmCallDefInt(counter, addr, returnType, ...) \
-	static returnType kmIdentifier(UserFunc, counter) (__VA_ARGS__); \
-	kmCall(addr, kmIdentifier(UserFunc, counter)); \
-	static returnType kmIdentifier(UserFunc, counter) (__VA_ARGS__)
+    static returnType kmIdentifier(UserFunc, counter) (__VA_ARGS__); \
+    kmCall(addr, kmIdentifier(UserFunc, counter)); \
+    static returnType kmIdentifier(UserFunc, counter) (__VA_ARGS__)
 
 #define kmCallDefCpp(addr, returnType, ...) \
-	kmCallDefInt(__COUNTER__, addr, returnType, __VA_ARGS__)
+    kmCallDefInt(__COUNTER__, addr, returnType, __VA_ARGS__)
 #define kmCallDefAsm(addr) \
-	kmCallDefInt(__COUNTER__, addr, asm void, )
+    kmCallDefInt(__COUNTER__, addr, asm void, )

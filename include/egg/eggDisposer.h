@@ -11,10 +11,10 @@ namespace EGG {
 class Heap;
 
 class Disposer {
-	public:
-		void* vtable; // Will be removed when virtual funcs are defined
-  		Heap* mContainHeap;
-  		nw4r::ut::Link mLink;
+    public:
+        void* vtable; // Will be removed when virtual funcs are defined
+        Heap* mContainHeap;
+        nw4r::ut::Link mLink;
 };
 
 } // namespace EGG

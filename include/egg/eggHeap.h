@@ -10,15 +10,15 @@
 namespace EGG {
 
 class Heap : public Disposer {
-	public:
-  		MEMiHeapHead* mHeapHandle;
-  		void* mParentBlock;
-  		Heap* mParentHeap;
-  		u16 mFlag;
-  		// 2 bytes padding
-  		nw4r::ut::Link mLink;
-  		nw4r::ut::List mChildren;
-  		const char* mName;
+    public:
+        MEMiHeapHead* mHeapHandle;
+        void* mParentBlock;
+        Heap* mParentHeap;
+        u16 mFlag;
+        // 2 bytes padding
+        nw4r::ut::Link mLink;
+        nw4r::ut::List mChildren;
+        const char* mName;
 };
 
 } // namespace EGG

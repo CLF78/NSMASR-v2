@@ -7,15 +7,15 @@ extern "C" {
 #endif
 
 typedef struct {
-	void* prev;
-	void* next;
+    void* prev;
+    void* next;
 } MEMLink;
 
 typedef struct {
-	void* head;
-	void* tail;
-	u16 count;
-	u16 offset;
+    void* head;
+    void* tail;
+    u16 count;
+    u16 offset;
 } MEMList;
 
 #ifdef __cplusplus

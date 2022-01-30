@@ -15,24 +15,24 @@ typedef void *(*KamekAlloc_t) (u32 size, bool isForCode, const loaderFunctions *
 typedef void (*KamekFree_t) (void *buffer, bool isForCode, const loaderFunctions *funcs);
 
 struct loaderFunctions {
-	OSReport_t OSReport;
-	OSFatal_t OSFatal;
-	DVDConvertPathToEntrynum_t DVDConvertPathToEntrynum;
-	DVDFastOpen_t DVDFastOpen;
-	DVDReadPrio_t DVDReadPrio;
-	DVDClose_t DVDClose;
-	sprintf_t sprintf;
-	KamekAlloc_t kamekAlloc;
-	KamekFree_t kamekFree;
+    OSReport_t OSReport;
+    OSFatal_t OSFatal;
+    DVDConvertPathToEntrynum_t DVDConvertPathToEntrynum;
+    DVDFastOpen_t DVDFastOpen;
+    DVDReadPrio_t DVDReadPrio;
+    DVDClose_t DVDClose;
+    sprintf_t sprintf;
+    KamekAlloc_t kamekAlloc;
+    KamekFree_t kamekFree;
 };
 
 inline void cacheInvalidateAddress(u32 address) {
-	register u32 addressRegister = address;
-	asm {
-		dcbst 0, addressRegister
-		sync
-		icbi 0, addressRegister
-	}
+    register u32 addressRegister = address;
+    asm {
+        dcbst 0, addressRegister
+        sync
+        icbi 0, addressRegister
+    }
 }
 
 void loadKamekBinaryFromDisc(const loaderFunctions *funcs, const char *path);
