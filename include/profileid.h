@@ -1,6 +1,12 @@
 #pragma once
 
-// Copied from AboodXD's repo
+// Originally from AboodXD's repo
+
+#if defined(REGION_K) || defined(REGION_W)
+    #define PROFCNT 752
+#else
+    #define PROFCNT 750
+#endif
 
 namespace SpriteId {
 
@@ -1175,7 +1181,7 @@ enum {
     WM_NOTE = 662,
     WM_TREASURESHIP = 663,
     WM_DIRECTOR = 664,
-    WM_GRID = 665, // Replaced with FlipBlock
+    WM_GRID = 665,
     WM_ISLAND = 666,
     WM_ITEM = 667,
     WM_CS_W3_PALM = 668,
@@ -1212,6 +1218,62 @@ enum {
     EVENT_OPENING_TITLE = 699,
     SELECT_PLAYER = 700,
     MULTI_COURSE_SELECT = 701,
+
+    #if defined(REGION_K) || defined(REGION_W)
+    // The Korean and Taiwanese versions have two extra profiles here. Who thought this was a good idea?
+    MULTI_COURSE_SELECT_TOURNAMENT = 702,
+    MULTI_COURSE_SELECT_TOURNAMENT_BUTTON = 703,
+    TIME_UP = 704,
+    COURSE_TIME_UP = 705,
+    YES_NO_WINDOW = 706,
+    COURSE_SELECT_MANAGER = 707,
+    FUKIDASHI_MANAGER = 708,
+    SMALL_SCORE_MANAGER = 709,
+    GAMEDISPLAY = 710,
+    OTASUKE_INFO = 711,
+    PAUSEWINDOW = 712,
+    RESULT = 713,
+    POINT_RESULT_MULTI = 714,
+    POINT_RESULT_DATE_FILE = 715,
+    POINT_RESULT_DATE_FILE_FREE = 716,
+    GOAL_MANAGER = 717,
+    COURSE_CLEAR = 718,
+    OTEHON_CLEAR = 719,
+    INFO_WINDOW = 720,
+    SELECT_CURSOR = 721,
+    WARNING_MANAGER = 722,
+    SEQUENCE_BG = 723,
+    GAME_OVER = 724,
+    MODE_SELECT = 725,
+    DATE_FILE = 726,
+    FILE_SELECT = 727,
+    CONTINUE = 728,
+    MINI_GAME_CANNON = 729,
+    MINI_GAME_WIRE = 730,
+    MODEL_PLAY_MANAGER = 731,
+    MODEL_PLAY_BASE = 732,
+    MODEL_PLAY_DATE = 733,
+    MODEL_PLAY_ARROW = 734,
+    MODEL_PLAY_GUIDE = 735,
+    MESSAGE_WINDOW = 736,
+    CHARACTER_CHANGE_SELECT_BASE = 737,
+    CHARACTER_CHANGE_SELECT_CONTENTS = 738,
+    CHARACTER_CHANGE_SELECT_ARROW = 739,
+    CHARACTER_CHANGE_INDICATOR = 740,
+    MULTI_COURSE_SELECT_CONTENTS = 741,
+    COLLECTION_COIN_DATE = 742,
+    CONTROLLER_INFORMATION = 743,
+    DRAW_GAME = 744,
+    STAFF_CREDIT_SCORE = 745,
+    THE_END = 746,
+    DEMO_MESSAGE = 747,
+    LETTER_WINDOW = 748,
+    DUMMY_ACTOR = 749,
+    LASTACTOR_STAGE = 750,
+    LASTACTOR = 751,
+
+    #else
+    // Regular game profiles
     TIME_UP = 702,
     COURSE_TIME_UP = 703,
     YES_NO_WINDOW = 704,
@@ -1260,10 +1322,11 @@ enum {
     DUMMY_ACTOR = 747,
     LASTACTOR_STAGE = 748,
     LASTACTOR = 749,
+    #endif
 
     // Start of custom entries
-    GoombaTest = 750,
-    BlockTest = 751,
+    GoombaTest = PROFCNT,
+    BlockTest = PROFCNT+1,
 
     // Do NOT remove
     Num

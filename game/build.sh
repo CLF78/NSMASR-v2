@@ -1,44 +1,61 @@
 #!/bin/bash
 
+# Make build folder
 if [ -d 'build' ]; then
-	rm -rf 'build'
+    rm -rf 'build'
 fi
 mkdir -p 'build'
 
-AS="../cw/mwasmeppc.exe"
+# ASM compilation settings
+AS='../cw/mwasmeppc.exe'
 ASMFLAGS='-I- -i ../include'
 ASMFILES=''
 
-CC="../cw/mwcceppc.exe"
+# CPP compilation settings
+CC='../cw/mwcceppc.exe'
 CFLAGS='-I- -i ../include -nostdinc -Cpp_exceptions off -enum int -O4 -use_lmw_stmw on -fp hard -rostr -sdata 0 -sdata2 0'
 CPPFILES='profile'
 
-MYREGION='P1'
+# Destination
+DEST=~/.local/share/dolphin-emu/Load/Riivolution/nsmb
 
-OBJECTS=''
-
-for i in $CPPFILES; do
-    echo "Compiling $i.cpp..."
-    wine $CC $CFLAGS -c -o build/$i.o $i.cpp
-    if [ $? != 0 ]; then
-        exit 1
-    else
-        OBJECTS="$OBJECTS build/$i.o"
-    fi
-done
-
-for i in $ASMFILES; do
-    echo "Assembling $i.S..."
-    wine $AS $ASMFLAGS -c -o build/$i.o $i.S
-    if [ $? != 0 ]; then
-        exit 1
-    else
-        OBJECTS="$OBJECTS build/$i.o"
-    fi
-done
-
-echo 'Linking...'
-Kamek $OBJECTS -dynamic -externals=externals-nsmbw.txt -versions=versions-nsmbw.txt -output-kamek=build/code\$KV\$.bin
-if [ $? == 0 ]; then
-    mv build/code$MYREGION.bin ~/.local/share/dolphin-emu/Load/Riivolution/nsmb
+# Set regions from input arguments or fallback to default
+REGIONS=''
+if [ $# != 0 ]; then
+    REGIONS="$@"
+else
+    REGIONS='P1 P2 E1 E2 J1 J2 K W'
 fi
+
+for region in $REGIONS; do
+    OBJECTS=''
+
+    # Compile CPP
+    for i in $CPPFILES; do
+        echo "Compiling $i.cpp..."
+        wine $CC $CFLAGS -DREGION_$region -c -o build/$i.o $i.cpp
+        if [ $? != 0 ]; then
+            exit 1
+        else
+            OBJECTS="$OBJECTS build/$i.o"
+        fi
+    done
+
+    # Compile ASM
+    for i in $ASMFILES; do
+        echo "Assembling $i.S..."
+        wine $AS $ASMFLAGS -DREGION_$region -c -o build/$i.o $i.S
+        if [ $? != 0 ]; then
+            exit 1
+        else
+            OBJECTS="$OBJECTS build/$i.o"
+        fi
+    done
+
+    # Link
+    echo 'Linking...'
+    Kamek $OBJECTS -dynamic -externals=externals-nsmbw.txt -versions=versions-nsmbw.txt -select-version=$region -output-kamek=build/code\$KV\$.bin
+    if [ $? == 0 ]; then
+        mv build/code$region.bin $DEST
+    fi
+done

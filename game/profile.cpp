@@ -1,19 +1,20 @@
 #include <kamek.h>
 #include <fBase/fBase.h>
 #include <fBase/profile.h>
+#include <profileid.h>
 
 // Arrays of data used by the game
 extern SpriteData sprites[483];
 SpriteData customSprites[SpriteId::Num - 483];
 
-extern Profile* profiles[750];
-Profile* customProfiles[ProfileId::Num - 750];
+extern Profile* profiles[PROFCNT];
+Profile* customProfiles[ProfileId::Num - PROFCNT];
 
 extern const char** spriteFiles[483];
 const char** customSpriteFiles[SpriteId::Num - 483];
 
-extern const char* profileNames[750];
-const char* customProfileNames[ProfileId::Num - 750];
+extern const char* profileNames[PROFCNT];
+const char* customProfileNames[ProfileId::Num - PROFCNT];
 
 // Custom Profile ctor by AboodXD, edited by myself
 Profile::Profile(buildFunc func, u32 spriteId, const SpriteData* spriteData, u16 executeOrderProfileId, u16 drawOrderProfileId, u32 unk, const char* name, const char** files) {
@@ -30,12 +31,12 @@ Profile::Profile(buildFunc func, u32 spriteId, const SpriteData* spriteData, u16
     	customSpriteFiles[spriteId - 483] = files;
 	}
 
-	if (spriteData->profileId < 750) {
+	if (spriteData->profileId < PROFCNT) {
     	profiles[spriteData->profileId] = this;
     	profileNames[spriteData->profileId] = name;
 	} else {
-    	customProfiles[spriteData->profileId - 750] = this;
-    	customProfileNames[spriteData->profileId - 750] = name;
+    	customProfiles[spriteData->profileId - PROFCNT] = this;
+    	customProfileNames[spriteData->profileId - PROFCNT] = name;
 	}
 }
 
@@ -43,13 +44,12 @@ Profile::Profile(buildFunc func, u32 spriteId, const SpriteData* spriteData, u16
 
 // Spritedata list hooks
 kmCallDefAsm(0x80068440) {
-	// Check if original sprite (0x4B78 = 483 * 0x28)
-	// Using cr7 because cr0 is in use
-	cmpwi cr7, r0, 0x4B78;
+	// Check if original sprite (using cr7 because cr0 is in use)
+	cmpwi cr7, r0, 483*0x28;
 	blt+ cr7, notCustom
 
 	// Subtract using sub rather than subi because r0
-	li r12, 0x4B78
+	li r12, 483*0x28
 	sub r0, r0, r12
 
 	// Override table address
@@ -68,12 +68,12 @@ kmCallDefAsm(0x80068440) {
 }
 
 kmCallDefAsm(0x80068E18) {
-	// Check if original sprite (0x4B78 = 483 * 0x28)
-	cmpwi r0, 0x4B78;
+	// Check if original sprite
+	cmpwi r0, 483*0x28;
 	blt+ notCustom
 
 	// Subtract using sub rather than subi because r0
-	li r12, 0x4B78
+	li r12, 483*0x28
 	sub r0, r0, r12
 
 	// Override table address
@@ -87,12 +87,12 @@ kmCallDefAsm(0x80068E18) {
 }
 
 kmCallDefAsm(0x80068F50) {
-	// Check if original sprite (0x4B78 = 483 * 0x28)
-	cmpwi r0, 0x4B78;
+	// Check if original sprite
+	cmpwi r0, 483*0x28;
 	blt+ notCustom
 
 	// Subtract using sub rather than subi because r0
-	li r12, 0x4B78
+	li r12, 483*0x28
 	sub r0, r0, r12
 
 	// Override table address
@@ -106,12 +106,12 @@ kmCallDefAsm(0x80068F50) {
 }
 
 kmBranchDefAsm(0x807FC8D8, 0x807FC8E0) {
-	// Check if original sprite (0x4B78 = 483 * 0x28)
-	cmpwi r0, 0x4B78;
+	// Check if original sprite
+	cmpwi r0, 483*0x28;
 	blt+ notCustom
 
 	// Subtract using sub rather than subi because r0
-	li r12, 0x4B78
+	li r12, 483*0x28
 	sub r0, r0, r12
 
 	// Override table address
@@ -125,13 +125,12 @@ kmBranchDefAsm(0x807FC8D8, 0x807FC8E0) {
 }
 
 kmCallDefAsm(0x8006894C) {
-	// Check if original sprite (0x4B78 = 483 * 0x28)
-	// Using cr7 because cr0 is in use
-	cmpwi cr7, r4, 0x4B78;
+	// Check if original sprite (using cr7 because cr0 is in use)
+	cmpwi cr7, r4, 483*0x28;
 	blt+ cr7, notCustom
 
 	// Subtract
-	subi r4, r4, 0x4B78
+	subi r4, r4, 483*0x28
 
 	// Override table address
 	lis r0, customSprites@h
@@ -145,12 +144,12 @@ kmCallDefAsm(0x8006894C) {
 
 // Profile list hooks
 kmCallDefAsm(0x8006C7C8) {
-	// Check if original sprite (0xBB8 = 750 * 4)
-	cmpwi r0, 0xBB8;
+	// Check if original sprite
+	cmpwi r0, PROFCNT*4;
 	blt+ notCustom
 
 	// Subtract
-	li r12, 0xBB8
+	li r12, PROFCNT*4
 	sub r0, r0, r12
 
 	// Override table address
@@ -164,12 +163,12 @@ kmCallDefAsm(0x8006C7C8) {
 }
 
 kmCallDefAsm(0x80161CF4) {
-	// Check if original sprite (0xBB8 = 750 * 4)
-	cmpwi r0, 0xBB8;
+	// Check if original sprite
+	cmpwi r0, PROFCNT*4;
 	blt+ notCustom
 
 	// Subtract
-	li r12, 0xBB8
+	li r12, PROFCNT*4
 	sub r0, r0, r12
 
 	// Override table address
@@ -183,12 +182,12 @@ kmCallDefAsm(0x80161CF4) {
 }
 
 kmCallDefAsm(0x80162BC8) {
-	// Check if original sprite (0xBB8 = 750 * 4)
-	cmpwi r31, 0xBB8;
+	// Check if original sprite
+	cmpwi r31, PROFCNT*4;
 	blt+ notCustom
 
 	// Subtract using r12 as r31 needs to be preserved for the next hook
-	subi r12, r31, 0xBB8
+	subi r12, r31, PROFCNT*4
 
 	// Override table address
 	lis r7, customProfiles@h
@@ -206,12 +205,12 @@ kmCallDefAsm(0x80162BC8) {
 }
 
 kmCallDefAsm(0x80162BE4) {
-	// Check if original sprite (0xBB8 = 750 * 4)
-	cmpwi r31, 0xBB8;
+	// Check if original sprite
+	cmpwi r31, PROFCNT*4;
 	blt+ notCustom
 
 	// Subtract
-	subi r31, r31, 0xBB8
+	subi r31, r31, PROFCNT*4
 
 	// Override table address
 	lis r3, customProfiles@h
@@ -225,12 +224,12 @@ kmCallDefAsm(0x80162BE4) {
 
 // File list hook
 kmCallDefAsm(0x8091FD3C) {
-	// Check if original sprite (0x78C = 483 * 4)
-	cmpwi r0, 0x78C;
+	// Check if original sprite
+	cmpwi r0, 483*4;
 	blt+ notCustom
 
 	// Subtract using sub rather than subi because r0
-	li r12, 0x78C
+	li r12, 483*4
 	sub r0, r0, r12
 
 	// Override table address
@@ -250,7 +249,7 @@ kmCallDefAsm(0x8091FD3C) {
 
 // Profile names hook
 kmBranchDefCpp(0x801018CC, NULL, const char*, u16 profileId, const char** array) {
-	if (profileId < 750)
+	if (profileId < PROFCNT)
 		return array[profileId];
-	return customProfileNames[profileId - 750];
+	return customProfileNames[profileId - PROFCNT];
 }
