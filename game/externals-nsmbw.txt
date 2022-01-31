@@ -1,1 +1,11 @@
 OSReport=0x8015F870
+
+sprites=0x8030A340
+profiles=0x8076A748
+spriteFiles=0x8031AB4C
+profileNames=0x80320B58
+
+goombaFunc__Fv = 0x80A55F20
+goombaFiles = 0x80428298
+
+blockFunc__Fv = 0x80A75B40
