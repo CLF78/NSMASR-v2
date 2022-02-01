@@ -33,8 +33,8 @@ class dMj2dGame_c {
         u8 currentWorld;            // 0x03
         u8 currentSubMap;           // 0x04
         u8 currentPathNode;         // 0x05
-        u8 ibaraNow;                // 0x06 (has something to do with W5 vines)
-        u8 switchOn;                // 0x07
+        bool ibaraNow;              // 0x06 (has something to do with W5 vines)
+        bool switchOn;              // 0x07
         u8 _8;                      // 0x08
         u8 stockItemCounts[7];      // 0x09
         u8 toadLevelIdx[10];        // 0x10
