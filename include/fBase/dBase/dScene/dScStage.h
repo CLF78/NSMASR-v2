@@ -2,7 +2,6 @@
 
 #include <kamek.h>
 #include <dActorMng.h>
-#include <dEnemyMng.h>
 #include <dQuake.h>
 #include <PauseManager.h>
 #include <s/sPhase.h>
@@ -14,6 +13,8 @@ class dScStage_c : dScene_c {
         dQuake_c quake;
         PauseManager_c pauseManager;
         dActorMng_c actorMgr;
+
+        /* NOT IMPLEMENTED YET
         dEnemyMng_c enemyMgr;
         dBeansKuriboMng_c microGoombaMgr;
         dWaterEntryMng_c waterMgr;
@@ -50,8 +51,11 @@ class dScStage_c : dScene_c {
         // 2 bytes padding
 
         int ptmfIndex;
+        */
 
-        static u32 mCollectionCoin[3]; // Each coin is set to the player id who collected it or 4 if already collected in a previous playthrough
+        static u32 mCollectionCoin[3]; // Each coin is set to the player id who collected it, else it's 4
 
         static dScStage_c* m_instance;
-}
+
+        static void saveLevelProgress(bool isSecretExit, bool isSuperGuide, int world, int level);
+};

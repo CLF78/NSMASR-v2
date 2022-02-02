@@ -1,7 +1,7 @@
 #pragma once
 
 #include <kamek.h>
-#include <rvl/mtx.h>
+#include <rvl/mtx/mtx.h>
 
 class dActorMngField_c {
     public:
