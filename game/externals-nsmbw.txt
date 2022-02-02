@@ -9,3 +9,10 @@ goombaFunc__Fv = 0x80A55F20
 goombaFiles = 0x80428298
 
 blockFunc__Fv = 0x80A75B40
+
+LevelStartStruct = 0x80374060
+setNextScene__8dScene_cFUsUib = 0x800E1F50
+m_startGameInfo__7dInfo_c = 0x80315E90
+m_WorldNo__9dScWMap_c = 0x8042A52D
+m_PrevWorldNo__9dScWMap_c = 0x80429355
+m_instance__7dInfo_c = 0x8042A25C

@@ -14,7 +14,7 @@ ASMFILES=''
 # CPP compilation settings
 CC='../cw/mwcceppc.exe'
 CFLAGS='-I- -i ../include -nostdinc -Cpp_exceptions off -enum int -O4 -use_lmw_stmw on -fp hard -rostr -sdata 0 -sdata2 0'
-CPPFILES='profile'
+CPPFILES='profile levelwarp'
 
 # Destination
 DEST=~/.local/share/dolphin-emu/Load/Riivolution/nsmb
