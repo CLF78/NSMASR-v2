@@ -57,5 +57,5 @@ class dScStage_c : dScene_c {
 
         static dScStage_c* m_instance;
 
-        static void saveLevelProgress(bool isSecretExit, bool isSuperGuide, int world, int level);
+        static void saveLevelProgress(bool isSecretExit, bool isSuperGuide, int world, int level); // Not actually part of the class, but it fits here so :p
 };

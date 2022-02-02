@@ -8,6 +8,6 @@ class dInfo_c {
         u8 unk[0x44];
         u32 exitMapNode;
 
-        static StartLevelInfo m_startGameInfo;
+        static StartGameInfo m_startGameInfo;
         static dInfo_c* m_instance;
 };

@@ -60,5 +60,5 @@ class dMj2dGame_c {
         u8 pad[0x13];               // 0x969
         u32 checksum;               // 0x97C
 
-        void onCourseDataFlag(int world, int level, u32 flag);
+        void setCollectCoin(int world, int level, u8 coins);
 };
