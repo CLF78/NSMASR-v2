@@ -19,7 +19,7 @@ enum ScreenType {
     HINT_MOVIE = 4,
 };
 
-struct StartInfo {
+struct StartLevelInfo {
     u32 replayDuration;     // 0x00 (in frames, max value 0x3840 aka 4 minutes)
     u8 movieType;           // 0x04 (only used for Hint Movies)
     u8 entrance;            // 0x05
@@ -32,4 +32,4 @@ struct StartInfo {
     u8 level2;              // 0x0F (usually copied from the other field)
 };
 
-static StartInfo LevelStartStruct;
+extern StartLevelInfo LevelStartStruct; // dunno which class it belongs to, so it stays here for now

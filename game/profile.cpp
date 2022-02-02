@@ -105,7 +105,7 @@ kmCallDefAsm(0x80068F50) {
 	blr
 }
 
-kmBranchDefAsm(0x807FC8D8, 0x807FC8E0) {
+kmCallDefAsm(0x807FC8D8) {
 	// Check if original sprite
 	cmpwi r0, 483*0x28;
 	blt+ notCustom
@@ -122,6 +122,12 @@ kmBranchDefAsm(0x807FC8D8, 0x807FC8E0) {
 	notCustom:
 	lhzx r31, r7, r0
 	add r30, r7, r0
+
+	// Return slightly later
+	mflr r12
+	addi r12, r12, 4
+	mtlr r12
+	blr
 }
 
 kmCallDefAsm(0x8006894C) {

@@ -9,4 +9,4 @@ class sPhase_c {
         PhaseFunc* functions;
         u16 count;
         u16 current;
-}
+};

@@ -26,5 +26,5 @@ class Profile {
 		buildFunc func;
 		u16 executeOrderProfileId;
 		u16 drawOrderProfileId;
-		u32 _8; // This field is only present in a few profiles, so this is slightly unsafe
+		u32 _8; // This field is only present in a few profiles, but having it here shouldn't hurt
 };
