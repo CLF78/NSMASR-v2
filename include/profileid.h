@@ -504,8 +504,7 @@ enum {
     AC_BOSS_KOOPA_BG_EFFECT = 482,
 
     // Start of custom entries
-    GoombaTest = 483,
-    BlockTest = 484,
+    DummyCustomSprite = 483, // only here to make compilation succeed
 
     // Do NOT remove
     Num
@@ -1325,8 +1324,7 @@ enum {
     #endif
 
     // Start of custom entries
-    GoombaTest = PROFCNT,
-    BlockTest = PROFCNT+1,
+    DummyCustomProfile = PROFCNT, // only here to make compilation succeed
 
     // Do NOT remove
     Num
