@@ -9,6 +9,7 @@ setNextScene__8dScene_cFUsUib=0x800E1F50
 
 m_startGameInfo__7dInfo_c=0x80315E90
 m_instance__7dInfo_c=0x8042A25C
+mGameFlag__7dInfo_c=0x8042A260
 
 m_PrevWorldNo__9dScWMap_c=0x80429355
 
@@ -18,4 +19,6 @@ m_instance__10dSaveMng_c=0x8042A320
 setCollectCoin__11dMj2dGame_cFiiUc=0x800CE270
 
 saveLevelProgress__10dScStage_cFbbii=0x800FBAF0
+returnToScene__10dScStage_cFUiUiQ210dScStage_c8ExitModeQ28dFader_c12fader_type_e=0x80102370
 mCollectionCoin__10dScStage_c=0x803744B0
+m_gameMode__10dScStage_c=0x8042A4E4

@@ -2,6 +2,7 @@
 
 #include <kamek.h>
 #include <dActorMng.h>
+#include <dFader.h>
 #include <dQuake.h>
 #include <PauseManager.h>
 #include <s/sPhase.h>
@@ -53,9 +54,17 @@ class dScStage_c : dScene_c {
         int ptmfIndex;
         */
 
+        typedef enum {
+            MODE_BEAT_LEVEL,
+            MODE_LOSE_LEVEL,
+            MODE_EXIT_LEVEL,
+        } ExitMode;
+
         static u32 mCollectionCoin[3]; // Each coin is set to the player id who collected it, else it's 4
+        static u32 m_gameMode; // uses the values from screenType in startinfo.h
 
         static dScStage_c* m_instance;
 
         static void saveLevelProgress(bool isSecretExit, bool isSuperGuide, int world, int level); // Not actually part of the class, but it fits here so :p
+        static void returnToScene(u32 profileId, u32 settings, ExitMode exitMode, dFader_c::fader_type_e fadeType); // Same here
 };

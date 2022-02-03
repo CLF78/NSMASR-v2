@@ -13,85 +13,76 @@
 
 // Extern required by asm call
 extern "C" {
-bool WarpToStage(dNext_c* data, int fromWorld, int fromLevel);
+void WarpToStage(dNext_c* data, int fromWorld, int fromLevel);
 }
 
-bool WarpToStage(dNext_c* data, int fromWorld, int fromLevel) {
+void WarpToStage(dNext_c* data, int fromWorld, int fromLevel) {
+
     // Since these values are used quite a bit, preload them
     int destWorld = data->entranceData.destWorld;
     int destLevel = data->entranceData.destLevel;
+    bool discardProgress = (data->entranceData.flags & ~FLAG_DISCARD_LEVEL_PROGRESS);
 
-    // Restore original behaviour if we are not in regular gameplay
-    if (dInfo_c::m_startGameInfo.screenType != NORMAL)
-        return false;
+    // Only warp if destWorld and destLevel aren't zero and we are in story mode
+    if (destWorld != 0 && destLevel != 0 && dScStage_c::m_gameMode == NORMAL) {
 
-    // Restore original behaviour if destWorld or destLevel are 0
-    if (destWorld == 0 || destLevel == 0)
-        return false;
+        // Get save game
+        dMj2dGame_c* save = dSaveMng_c::m_instance->getSaveGame((s8)-1);
 
-    // Get save game
-    dMj2dGame_c* save = dSaveMng_c::m_instance->getSaveGame((s8)-1);
+        // Save Star Coins in any case, let's not be assholes
+        for (int i = 0; i < 3; i++) {
+            if (dScStage_c::mCollectionCoin[i] < 4)
+                save->setCollectCoin(fromWorld, fromLevel, 1 << i);
+        }
 
-    // Save Star Coins
-    for (int i = 0; i < 3; i++) {
-        if (dScStage_c::mCollectionCoin[i] < 4)
-            save->setCollectCoin(fromWorld, fromLevel, 1 << i);
+        // Save level progress if the related flag is unset
+        if (!discardProgress)
+            dScStage_c::saveLevelProgress(bool(data->entranceData.flags & ~FLAG_WARP_SECRET_EXIT), false, fromWorld, fromLevel);
+
+        // Set world, level, area, screenType and entrance in the startGameInfo
+        // Other fields do not need to be reset as they are already correct
+        dScRestartCrsin_c::m_startGameInfo.world1 = destWorld-1;
+        dScRestartCrsin_c::m_startGameInfo.world2 = destWorld-1;
+        dScRestartCrsin_c::m_startGameInfo.level1 = destLevel-1;
+        dScRestartCrsin_c::m_startGameInfo.level2 = destLevel-1;
+        dScRestartCrsin_c::m_startGameInfo.screenType = NORMAL;
+        dScRestartCrsin_c::m_startGameInfo.area = data->entranceData.destArea;
+        dScRestartCrsin_c::m_startGameInfo.entrance = data->entranceData.destId;
+
+        // Set previous world in order not to reset the map position
+        dScWMap_c::m_PrevWorldNo = destWorld-1;
+
+        // Set map node
+        dInfo_c::m_instance->exitMapNode = data->entranceData.destMapNode;
+
+        // Set next scene
+        dScene_c::setNextScene(ProfileId::RESTART_CRSIN, 0, false);
+
+    // Apparently the exit level option was kind of rushed so it doesn't work correctly in other modes, gotta fix it!
+    } else {
+        dScStage_c::ExitMode keepPowerUps;
+
+        // If we are in regular gameplay keep powerup state for consistency, else restore it
+        if (dScStage_c::m_gameMode == NORMAL)
+            keepPowerUps = dScStage_c::MODE_BEAT_LEVEL;
+        else
+            keepPowerUps = dScStage_c::MODE_EXIT_LEVEL;
+
+        // If we are in extra modes and progress is not to be saved, trigger the game over screen
+        if (dInfo_c::mGameFlag & ~dInfo_c::FLAG_EXTRA_MODES && discardProgress) {
+            dInfo_c::mGameFlag |= dInfo_c::FLAG_GAME_OVER;
+            keepPowerUps = dScStage_c::MODE_EXIT_LEVEL;
+        }
+
+        // Return to the correct scene (the function manages all the rest on its own)
+        dScStage_c::returnToScene(ProfileId::WORLD_MAP, 0, keepPowerUps, data->fade);
     }
-
-    // Save level progress
-    dScStage_c::saveLevelProgress(bool(data->entranceData.flags & ~FLAG_WARP_SECRET_EXIT), false, fromWorld, fromLevel);
-
-    // Otherwise set world, level, area, screenType and entrance in the other startGameInfo
-    // Other fields do not need to be reset as we they are already correct
-    dScRestartCrsin_c::m_startGameInfo.world1 = destWorld-1;
-    dScRestartCrsin_c::m_startGameInfo.world2 = destWorld-1;
-    dScRestartCrsin_c::m_startGameInfo.level1 = destLevel-1;
-    dScRestartCrsin_c::m_startGameInfo.level2 = destLevel-1;
-    dScRestartCrsin_c::m_startGameInfo.screenType = NORMAL;
-    dScRestartCrsin_c::m_startGameInfo.area = data->entranceData.destArea;
-    dScRestartCrsin_c::m_startGameInfo.entrance = data->entranceData.destId;
-
-    // Set previous world in order not to reset the map position
-    dScWMap_c::m_PrevWorldNo = destWorld-1;
-
-    // Set map node
-    dInfo_c::m_instance->exitMapNode = data->entranceData.destMapNode;
-
-    // Set next scene
-    dScene_c::setNextScene(ProfileId::RESTART_CRSIN, 0, false);
-    return true;
 }
 
-kmCallDefAsm(0x800D0250) {
-    // Push stack
-    stwu r1, -0x10(r1)
-    mflr r0
-    stw r0, 0x14(r1)
-
-    // Setup call
+kmBranchDefAsm(0x800D0250, 0x800D0340) {
+    // Call cpp function
     mr r3, r31
     mr r4, r30
     lbz r5, 0x120D(r28)
     bl WarpToStage
-
-    // Begin popping stack (using r12 to preserve r0)
-    lwz r12, 0x14(r1)
-    addi r1, r1, 0x10
-
-    // If result is false, resume original function execution
-    cmpwi r3, 0
-    beq original
-
-    // Otherwise return later
-    addi r12, r12, 0xEC
-    b end
-
-    // Original instruction
-    original:
-    li r0, 0
-
-    // Restore LR and return
-    end:
-    mtlr r12
-    blr
 }

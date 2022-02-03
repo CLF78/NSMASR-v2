@@ -43,6 +43,7 @@ enum EntranceFlags {
     FLAG_SPAWN_HALF_TILE_LEFT = 0x40,
     FLAG_NON_ENTERABLE = 0x80,
     FLAG_WARP_SECRET_EXIT = 0x100, // custom
+    FLAG_DISCARD_LEVEL_PROGRESS = 0x200, // custom
 };
 
 typedef struct {
