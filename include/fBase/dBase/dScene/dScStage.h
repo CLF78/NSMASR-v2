@@ -7,6 +7,12 @@
 #include <PauseManager.h>
 #include <s/sPhase.h>
 
+typedef enum {
+    MODE_BEAT_LEVEL,
+    MODE_LOSE_LEVEL,
+    MODE_EXIT_LEVEL,
+} ExitMode;
+
 class dScStage_c : dScene_c {
     public:
         u32 frameCount;
@@ -54,14 +60,9 @@ class dScStage_c : dScene_c {
         int ptmfIndex;
         */
 
-        typedef enum {
-            MODE_BEAT_LEVEL,
-            MODE_LOSE_LEVEL,
-            MODE_EXIT_LEVEL,
-        } ExitMode;
-
         static u32 mCollectionCoin[3]; // Each coin is set to the player id who collected it, else it's 4
         static u32 m_gameMode; // uses the values from screenType in startinfo.h
+        static ExitMode m_exitMode;
 
         static dScStage_c* m_instance;
 

@@ -11,9 +11,11 @@
 #include <profileid.h>
 #include <startinfo.h>
 
-// Extern required by asm call
+// Externs required by asm calls
 extern "C" {
 void WarpToStage(dNext_c* data, int fromWorld, int fromLevel);
+bool IsCourseClear(void* wmObjActor); // Actually a class function
+extern StartGameInfo StartGameInfo; // Copy from dInfo_c
 }
 
 void WarpToStage(dNext_c* data, int fromWorld, int fromLevel) {
@@ -39,6 +41,9 @@ void WarpToStage(dNext_c* data, int fromWorld, int fromLevel) {
         if (!discardProgress)
             dScStage_c::saveLevelProgress(bool(data->entranceData.flags & ~FLAG_WARP_SECRET_EXIT), false, fromWorld, fromLevel);
 
+        // Set exit mode to keep powerups
+        dScStage_c::m_exitMode = MODE_BEAT_LEVEL;
+
         // Set world, level, area, screenType and entrance in the startGameInfo
         // Other fields do not need to be reset as they are already correct
         dScRestartCrsin_c::m_startGameInfo.world1 = destWorld-1;
@@ -50,7 +55,7 @@ void WarpToStage(dNext_c* data, int fromWorld, int fromLevel) {
         dScRestartCrsin_c::m_startGameInfo.entrance = data->entranceData.destId;
 
         // Set previous world in order not to reset the map position
-        dScWMap_c::m_PrevWorldNo = destWorld-1;
+        dScWMap_c::m_PrevWorldNo = 0xFF;
 
         // Set map node
         dInfo_c::m_instance->exitMapNode = data->entranceData.destMapNode;
@@ -60,19 +65,18 @@ void WarpToStage(dNext_c* data, int fromWorld, int fromLevel) {
 
     // Apparently the exit level option was kind of rushed so it doesn't work correctly in other modes, gotta fix it!
     } else {
-        dScStage_c::ExitMode keepPowerUps;
-
-        // If we are in regular gameplay keep powerup state for consistency, else restore it
-        if (dScStage_c::m_gameMode == NORMAL)
-            keepPowerUps = dScStage_c::MODE_BEAT_LEVEL;
-        else
-            keepPowerUps = dScStage_c::MODE_EXIT_LEVEL;
+        ExitMode keepPowerUps;
 
         // If we are in extra modes and progress is not to be saved, trigger the game over screen
+        // Else if we are in regular gameplay, keep powerup state for consistency
+        // Else restore it
         if (dInfo_c::mGameFlag & ~dInfo_c::FLAG_EXTRA_MODES && discardProgress) {
             dInfo_c::mGameFlag |= dInfo_c::FLAG_GAME_OVER;
-            keepPowerUps = dScStage_c::MODE_EXIT_LEVEL;
-        }
+            keepPowerUps = MODE_EXIT_LEVEL;
+        } else if (dScStage_c::m_gameMode == NORMAL)
+            keepPowerUps = MODE_BEAT_LEVEL;
+        else
+            keepPowerUps = MODE_EXIT_LEVEL;
 
         // Return to the correct scene (the function manages all the rest on its own)
         dScStage_c::returnToScene(ProfileId::WORLD_MAP, 0, keepPowerUps, data->fade);
@@ -85,4 +89,42 @@ kmBranchDefAsm(0x800D0250, 0x800D0340) {
     mr r4, r30
     lbz r5, 0x120D(r28)
     bl WarpToStage
+}
+
+kmCallDefAsm(0x808CE35C) {
+    // Push stack
+    stwu r1, -0x10(r1)
+    mflr r0
+    stw r0, 0x14(r1)
+
+    // Original instruction
+    mr r3, r30
+
+    // Call IsCourseClear
+    bl IsCourseClear
+
+    // Reload LR save using r12
+    lwz r12, 0x14(r1)
+
+    // If course is cleared, skip check
+    cmpwi r3, 1
+    beq skipCheck
+
+    // Check if this node is the one we're currently on
+    lis r3, StartGameInfo@h
+    ori r3, r3, StartGameInfo@l
+    lbz r3, 0xD(r3)
+    cmpw r3, r5
+    bne+ end
+
+    // Otherwise skip open check
+    skipCheck:
+    addi r12, r12, 0x58
+
+    // Original instruction, pop stack and return
+    end:
+    mr r3, r30
+    mtlr r12
+    addi r1, r1, 0x10
+    blr
 }
