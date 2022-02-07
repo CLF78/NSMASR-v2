@@ -25,9 +25,11 @@ void FixUnit(u8* data, int tileSlot) {
             continue;
         }
 
-        // Clear slot data and set correct slot
-        data[2] &= 0xFC;
-        data[2] |= tileSlot;
+        // Clear slot data and set correct slot if the tile is not the Pa0 null tile
+        if (data[1] != 0 && (data[2] & 3) != 0) {
+            data[2] &= 0xFC;
+            data[2] |= tileSlot;
+        }
 
         // Go to next tile
         data += 3;
