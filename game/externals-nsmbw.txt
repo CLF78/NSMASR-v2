@@ -26,3 +26,5 @@ m_exitMode__10dScStage_c=0x8042931C
 m_gameMode__10dScStage_c=0x8042A4E4
 
 IsCourseClear=0x800FD9B0
+
+getRes__6dRes_cFPCcPCcPUi=0x800DF2D0
