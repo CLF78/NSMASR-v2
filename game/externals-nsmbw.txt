@@ -23,8 +23,18 @@ saveLevelProgress__10dScStage_cFbbii=0x800FBAF0
 returnToScene__10dScStage_cFUiUi8ExitModeQ28dFader_c12fader_type_e=0x80102370
 mCollectionCoin__10dScStage_c=0x803744B0
 m_exitMode__10dScStage_c=0x8042931C
+m_instance__10dScStage_c=0x8042A4A8
 m_gameMode__10dScStage_c=0x8042A4E4
 
 IsCourseClear=0x800FD9B0
 
+getRes__6dRes_cFPCcPCc=0x800DF270
 getRes__6dRes_cFPCcPCcPUi=0x800DF2D0
+instance__9dResMng_c=0x8042A318
+
+snprintf=0x802E19d8
+
+setupAnimTile__11dBgTexMng_cFiUsPcPUcb=0x80087B60
+
+getEnvironment__11dBgGlobal_cFii=0x800813F0
+instance__11dBgGlobal_c=0x8042A0D0

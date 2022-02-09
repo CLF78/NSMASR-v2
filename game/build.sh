@@ -8,13 +8,13 @@ mkdir -p 'build'
 
 # ASM compilation settings
 AS='../cw/mwasmeppc.exe'
-ASMFLAGS='-I- -i ../include'
+ASMFLAGS='-i . -I- -i ../include'
 ASMFILES=''
 
 # CPP compilation settings
 CC='../cw/mwcceppc.exe'
-CFLAGS='-I- -i ../include -nostdinc -Cpp_exceptions off -enum int -O4 -use_lmw_stmw on -fp hard -rostr -sdata 0 -sdata2 0'
-CPPFILES='levelwarp powerup profile savefile tileset'
+CFLAGS='-i . -I- -i ../include -nostdinc -Cpp_exceptions off -enum int -O4 -use_lmw_stmw on -fp hard -rostr -sdata 0 -sdata2 0'
+CPPFILES='animtiles levelwarp powerup profile savefile tileset'
 
 # Destination
 DEST=~/.local/share/dolphin-emu/Load/Riivolution/nsmb

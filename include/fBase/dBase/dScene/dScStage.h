@@ -4,6 +4,7 @@
 #include <dActorMng.h>
 #include <dFader.h>
 #include <dQuake.h>
+#include <fBase/dBase/dScene/dScene.h>
 #include <PauseManager.h>
 #include <s/sPhase.h>
 
@@ -30,35 +31,36 @@ class dScStage_c : dScene_c {
         dBlockMng_c blockMgr;
         dScoreMng_c scoreMgr;
         dCurtainMng_c curtainMgr;
+        */
+        u8 undefinedstructs[0xE88];
 
         u8 unk[0x20];
 
-        void *gameDisplay;
-        void *goalManager;
-        void *smallScoreManager;
-        void *fukidashiManager;
-        void *courseTimeUp;
-        void *miniGameCannon;
-        void *miniGameWire;
-        void *modelPlayManager;
-        void *messageWindow;
-        void *modelPlayGuide;
-        u8 *staffCreditScore;
-        void *theEnd;
-        void *yesNoWindow;
+        void* gameDisplay;
+        void* goalManager;
+        void* smallScoreManager;
+        void* fukidashiManager;
+        void* courseTimeUp;
+        void* miniGameCannon;
+        void* miniGameWire;
+        void* modelPlayManager;
+        void* messageWindow;
+        void* modelPlayGuide;
+        u8* staffCreditScore;
+        void* theEnd;
+        void* yesNoWindow;
 
         u8 unk2[4];
 
-        u8 CurrentWorld;
-        u8 CurrentLevel;
-        u8 CurrentArea;
-        u8 CurrentZone:
-        u8 CurrentLayer;
-        u8 CurrentEntrance;
+        u8 currentWorld;
+        u8 currentLevel;
+        u8 currentArea;
+        u8 currentZone;
+        u8 currentLayer;
+        u8 currentEntrance;
         // 2 bytes padding
 
         int ptmfIndex;
-        */
 
         static u32 mCollectionCoin[3]; // Each coin is set to the player id who collected it, else it's 4
         static u32 m_gameMode; // uses the values from screenType in startinfo.h
