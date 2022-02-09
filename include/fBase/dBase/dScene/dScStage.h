@@ -25,10 +25,10 @@ class dScStage_c : dScene_c {
         /* NOT IMPLEMENTED YET
         dEnemyMng_c enemyMgr;
         dBeansKuriboMng_c microGoombaMgr;
-        dWaterEntryMng_c waterMgr;
-        dEffActorMng_c effectExplosionMgr;
+        dWaterEntryMng_c waterMgr; // done
+        dEffActorMng_c effectExplosionMgr; // done
         dTenCoinMng_c redRingMgr;
-        dBlockMng_c blockMgr;
+        dBlockMng_c blockMgr; // done
         dScoreMng_c scoreMgr;
         dCurtainMng_c curtainMgr;
         */
