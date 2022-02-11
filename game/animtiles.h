@@ -2,8 +2,8 @@
 
 #include <kamek.h>
 
-#define ANIMMETA "BG_tex/anims.bin"
-#define ANIMTILE "BG_tex/anim_%02x.bin"
+#define ANIMMETA "BG_anim/anims.bin"
+#define ANIMTILE "BG_anim/anim_%02x.bin"
 #define SPECVERSION 1
 
 struct AnimsBinEntry {

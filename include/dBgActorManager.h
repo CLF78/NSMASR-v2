@@ -13,7 +13,7 @@ class dBgActorManager_c {
                 u8 layer;
                 // 1 byte padding
                 u32 profileId;
-        }
+        };
 
         void* vtable;
         mHeapAllocator_c allocator;
@@ -32,6 +32,6 @@ class dBgActorManager_c {
             u32 settings;
         };
 
-        static BgObjName_t* objOverrideList; // unofficial name
+        static BgObjName_t* bgObjNameList; // unofficial name
 
 };

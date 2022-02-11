@@ -2,4 +2,5 @@
 
 #include <egg/eggAllocator.h>
 
-class mAllocator : EGG::Allocator;
+class mAllocator_c : EGG::Allocator {
+};
