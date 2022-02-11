@@ -34,7 +34,21 @@ instance__9dResMng_c=0x8042A318
 
 snprintf=0x802E19d8
 
+memcpy=0x80004364
+strcmp=0x802E1DA4
+
 setupAnimTile__11dBgTexMng_cFiUsPcPUcb=0x80087B60
 
 getEnvironment__11dBgGlobal_cFii=0x800813F0
 instance__11dBgGlobal_c=0x8042A0D0
+
+Rail=0x8030FFF4
+RailWhite=0x80310000
+RailDaishizen=0x80310010
+RailMinigame=0x80310020
+OriginalOverrides=0x8030FFE0
+
+nw__FUl=0x802B9390
+dl__FPv=0x802b93C0
+
+bgObjNameList__17dBgActorManager_c=0x8042A0BC
