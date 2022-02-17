@@ -2,7 +2,6 @@
 #include <dBgActorManager.h>
 #include <dRes.h>
 #include <profileid.h>
-#include <stdlib/new.h>
 #include <stdlib/string.h>
 #include "tileoverride.h"
 
@@ -122,7 +121,7 @@ void DoObjOverride(dBgActorManager_c* mng, char* tileNames) {
         return;
 
     // Allocate buffer
-    dBgActorManager_c::BgObjName_t* buffer = (dBgActorManager_c::BgObjName_t*)nw(count * sizeof(dBgActorManager_c::BgObjName_t));
+    dBgActorManager_c::BgObjName_t* buffer = new dBgActorManager_c::BgObjName_t[count];
 
     // Counter to keep track of parsed entries
     int parsedCount = 0;
@@ -160,7 +159,7 @@ void DoObjOverride(dBgActorManager_c* mng, char* tileNames) {
 
 void DestroyOverrides() {
     // Delete allocated overrides
-    dl(dBgActorManager_c::bgObjNameList);
+    delete dBgActorManager_c::bgObjNameList;
 }
 
 // Force rails to be loaded by default
