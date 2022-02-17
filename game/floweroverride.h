@@ -9,8 +9,8 @@
 
 struct GrassBinEntry {
     u8 tileNum;
-    u8 flowerValue:4;  // 0 = pink, 1 = yellow, 2 = blue, 3-4 = custom, 15 = none
-    u8 grassValue:4;   // 0 = left edge, 1-4 = middles, 5 = right edge, 15 = none
+    u8 flowerValue:4;  // 0 = pink, 1 = yellow, 2 = blue, 3-4 = custom, any other value = none
+    u8 grassValue:4;   // 0 = left edge, 1-3 = middles, 4 = right edge, any other value = none
 };
 
 struct GrassBin {
@@ -26,6 +26,8 @@ class dGrassBinMng_c {
     public:
         dGrassBinMng_c(GrassBin* rawData, u8 numTiles, u8 slot);
         ~dGrassBinMng_c();
+
+        GrassBinEntry* getFlowerData(u16 tileNum);
 
         GrassBin* data;
         u8 numEntries;
