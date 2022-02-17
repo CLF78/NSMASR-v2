@@ -4,17 +4,17 @@
 #include <profileid.h>
 
 // Arrays of data used by the game
-extern SpriteData sprites[483];
-SpriteData customSprites[SpriteId::Num - 483];
+extern SpriteData sprites[SpriteId::OriginalNum];
+SpriteData customSprites[SpriteId::Num - SpriteId::OriginalNum];
 
-extern Profile* profiles[PROFCNT];
-Profile* customProfiles[ProfileId::Num - PROFCNT];
+extern Profile* profiles[ProfileId::OriginalNum];
+Profile* customProfiles[ProfileId::Num - ProfileId::OriginalNum];
 
-extern const char** spriteFiles[483];
-const char** customSpriteFiles[SpriteId::Num - 483];
+extern const char** spriteFiles[SpriteId::OriginalNum];
+const char** customSpriteFiles[SpriteId::Num - SpriteId::OriginalNum];
 
-extern const char* profileNames[PROFCNT];
-const char* customProfileNames[ProfileId::Num - PROFCNT];
+extern const char* profileNames[ProfileId::OriginalNum];
+const char* customProfileNames[ProfileId::Num - ProfileId::OriginalNum];
 
 // Custom Profile ctor by AboodXD, edited by myself
 Profile::Profile(buildFunc func, u32 spriteId, const SpriteData* spriteData, u16 executeOrderProfileId, u16 drawOrderProfileId, u32 unk, const char* name, const char** files) {
@@ -29,12 +29,12 @@ Profile::Profile(buildFunc func, u32 spriteId, const SpriteData* spriteData, u16
     // If spritedata is not null, store this as a sprite
     if (spriteData) {
         profile = spriteData->profileId;
-        if (spriteId < 483) {
+        if (spriteId < SpriteId::OriginalNum) {
             sprites[spriteId] = *spriteData;
             spriteFiles[spriteId] = files;
         } else {
-            customSprites[spriteId - 483] = *spriteData;
-            customSpriteFiles[spriteId - 483] = files;
+            customSprites[spriteId - SpriteId::OriginalNum] = *spriteData;
+            customSpriteFiles[spriteId - SpriteId::OriginalNum] = files;
         }
 
     // Else use it as a profile id
@@ -42,12 +42,12 @@ Profile::Profile(buildFunc func, u32 spriteId, const SpriteData* spriteData, u16
         profile = spriteId;
 
     // Store profile data
-    if (profile < PROFCNT) {
+    if (profile < ProfileId::OriginalNum) {
         profiles[profile] = this;
         profileNames[profile] = name;
     } else {
-        customProfiles[profile - PROFCNT] = this;
-        customProfileNames[profile - PROFCNT] = name;
+        customProfiles[profile - ProfileId::OriginalNum] = this;
+        customProfileNames[profile - ProfileId::OriginalNum] = name;
     }
 }
 
@@ -56,11 +56,11 @@ Profile::Profile(buildFunc func, u32 spriteId, const SpriteData* spriteData, u16
 // Spritedata list hooks
 kmCallDefAsm(0x80068440) {
     // Check if original sprite (using cr7 because cr0 is in use)
-    cmpwi cr7, r0, 483*0x28;
+    cmpwi cr7, r0, SPRITECNT*0x28
     blt+ cr7, notCustom
 
     // Subtract using sub rather than subi because r0
-    li r12, 483*0x28
+    li r12, SPRITECNT*0x28
     sub r0, r0, r12
 
     // Override table address
@@ -80,11 +80,11 @@ kmCallDefAsm(0x80068440) {
 
 kmCallDefAsm(0x80068E18) {
     // Check if original sprite
-    cmpwi r0, 483*0x28;
+    cmpwi r0, SPRITECNT*0x28
     blt+ notCustom
 
     // Subtract using sub rather than subi because r0
-    li r12, 483*0x28
+    li r12, SPRITECNT*0x28
     sub r0, r0, r12
 
     // Override table address
@@ -99,11 +99,11 @@ kmCallDefAsm(0x80068E18) {
 
 kmCallDefAsm(0x80068F50) {
     // Check if original sprite
-    cmpwi r0, 483*0x28;
+    cmpwi r0, SPRITECNT*0x28;
     blt+ notCustom
 
     // Subtract using sub rather than subi because r0
-    li r12, 483*0x28
+    li r12, SPRITECNT*0x28
     sub r0, r0, r12
 
     // Override table address
@@ -118,11 +118,11 @@ kmCallDefAsm(0x80068F50) {
 
 kmCallDefAsm(0x807FC8D8) {
     // Check if original sprite
-    cmpwi r0, 483*0x28;
+    cmpwi r0, SPRITECNT*0x28;
     blt+ notCustom
 
     // Subtract using sub rather than subi because r0
-    li r12, 483*0x28
+    li r12, SPRITECNT*0x28
     sub r0, r0, r12
 
     // Override table address
@@ -143,11 +143,11 @@ kmCallDefAsm(0x807FC8D8) {
 
 kmCallDefAsm(0x8006894C) {
     // Check if original sprite (using cr7 because cr0 is in use)
-    cmpwi cr7, r4, 483*0x28;
+    cmpwi cr7, r4, SPRITECNT*0x28;
     blt+ cr7, notCustom
 
     // Subtract
-    subi r4, r4, 483*0x28
+    subi r4, r4, SPRITECNT*0x28
 
     // Override table address
     lis r0, customSprites@h
@@ -242,11 +242,11 @@ kmCallDefAsm(0x80162BE4) {
 // File list hook
 kmCallDefAsm(0x8091FD3C) {
     // Check if original sprite
-    cmpwi r0, 483*4;
+    cmpwi r0, SPRITECNT*4;
     blt+ notCustom
 
     // Subtract using sub rather than subi because r0
-    li r12, 483*4
+    li r12, SPRITECNT*4
     sub r0, r0, r12
 
     // Override table address
@@ -266,7 +266,7 @@ kmCallDefAsm(0x8091FD3C) {
 
 // Profile names hook
 kmBranchDefCpp(0x801018CC, NULL, const char*, u16 profileId, const char** array) {
-    if (profileId < PROFCNT)
+    if (profileId < ProfileId::OriginalNum)
         return array[profileId];
-    return customProfileNames[profileId - PROFCNT];
+    return customProfileNames[profileId - ProfileId::OriginalNum];
 }
