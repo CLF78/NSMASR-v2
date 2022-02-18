@@ -58,3 +58,5 @@ objHana=0x80972690
 objHanaBrres=0x8097267C
 objHanaDaishizen=0x809726BC
 objHanaDaishizenBrres=0x8097269C
+
+GetResTex__Q34nw4r3g3d7ResFileCFPCc=0x8023A060

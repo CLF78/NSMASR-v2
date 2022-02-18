@@ -3,6 +3,8 @@
 #include <dBgGlobal.h>
 #include <dBg.h>
 #include <dRes.h>
+#include <nw4r/g3d/res/resfile.h>
+#include <nw4r/g3d/res/restex.h>
 #include <stdlib/stdio.h>
 #include "floweroverride.h"
 
@@ -251,7 +253,7 @@ kmCallDefAsm(0x8007803C) {
     stw r0, 0x14(r1)
 
     // Call the C++ function
-    mr r3, r22
+    mr r3, r21
     mr r4, r6
     addi r5, r25, 0x10
     addi r6, r26, 0x8
@@ -298,7 +300,7 @@ kmCallDefAsm(0x808762CC) {
     mr r3, r31
     lwz r31, 0xC(r1)
     lwz r12, 0x14(r1)
-    mflr r12
+    mtlr r12
     addi r1, r1, 0x10
     blr
 }
@@ -352,3 +354,26 @@ kmCallDefAsm(0x8087657C) {
     b LoadCustomGrassBrres
 }
 
+kmCallDefCpp(0x80876410, nw4r::g3d::ResTex*, nw4r::g3d::ResFile* res, const char* originalName) {
+    // Get custom texture
+    nw4r::g3d::ResTex* tex = res->GetResTex("obj_hana05");
+
+    // Return if not null
+    if (tex != NULL)
+        return tex;
+
+    // Else return original
+    return res->GetResTex(originalName);
+}
+
+kmCallDefCpp(0x80876420, nw4r::g3d::ResTex*, nw4r::g3d::ResFile* res, const char* originalName) {
+    // Get custom texture
+    nw4r::g3d::ResTex* tex = res->GetResTex("obj_hana04");
+
+    // Return if not null
+    if (tex != NULL)
+        return tex;
+
+    // Else return original
+    return res->GetResTex(originalName);
+}
