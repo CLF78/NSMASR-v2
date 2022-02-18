@@ -11,7 +11,7 @@ struct FlowerEntry {
 
 class dBg_c : dBase_c {
     public:
-        u8 unk[0x8F410]; // TODO: document this properly
+        u8 unk[0x8F408]; // TODO: document this properly
         u32 grassCount;
         u32 flowerCount;
         FlowerEntry grassEntries[100];

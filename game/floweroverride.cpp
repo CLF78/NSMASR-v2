@@ -101,6 +101,7 @@ void LoadGrassBin() {
     }
 }
 
+// Helper function
 bool AreCustomFlowersLoaded() {
     return (dGrassBinMng_c::instance != NULL);
 }
@@ -137,6 +138,7 @@ int AddFlowerEntry(dBg_c* bg, u16 tileNum, u32 x, u32 y) {
 }
 
 void* LoadCustomFlowerBrres() {
+
     // Allocate name buffer on the stack
     char buffer[16];
 
@@ -197,6 +199,7 @@ kmBranchDefCpp(0x80154E84, NULL, int, void) {
 
 // Dehardcode tileset name check
 kmCallDefAsm(0x80077F88) {
+
     // Prevent register restoring
     nofralloc
 
@@ -255,8 +258,8 @@ kmCallDefAsm(0x8007803C) {
     // Call the C++ function
     mr r3, r21
     mr r4, r6
-    addi r5, r25, 0x10
-    addi r6, r26, 0x8
+    addi r5, r26, 0x8
+    addi r6, r25, 0x10
     bl AddFlowerEntry
 
     // Move result to r6
@@ -270,7 +273,9 @@ kmCallDefAsm(0x8007803C) {
     blr
 }
 
+// Dehardcode tileset name check 2
 kmCallDefAsm(0x808762CC) {
+
     // Prevent register overwriting
     nofralloc
 
@@ -305,7 +310,9 @@ kmCallDefAsm(0x808762CC) {
     blr
 }
 
+// Switch ARC+BRRES file on the fly
 kmCallDefAsm(0x80876364) {
+
     // Let me free
     nofralloc
 
@@ -325,7 +332,9 @@ kmCallDefAsm(0x80876364) {
     b LoadCustomFlowerBrres
 }
 
+// Switch ARC+BRRES file on the fly 2
 kmCallDefAsm(0x808763C8) {
+
     // Let me free
     nofralloc
 
@@ -345,7 +354,9 @@ kmCallDefAsm(0x808763C8) {
     b LoadCustomFlowerBrres
 }
 
+// Switch ARC+BRRES file on the fly 3
 kmCallDefAsm(0x8087657C) {
+
     // Let me free
     nofralloc
 
@@ -354,7 +365,9 @@ kmCallDefAsm(0x8087657C) {
     b LoadCustomGrassBrres
 }
 
+// Swap 4th flower texture if found
 kmCallDefCpp(0x80876410, nw4r::g3d::ResTex*, nw4r::g3d::ResFile* res, const char* originalName) {
+
     // Get custom texture
     nw4r::g3d::ResTex* tex = res->GetResTex("obj_hana05");
 
@@ -366,7 +379,9 @@ kmCallDefCpp(0x80876410, nw4r::g3d::ResTex*, nw4r::g3d::ResFile* res, const char
     return res->GetResTex(originalName);
 }
 
+// Swap 5th flower texture if found
 kmCallDefCpp(0x80876420, nw4r::g3d::ResTex*, nw4r::g3d::ResFile* res, const char* originalName) {
+
     // Get custom texture
     nw4r::g3d::ResTex* tex = res->GetResTex("obj_hana04");
 
