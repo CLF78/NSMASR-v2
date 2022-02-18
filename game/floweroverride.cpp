@@ -3,13 +3,20 @@
 #include <dBgGlobal.h>
 #include <dBg.h>
 #include <dRes.h>
+#include <stdlib/stdio.h>
 #include "floweroverride.h"
+
+// External filenames
+extern char objHana, objHanaBrres;
+extern char objHanaDaishizen, objHanaDaishizenBrres;
 
 // Externs for ASM calls
 extern "C" {
 void LoadGrassBin();
 bool AreCustomFlowersLoaded();
 int AddFlowerEntry(dBg_c* bg, u16 tileNum, u32 x, u32 y);
+void* LoadCustomFlowerBrres();
+void* LoadCustomGrassBrres(dRes_c* res, char* originalArc, char* originalName, int style);
 }
 
 // Static instance (and a pointer to it for ASM because the compiler is garbage)
@@ -105,7 +112,7 @@ int AddFlowerEntry(dBg_c* bg, u16 tileNum, u32 x, u32 y) {
     if (data == NULL)
         return tileNum;
 
-    // Setup flower if it was enabled and that we can allocate one
+    // Set up flower if it was enabled and we can allocate one
     if (data->flowerValue <= 4 && bg->flowerCount < 99) {
         FlowerEntry* flower = &bg->flowerEntries[bg->flowerCount];
         flower->x = float(x);
@@ -114,7 +121,7 @@ int AddFlowerEntry(dBg_c* bg, u16 tileNum, u32 x, u32 y) {
         bg->flowerCount++;
     }
 
-    // Setup bush if it was enabled and that we can allocate one
+    // Set up grass if it was enabled and we can allocate one
     if (data->grassValue <= 4 && bg->grassCount < 99) {
         FlowerEntry* grass = &bg->grassEntries[bg->grassCount];
         grass->x = float(x);
@@ -125,6 +132,45 @@ int AddFlowerEntry(dBg_c* bg, u16 tileNum, u32 x, u32 y) {
 
     // Return null tile so it doesn't get drawn
     return 0;
+}
+
+void* LoadCustomFlowerBrres() {
+    // Allocate name buffer on the stack
+    char buffer[16];
+
+    // Pick correct arc and brres files
+    char* arcFile = NULL;
+    char* brresFile = NULL;
+
+    switch(dGrassBinMng_c::instance->data->flowerStyle) {
+        case 0:
+            arcFile = &objHana;
+            brresFile = &objHanaBrres;
+            break;
+        case 1:
+            arcFile = &objHanaDaishizen;
+            brresFile = &objHanaDaishizenBrres;
+            break;
+        default:
+            arcFile = CUSTOMFLOWERFILE;
+            snprintf(buffer, sizeof(buffer), CUSTOMBRRESFILE, dGrassBinMng_c::instance->data->flowerStyle);
+            brresFile = buffer;
+    }
+
+    // Load it
+    return dResMng_c::instance->res.getRes(arcFile, brresFile);
+}
+
+void* LoadCustomGrassBrres(dRes_c* res, char* originalArc, char* originalName, int style) {
+
+    // Replicate original call if custom brres is not to be loaded
+    if (style < 2 || dGrassBinMng_c::instance->data->grassStyle < 2)
+        return res->getRes(originalArc, originalName);
+
+    // Load custom brres otherwise
+    char buffer[16];
+    snprintf(buffer, sizeof(buffer), CUSTOMBRRESFILE, dGrassBinMng_c::instance->data->grassStyle);
+    return res->getRes(CUSTOMGRASSFILE, buffer);
 }
 
 // Load custom flower/grass files at boot (replaces checkered spring blocks and ledge donuts)
@@ -221,3 +267,88 @@ kmCallDefAsm(0x8007803C) {
     addi r1, r1, 0x10
     blr
 }
+
+kmCallDefAsm(0x808762CC) {
+    // Prevent register overwriting
+    nofralloc
+
+    // Push stack manually and save r3
+    stwu r1, -0x10(r1)
+    mflr r0
+    stw r0, 0x14(r1)
+    stw r31, 0xC(r1)
+    mr r31, r3
+
+    // Check if flowers were loaded
+    bl AreCustomFlowersLoaded
+
+    // Modified original instruction
+    lbz r0, 0(r31)
+
+    // Multiply result by 2 and move it to r28
+    slwi r28, r3, 1
+    cmpwi r3, 0
+    beq end
+
+    // Override r0 to skip the string check
+    li r0, 0
+
+    // Restore r3, push stack manually and return
+    end:
+    mr r3, r31
+    lwz r31, 0xC(r1)
+    lwz r12, 0x14(r1)
+    mflr r12
+    addi r1, r1, 0x10
+    blr
+}
+
+kmCallDefAsm(0x80876364) {
+    // Let me free
+    nofralloc
+
+    // Original instruction
+    cmpwi r28, 0
+
+    // If style is not custom, return immediately
+    cmpwi cr7, r28, 2
+    bltlr+ cr7
+
+    // Alter LR to return later
+    mflr r12
+    addi r12, r12, 0x2EC
+    mtlr r12
+
+    // Call C++ function (does not return)
+    b LoadCustomFlowerBrres
+}
+
+kmCallDefAsm(0x808763C8) {
+    // Let me free
+    nofralloc
+
+    // Original instruction
+    cmpwi r28, 0
+
+    // If style is not custom, return immediately
+    cmpwi cr7, r28, 2
+    bltlr+ cr7
+
+    // Alter LR to return later
+    mflr r12
+    addi r12, r12, 0x38
+    mtlr r12
+
+    // Call C++ function (does not return)
+    b LoadCustomFlowerBrres
+}
+
+kmCallDefAsm(0x8087657C) {
+    // Let me free
+    nofralloc
+
+    // Call c++ function (does not return)
+    mr r6, r28
+    b LoadCustomGrassBrres
+}
+

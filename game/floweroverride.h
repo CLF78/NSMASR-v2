@@ -6,6 +6,7 @@
 #define SPECVERSION 1
 #define CUSTOMFLOWERFILE "obj_hana_custom"
 #define CUSTOMGRASSFILE "obj_kusa_custom"
+#define CUSTOMBRRESFILE "g3d/t%02d.brres"
 
 struct GrassBinEntry {
     u8 tileNum;

@@ -53,3 +53,8 @@ __nwa__FUl=0x802B9390
 __dl__FPv=0x802B93C0
 
 bgObjNameList__17dBgActorManager_c=0x8042A0BC
+
+objHana=0x80972690
+objHanaBrres=0x8097267C
+objHanaDaishizen=0x809726BC
+objHanaDaishizenBrres=0x8097269C
