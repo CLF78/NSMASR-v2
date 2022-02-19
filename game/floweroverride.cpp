@@ -76,7 +76,7 @@ GrassBinEntry* dGrassBinMng_c::getFlowerData(u16 tileNum) {
 void LoadGrassBin() {
 
     // Allocate length on the stack
-    u32 length;
+    size_t length;
 
     // Process each tileset
     for (int slot = 0; slot < 4; slot++) {

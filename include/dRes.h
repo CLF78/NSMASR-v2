@@ -15,8 +15,8 @@ class dRes_c {
         // 2 bytes padding
         resCallback_c* callback;
 
-        void* getRes(const char* arcName, const char* subfileName);
-        void* getRes(const char* arcName, const char* subfileName, u32* length);
+        void* getRes(const char* arcName, const char* subfileName) const;
+        void* getRes(const char* arcName, const char* subfileName, size_t* length) const;
 };
 
 class dResMng_c {

@@ -7,5 +7,5 @@ class dScene_c : dBase_c {
     public:
         sPhase_c* initChain;
 
-        static void setNextScene(u16 profileId, u32 settings, bool isCourseOut);
+        static void setNextScene(u16 profileId, ulong settings, bool isCourseOut);
 };

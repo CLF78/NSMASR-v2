@@ -51,7 +51,7 @@ void DoObjOverride(dBgActorManager_c* mng, char* tileNames) {
 
     // Store pointers to the overrides and their lengths on the stack
     ProfsBin* files[4] = { NULL };
-    u32 lengths[4] = { 0 };
+    size_t lengths[4] = { 0 };
 
     // Set up type to 0 and count to 1 (to account for dummy final entry)
     int type = 0;

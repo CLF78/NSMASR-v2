@@ -34,5 +34,6 @@ typedef volatile f64 vf64;
 typedef volatile f32 vf32;
 
 typedef unsigned long size_t;
+typedef unsigned long ulong;
 
 #include "base/hooks.h"

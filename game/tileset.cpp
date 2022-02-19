@@ -3,7 +3,7 @@
 #include <dRes.h>
 
 // Head data size to be used in the FixTilesetSlot function
-static u32 hdSize;
+static size_t hdSize;
 
 // Extern for ASM function
 extern "C" {

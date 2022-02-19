@@ -5,7 +5,7 @@ profileNames=0x80320B58
 
 m_startGameInfo__17dScRestartCrsin_c=0x80374060
 
-setNextScene__8dScene_cFUsUib=0x800E1F50
+setNextScene__8dScene_cFUsUlb=0x800E1F50
 
 StartGameInfo=0x80315E90
 m_startGameInfo__7dInfo_c=0x80315E90
@@ -28,8 +28,8 @@ m_gameMode__10dScStage_c=0x8042A4E4
 
 IsCourseClear=0x800FD9B0
 
-getRes__6dRes_cFPCcPCc=0x800DF270
-getRes__6dRes_cFPCcPCcPUi=0x800DF2D0
+getRes__6dRes_cCFPCcPCc=0x800DF270
+getRes__6dRes_cCFPCcPCcPUl=0x800DF2D0
 instance__9dResMng_c=0x8042A318
 
 snprintf=0x802E19d8
