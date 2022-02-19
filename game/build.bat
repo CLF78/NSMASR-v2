@@ -1,2 +1,64 @@
-..\cw\mwcceppc -I- -i ../include -nostdinc -Cpp_exceptions off -enum int -O4 -use_lmw_stmw on -fp hard -rostr -sdata 0 -sdata2 0 -c -o build/profile.o profile.cpp
-Kamek build/profile.o -dynamic -externals=externals-nsmbw.txt -versions=versions-nsmbw.txt -output-kamek=build/code$KV$.bin
+@echo off
+SETLOCAL EnableDelayedExpansion
+
+:: Make build folder
+IF exists build\ (
+	rmdir /Q /S build
+)
+mkdir build
+
+:: ASM compilation settings
+SET AS="..\cw\mwasmeppc.exe"
+SET ASMFLAGS="-i . -I- -i ../include"
+SET ASMFILES=""
+
+:: CPP compilation settings
+SET CC="..\cw\mwcceppc.exe"
+SET CFLAGS="-i . -I- -i ../include -nostdinc -Cpp_exceptions off -enum int -O4 -use_lmw_stmw on -fp hard -rostr -sdata 0 -sdata2 0"
+SET CPPFILES="animtiles floweroverride levelwarp powerup profile savefile tileset tileoverride"
+
+:: Destination (change as necessary)
+SET DEST="%USERPROFILE%\Documents\Dolphin Emulator\Load\Riivolution\nsmb"
+
+:: Set regions from input arguments or fallback to default
+IF "%1" == "" (
+	SET REGIONS="%1"
+) ELSE (
+    SET REGIONS="P1;P2;E1;E2;J1;J2;K;W"
+)
+
+FOR %%G IN (%REGIONS%) DO (
+    SET OBJECTS=""
+
+    :: Compile CPP
+    FOR %%H IN (%CPPFILES%) DO (
+        echo "Compiling %%H.cpp..."
+        %CC% %CFLAGS% "-DREGION_$region -c -o build\%%H.o %%H.cpp"
+        if %ErrorLevel% neq 0 (
+            goto end
+        ) else (
+            SET OBJECTS="%OBJECTS% build\%%H.o"
+        )
+    )
+
+    :: Compile ASM
+    FOR %%I IN (%ASMFILES%) DO (
+        echo "Compiling %%I.S..."
+        %AS% %ASMFLAGS% "-DREGION_$region -c -o build\%%I.o %%I.S"
+        if %ErrorLevel% neq 0 (
+            goto end
+        ) else (
+            SET OBJECTS="%OBJECTS% build\%%I.o"
+        )
+    )
+
+    :: Link
+    echo Linking...
+    Kamek %OBJECTS% -dynamic -externals=externals-nsmbw.txt -versions=versions-nsmbw.txt -select-version=%%G -output-kamek=build\code%%G.bin
+    if %ErrorLevel% equ 0 (
+        move /Y build\code%%G.bin %DEST%
+    )
+)
+
+:end
+ENDLOCAL
