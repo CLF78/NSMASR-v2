@@ -366,13 +366,13 @@ kmCallDefAsm(0x8087657C) {
 }
 
 // Swap 4th flower texture if found
-kmCallDefCpp(0x80876410, nw4r::g3d::ResTex*, nw4r::g3d::ResFile* res, const char* originalName) {
+kmCallDefCpp(0x80876410, nw4r::g3d::ResTex, nw4r::g3d::ResFile* res, const char* originalName) {
 
     // Get custom texture
-    nw4r::g3d::ResTex* tex = res->GetResTex("obj_hana05");
+    nw4r::g3d::ResTex tex = res->GetResTex("obj_hana05");
 
     // Return if not null
-    if (tex != NULL)
+    if (tex.mpData != NULL)
         return tex;
 
     // Else return original
@@ -380,13 +380,13 @@ kmCallDefCpp(0x80876410, nw4r::g3d::ResTex*, nw4r::g3d::ResFile* res, const char
 }
 
 // Swap 5th flower texture if found
-kmCallDefCpp(0x80876420, nw4r::g3d::ResTex*, nw4r::g3d::ResFile* res, const char* originalName) {
+kmCallDefCpp(0x80876420, nw4r::g3d::ResTex, nw4r::g3d::ResFile* res, const char* originalName) {
 
     // Get custom texture
-    nw4r::g3d::ResTex* tex = res->GetResTex("obj_hana04");
+    nw4r::g3d::ResTex tex = res->GetResTex("obj_hana04");
 
     // Return if not null
-    if (tex != NULL)
+    if (tex.mpData != NULL)
         return tex;
 
     // Else return original

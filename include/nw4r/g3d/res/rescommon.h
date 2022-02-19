@@ -12,7 +12,7 @@ struct ResBlockHeaderData {
 
 template<class T>
 class ResCommon {
-    private:
+    public:
         T* mpData;
 };
 

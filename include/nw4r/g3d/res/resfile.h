@@ -32,7 +32,7 @@ struct ResFileData {
 
 class ResFile : public ResCommon<ResFileData> {
     public:
-        ResTex* GetResTex(const char* str) const;
+        ResTex GetResTex(const char* str) const;
 };
 
 } // namespace g3d
