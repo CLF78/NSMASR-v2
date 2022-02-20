@@ -22,6 +22,9 @@
 
 [P1]
 # Base version: International NSMBW v1 (SMNP01 rev 1)
+# RELs are shifted back by the heap code
+80000000-8044ffff: +0x0
+806e0000-*: -0x290000
 
 [E1]
 # North American NSMBW v1 (SMNE01 rev 1)

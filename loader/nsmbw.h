@@ -27,5 +27,6 @@ struct loaderFunctionsEx {
     memmove_t memmove;
     u32* bcaCheck;
     u32* gameInitTable;
+    u32* arenaFix;
     u8 identifier;
 };

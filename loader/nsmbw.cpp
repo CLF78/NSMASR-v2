@@ -33,6 +33,7 @@ const loaderFunctionsEx functions[5] = {
     (memmove_t) 0x802DF264,
     (u32*) 0x800CA0B8,
     (u32*) 0x80328428,
+    (u32*) 0x800E52C0,
     'P'},
 
     {{(OSReport_t) 0x8015F730,
@@ -51,6 +52,7 @@ const loaderFunctionsEx functions[5] = {
     (memmove_t) 0x802DEF74,
     (u32*) 0x800C9FC8,
     (u32*) 0x803280E0,
+    (u32*) 0x800E51B0,
     'E'},
 
     {{(OSReport_t) 0x8015F540,
@@ -69,6 +71,7 @@ const loaderFunctionsEx functions[5] = {
     (memmove_t) 0x802DED84,
     (u32*) 0x800C9F48,
     (u32*) 0x80327E48,
+    (u32*) 0x800E5130,
     'J'},
 
     {{(OSReport_t) 0x8015FC70,
@@ -87,6 +90,7 @@ const loaderFunctionsEx functions[5] = {
     (memmove_t) 0x802DF4B4,
     (u32*) 0x800CA0D8,
     (u32*) 0x80334E10,
+    (u32*) 0x800E52C0,
     'K'},
 
     {{(OSReport_t) 0x8015FC70,
@@ -105,6 +109,7 @@ const loaderFunctionsEx functions[5] = {
     (memmove_t) 0x802DF4B4,
     (u32*) 0x800CA0D8,
     (u32*) 0x803331D0,
+    (u32*) 0x800E52C0,
     'W'}
 };
 
@@ -189,6 +194,14 @@ void firstStage() {
     // Store pointer to the second stage loader in the newly-freed slot
     funcs->gameInitTable[3] = (u32)&secondStage;
     cacheInvalidateAddress((u32)&funcs->gameInitTable[3]);
+
+    // Alter the fixArena function to reclaim the space between 0x80450000 and 0x806E0000
+    *funcs->arenaFix = 0x3C008045;
+    cacheInvalidateAddress((u32)funcs->arenaFix);
+    funcs->arenaFix[5] = 0x3C608045;
+    cacheInvalidateAddress((u32)funcs->arenaFix + 0x14);
+    funcs->arenaFix[8] = 0x7C601B78;
+    cacheInvalidateAddress((u32)funcs->arenaFix + 0x20);
 }
 
 // First stage injection - this is the earliest safe spot we can act at
