@@ -2,6 +2,7 @@
 
 #include <kamek.h>
 #include <egg/eggFrmHeap.h>
+#include <dBgUnit.h>
 
 typedef struct {
     u16 offset;
@@ -13,7 +14,7 @@ class dBgGlobal_c {
     public:
         void* vtable;
         u8* bgDatas[4][3];
-        u8* tileMaps[4][3]; // actually dBgUnit_c
+        dBgUnit_c* units[4][3];
         HeadDataEntry* unitHeadDatas[4][4];
         u8* unitDatas[4][4];
         char tilesetNames[4][4][32];
