@@ -60,3 +60,8 @@ objHanaDaishizen=0x809726BC
 objHanaDaishizenBrres=0x8097269C
 
 GetResTex__Q34nw4r3g3d7ResFileCFPCc=0x8023A060
+
+getTileP__9dBgUnit_cFUiUiPUib=0x80083B40
+generateHorizontalTile__9dBgUnit_cFP8BGRenderPUsii=0x80086EC0
+generateTile__9dBgUnit_cFP8BGRenderPUsii=0x80086D10
+generateVerticalTile__9dBgUnit_cFP8BGRenderPUsii=0x80086FE0

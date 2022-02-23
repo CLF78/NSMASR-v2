@@ -34,4 +34,10 @@ class dBgUnit_c {
         EGG::FrmHeap* heap;
         bool isNot2CastleA1;
         // 3 bytes padding
+
+        u16* getTileP(u32 x, u32 y, u32* block, bool placeTile); // last param is unused
+
+        void generateTile(BGRender* render, u16* tileArray, int arrayLength, int slot);
+        void generateHorizontalTile(BGRender* render, u16* tileArray, int arrayLength, int slot);
+        void generateVerticalTile(BGRender* render, u16* tileArray, int arrayLength, int slot);
 };
