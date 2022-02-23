@@ -4,7 +4,7 @@
 #include <dRes.h>
 #include <fBase/dBase/dScene/dScStage.h>
 #include <stdlib/stdio.h>
-#include "animtiles.h"
+#include "tileset/anim.h"
 
 void ProcessAnimsBin(dBgTexMng_c* mng, AnimsBin* animMeta, int slot, char* tileName) {
     char buffer[32];

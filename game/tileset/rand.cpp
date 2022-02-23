@@ -2,7 +2,7 @@
 #include <dBgGlobal.h>
 #include <dBgUnit.h>
 #include <dRes.h>
-#include "randtiles.h"
+#include "tileset/rand.h"
 
 // Extern for ASM call
 extern "C" {

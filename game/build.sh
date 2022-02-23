@@ -6,6 +6,9 @@ if [ -d 'build' ]; then
 fi
 mkdir -p 'build'
 
+# Hardcoded because yes
+mkdir -p 'build/tileset'
+
 # ASM compilation settings
 AS='../cw/mwasmeppc.exe'
 ASMFLAGS='-i . -I- -i ../include'
@@ -14,7 +17,7 @@ ASMFILES=''
 # CPP compilation settings
 CC='../cw/mwcceppc.exe'
 CFLAGS='-i . -I- -i ../include -nostdinc -Cpp_exceptions off -enum int -O4 -use_lmw_stmw on -fp hard -rostr -sdata 0 -sdata2 0'
-CPPFILES='animtiles audio floweroverride levelwarp powerup profile savefile system tileset tileoverride'
+CPPFILES='audio levelwarp powerup profile savefile system tileset/anim tileset/flower tileset/profoverride tileset/common'
 
 # Destination
 DEST=~/.local/share/dolphin-emu/Load/Riivolution/nsmb

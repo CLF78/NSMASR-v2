@@ -6,7 +6,7 @@
 #include <nw4r/g3d/res/resfile.h>
 #include <nw4r/g3d/res/restex.h>
 #include <stdlib/stdio.h>
-#include "floweroverride.h"
+#include "tileset/flower.h"
 
 // External filenames
 extern char objHana, objHanaBrres;

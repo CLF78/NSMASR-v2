@@ -3,7 +3,7 @@
 #include <dRes.h>
 #include <profileid.h>
 #include <stdlib/string.h>
-#include "tileoverride.h"
+#include "tileset/profoverride.h"
 
 // Extern for ASM call
 extern "C" {
