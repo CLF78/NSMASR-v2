@@ -4,7 +4,7 @@
 #include <egg/eggHeap.h>
 #include <rvl/mem/allocator.h>
 
-// Shamelessly copied from https://github.com/riidefi/mkw/blob/master/source/egg/core/eggHeap.hpp
+// Shamelessly copied from https://github.com/riidefi/mkw/blob/master/source/egg/core/eggAllocator.hpp
 
 namespace EGG {
 

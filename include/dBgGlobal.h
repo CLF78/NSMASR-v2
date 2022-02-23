@@ -1,7 +1,7 @@
 #pragma once
 
 #include <kamek.h>
-#include <egg/eggHeap.h>
+#include <egg/eggFrmHeap.h>
 
 typedef struct {
     u16 offset;
@@ -17,7 +17,7 @@ class dBgGlobal_c {
         HeadDataEntry* unitHeadDatas[4][4];
         u8* unitDatas[4][4];
         char tilesetNames[4][4][32];
-        EGG::Heap* frmHeaps[4][4];
+        EGG::FrmHeap* heaps[4][4];
         u32 _324;
 
         char* getEnvironment(int area, int tileSlot);

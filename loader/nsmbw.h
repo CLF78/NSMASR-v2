@@ -1,6 +1,6 @@
 #pragma once
 #include <kamek.h>
-#include <egg/eggHeap.h>
+#include <egg/eggExpHeap.h>
 #include "kamekLoader.h"
 
 #define REGION_P 0
@@ -22,8 +22,8 @@ struct loaderFunctionsEx {
     loaderFunctions base;
     EGG_Heap_Alloc_t eggAlloc;
     EGG_Heap_Free_t eggFree;
-    EGG::Heap** gameHeaps; // Actually in the mHeap namespace
-    EGG::Heap** archiveHeap; // Actually in the mHeap namespace
+    EGG::ExpHeap** gameHeaps; // Actually in the mHeap namespace
+    EGG::ExpHeap** archiveHeap; // Actually in the mHeap namespace
     memmove_t memmove;
     u32* bcaCheck;
     u32* gameInitTable;

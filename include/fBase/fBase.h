@@ -1,7 +1,7 @@
 #pragma once
 
 #include <kamek.h>
-#include <egg/eggHeap.h>
+#include <egg/eggFrmHeap.h>
 #include <f/fManager.h>
 #include <profileid.h>
 
@@ -19,7 +19,7 @@ class fBase_c {
         u8 groupType; // 0 = none, 1 = scene, 2 = stage
         u8 processType; // &1 = connect, &2 = create, &4 = execute, &8 = delete, &16 = draw
         fManager_c mgr;
-        EGG::Heap* heap;
+        EGG::FrmHeap* heap;
 
         // Will be removed when no longer necessary
         void* vtable;
