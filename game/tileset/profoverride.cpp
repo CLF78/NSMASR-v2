@@ -5,7 +5,10 @@
 #include <stdlib/string.h>
 #include "tileset/profoverride.h"
 
-// Extern for ASM call
+// Define for common.cpp
+#define PROFOVERRIDECPP
+
+// Externs for ASM call
 extern "C" {
 void DoObjOverride(dBgActorManager_c* mng, char* tileNames);
 void DestroyOverrides();
@@ -68,10 +71,10 @@ void DoObjOverride(dBgActorManager_c* mng, char* tileNames) {
             continue;
 
         // Get override file
-        ProfsBin* currFile = (ProfsBin*)dResMng_c::instance->res.getRes(currTileName, OVERRIDEFILE, &lengths[i]);
+        ProfsBin* currFile = (ProfsBin*)dResMng_c::instance->res.getRes(currTileName, PROFDATA, &lengths[i]);
 
         // Check if file was found and that the version matches
-        if (currFile != NULL && currFile->version == SPECVERSION) {
+        if (currFile != NULL && currFile->version == PROFSPECVERSION) {
 
             // Store it to the stack array for later
             files[i] = currFile;

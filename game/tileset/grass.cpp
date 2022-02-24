@@ -6,7 +6,10 @@
 #include <nw4r/g3d/res/resfile.h>
 #include <nw4r/g3d/res/restex.h>
 #include <stdlib/stdio.h>
-#include "tileset/flower.h"
+#include "tileset/grass.h"
+
+// Define for common.cpp
+#define GRASSCPP
 
 // External filenames
 extern char objHana, objHanaBrres;
@@ -14,7 +17,6 @@ extern char objHanaDaishizen, objHanaDaishizenBrres;
 
 // Externs for ASM calls
 extern "C" {
-void LoadGrassBin();
 bool AreCustomFlowersLoaded();
 int AddFlowerEntry(dBg_c* bg, u16 tileNum, u32 x, u32 y);
 void* LoadCustomFlowerBrres();
@@ -73,34 +75,6 @@ GrassBinEntry* dGrassBinMng_c::getFlowerData(u16 tileNum) {
     return NULL;
 }
 
-void LoadGrassBin() {
-
-    // Allocate length on the stack
-    size_t length;
-
-    // Process each tileset
-    for (int slot = 0; slot < 4; slot++) {
-
-        // Get tileset name
-        const char* tileName = dBgGlobal_c::instance->getEnvironment(dScStage_c::m_instance->currentArea, slot);
-
-        // If tileset is null, skip
-        if (tileName[0] == '\0')
-            continue;
-
-        // Get the grass file
-        GrassBin* bin = (GrassBin*)dResMng_c::instance->res.getRes(tileName, OVERRIDEFILE, &length);
-
-        // If the file was not found or is invalid, skip it
-        if (bin == NULL || length == 0 || bin->version != SPECVERSION)
-            continue;
-
-        // Otherwise build the class and return
-        dGrassBinMng_c::build(bin, (length-3) / sizeof(GrassBinEntry), slot);
-        return;
-    }
-}
-
 // Helper function
 bool AreCustomFlowersLoaded() {
     return (dGrassBinMng_c::instance != NULL);
@@ -156,8 +130,8 @@ void* LoadCustomFlowerBrres() {
             brresFile = &objHanaDaishizenBrres;
             break;
         default:
-            arcFile = CUSTOMFLOWERFILE;
-            snprintf(buffer, sizeof(buffer), CUSTOMBRRESFILE, dGrassBinMng_c::instance->data->flowerStyle);
+            arcFile = FLOWERFILE;
+            snprintf(buffer, sizeof(buffer), BRRESFMT, dGrassBinMng_c::instance->data->flowerStyle);
             brresFile = buffer;
     }
 
@@ -173,29 +147,13 @@ void* LoadCustomGrassBrres(dRes_c* res, char* originalArc, char* originalName, i
 
     // Load custom brres otherwise
     char buffer[16];
-    snprintf(buffer, sizeof(buffer), CUSTOMBRRESFILE, dGrassBinMng_c::instance->data->grassStyle);
-    return res->getRes(CUSTOMGRASSFILE, buffer);
+    snprintf(buffer, sizeof(buffer), BRRESFMT, dGrassBinMng_c::instance->data->grassStyle);
+    return res->getRes(GRASSFILE, buffer);
 }
 
 // Load custom flower/grass files at boot (replaces checkered spring blocks and ledge donuts)
-kmWritePointer(0x8098C488, CUSTOMFLOWERFILE);
-kmWritePointer(0x8098C490, CUSTOMGRASSFILE);
-
-// Preload flower data so we can reuse it anytime in the level
-kmCallDefAsm(0x801548FC) {
-
-    // Call function
-    bl LoadGrassBin
-
-    // Original instruction
-    mr r3, r30
-}
-
-// Hijack the function end to destroy the flower data
-kmBranchDefCpp(0x80154E84, NULL, int, void) {
-    delete dGrassBinMng_c::instance;
-    return 1;
-}
+kmWritePointer(0x8098C488, FLOWERFILE);
+kmWritePointer(0x8098C490, GRASSFILE);
 
 // Dehardcode tileset name check
 kmCallDefAsm(0x80077F88) {

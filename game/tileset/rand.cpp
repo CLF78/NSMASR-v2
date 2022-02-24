@@ -4,6 +4,9 @@
 #include <dRes.h>
 #include "tileset/rand.h"
 
+// Define for common.cpp
+#define RANDCPP
+
 // Extern for ASM call
 extern "C" {
 bool DoRandTile(dBgUnit_c* unit, BGRender* render);
@@ -39,7 +42,7 @@ dRandTileMng_c::dRandTileMng_c(int area) {
             RandTileBin* data = (RandTileBin*)dResMng_c::instance->res.getRes(tilesetName, RANDDATA);
 
             // If the data exists and the version matches, set it
-            if (data != NULL && data->version == SPECVERSION)
+            if (data != NULL && data->version == RANDSPECVERSION)
                 this->randData[slot] = data;
         }
     }

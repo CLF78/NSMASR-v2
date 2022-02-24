@@ -2,11 +2,11 @@
 
 #include <kamek.h>
 
-#define OVERRIDEFILE "BG_grass/grass_overrides.bin"
-#define SPECVERSION 1
-#define CUSTOMFLOWERFILE "obj_hana_custom"
-#define CUSTOMGRASSFILE "obj_kusa_custom"
-#define CUSTOMBRRESFILE "g3d/t%02d.brres"
+#define GRASSDATA "BG_grass/grass_overrides.bin"
+#define GRASSSPECVERSION 1
+#define FLOWERFILE "obj_hana_custom"
+#define GRASSFILE "obj_kusa_custom"
+#define BRRESFMT "g3d/t%02d.brres"
 
 struct GrassBinEntry {
     u8 tileNum;

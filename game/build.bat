@@ -18,7 +18,7 @@ SET ASMFILES=""
 :: CPP compilation settings
 SET CC="..\cw\mwcceppc.exe"
 SET CFLAGS="-i . -I- -i ../include -nostdinc -Cpp_exceptions off -enum int -O4 -use_lmw_stmw on -fp hard -rostr -sdata 0 -sdata2 0"
-SET CPPFILES="audio levelwarp powerup profile savefile system tileset\anim tileset\flower tileset\profoverride tileset\common"
+SET CPPFILES="audio levelwarp powerup profile savefile system tileset\anim tileset\grass tileset\profoverride tileset\common"
 
 :: Destination (change as necessary)
 SET DEST="%USERPROFILE%\Documents\Dolphin Emulator\Load\Riivolution\nsmb"

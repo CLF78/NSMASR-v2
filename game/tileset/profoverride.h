@@ -2,8 +2,8 @@
 
 #include <kamek.h>
 
-#define OVERRIDEFILE "BG_prof/prof_overrides.bin"
-#define SPECVERSION 1
+#define PROFDATA "BG_prof/prof_overrides.bin"
+#define PROFSPECVERSION 1
 
 #define PROFILEPAL 0
 #define PROFILEKOR 1

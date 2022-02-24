@@ -6,13 +6,17 @@
 #include <stdlib/stdio.h>
 #include "tileset/anim.h"
 
-void ProcessAnimsBin(dBgTexMng_c* mng, AnimsBin* animMeta, int slot, char* tileName) {
+// Define for common.cpp
+#define ANIMCPP
+
+// Process animation data
+void ProcessAnimsBin(dBgTexMng_c* mng, AnimsBin* animData, int slot, char* tileName) {
     char buffer[32];
 
-    for (int i = 0; i < animMeta->numEntries; i++) {
+    for (int i = 0; i < animData->numEntries; i++) {
         // Get relevant anim entry and framesheet
-        AnimsBinEntry* currAnim = &animMeta->entries[i];
-        u8* currAnimDelays = (u8*)((u32)animMeta + currAnim->delayOffs);
+        AnimsBinEntry* currAnim = &animData->entries[i];
+        u8* currAnimDelays = (u8*)((u32)animData + currAnim->delayOffs);
 
         // Print name to buffer
         snprintf(buffer, sizeof(buffer), ANIMTILE, currAnim->tileNum);
@@ -44,13 +48,13 @@ kmCallDefCpp(0x80087840, void, dBgTexMng_c* mng, int slot, u16 tileNum, char* na
             continue;
 
         // Get anims.bin from relevant file
-        AnimsBin* animMeta = (AnimsBin*)dResMng_c::instance->res.getRes(tileName, ANIMMETA);
+        AnimsBin* animData = (AnimsBin*)dResMng_c::instance->res.getRes(tileName, ANIMDATA);
 
         // If file was not found or the version mismatches, skip
-        if (animMeta == NULL || animMeta->version != SPECVERSION)
+        if (animData == NULL || animData->version != ANIMSPECVERSION)
             continue;
 
         // Process anims file
-        ProcessAnimsBin(mng, animMeta, slot, tileName);
+        ProcessAnimsBin(mng, animData, slot, tileName);
     }
 }
