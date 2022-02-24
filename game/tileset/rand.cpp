@@ -4,9 +4,6 @@
 #include <dRes.h>
 #include "tileset/rand.h"
 
-// Define for common.cpp
-#define RANDCPP
-
 // Extern for ASM call
 extern "C" {
 bool DoRandTile(dBgUnit_c* unit, BGRender* render);

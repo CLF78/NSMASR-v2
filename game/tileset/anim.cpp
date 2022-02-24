@@ -6,9 +6,6 @@
 #include <stdlib/stdio.h>
 #include "tileset/anim.h"
 
-// Define for common.cpp
-#define ANIMCPP
-
 // Process animation data
 void ProcessAnimsBin(dBgTexMng_c* mng, AnimsBin* animData, int slot, char* tileName) {
     char buffer[32];

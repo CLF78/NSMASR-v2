@@ -3,14 +3,6 @@
 #include <dRes.h>
 #include <fBase/dBase/dScene/dScStage.h>
 
-#ifdef GRASSCPP
-#include "tileset/grass.h"
-#endif
-
-#ifdef RANDCPP
-#include "tileset/rand.h"
-#endif
-
 // Extern for ASM call
 extern "C" {
 void LoadBins();

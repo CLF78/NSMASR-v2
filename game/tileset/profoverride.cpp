@@ -5,9 +5,6 @@
 #include <stdlib/string.h>
 #include "tileset/profoverride.h"
 
-// Define for common.cpp
-#define PROFOVERRIDECPP
-
 // Externs for ASM call
 extern "C" {
 void DoObjOverride(dBgActorManager_c* mng, char* tileNames);

@@ -8,9 +8,6 @@
 #include <stdlib/stdio.h>
 #include "tileset/grass.h"
 
-// Define for common.cpp
-#define GRASSCPP
-
 // External filenames
 extern char objHana, objHanaBrres;
 extern char objHanaDaishizen, objHanaDaishizenBrres;
