@@ -5,9 +5,6 @@
 #define RANDDATA "BG_rand/randtiles.bin"
 #define RANDSPECVERSION 1
 
-// Define for common.cpp
-#define RANDCPP
-
 enum NormalType {
     NONE,
     HORZ,

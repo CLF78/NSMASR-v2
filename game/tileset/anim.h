@@ -6,9 +6,6 @@
 #define ANIMTILE "BG_anim/anim_%02x.bin"
 #define ANIMSPECVERSION 1
 
-// Define for common.cpp
-#define ANIMCPP
-
 struct AnimsBinEntry {
     u16 delayOffs;  // pointer to null-terminated u8 array; offset is relative to start of file
     u8 tileNum;

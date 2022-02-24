@@ -9,9 +9,6 @@
 #define PROFILEKOR 1
 #define PROFILECHN 2
 
-// Define for common.cpp
-#define PROFOVERRIDECPP
-
 struct ProfsBinEntry {
     u8 tileNumber;
     u8 actorIDVersion;

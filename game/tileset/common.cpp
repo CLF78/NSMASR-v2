@@ -2,6 +2,14 @@
 #include <dBgGlobal.h>
 #include <dRes.h>
 #include <fBase/dBase/dScene/dScStage.h>
+#include "tileset/grass.h"
+#include "tileset/rand.h"
+
+// Defines to turn off individual SPEC parts, turn off as necessary
+#define ANIMCPP
+#define GRASSCPP
+#define PROFOVERRIDECPP
+#define RANDCPP
 
 // Extern for ASM call
 extern "C" {

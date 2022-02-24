@@ -8,9 +8,6 @@
 #define GRASSFILE "obj_kusa_custom"
 #define BRRESFMT "g3d/t%02d.brres"
 
-// Define for common.cpp
-#define GRASSCPP
-
 struct GrassBinEntry {
     u8 tileNum;
     u8 flowerValue:4;  // 0 = pink, 1 = yellow, 2 = blue, 3-4 = custom, any other value = none
