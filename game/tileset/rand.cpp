@@ -35,12 +35,9 @@ dRandTileMng_c::dRandTileMng_c(int area) {
         // If tileset name is valid, get data
         if (tilesetName[0] != '\0') {
 
-            // Get the data
+            // Get the data and set it
             RandTileBin* data = (RandTileBin*)dResMng_c::instance->res.getRes(tilesetName, RANDDATA);
-
-            // If the data exists and the version matches, set it
-            if (data != NULL && data->version == RANDSPECVERSION)
-                this->randData[slot] = data;
+            this->randData[slot] = data;
         }
     }
 
@@ -82,7 +79,7 @@ bool DoRandTile(dBgUnit_c* unit, BGRender* render) {
     RandTileBin* data = dRandTileMng_c::instance->randData[slot];
 
     // If no data is found, fall back to Nintendo's code
-    if (data == NULL)
+    if (data == NULL || data->version != RANDSPECVERSION)
         return false;
 
     // Find the entry for this tile
@@ -161,6 +158,9 @@ kmCallDefAsm(0x80086B60) {
 
     // If return is false, fall back to original call
     cmpwi r3, 0
+
+    // Restore r3
+    mr r3, r29
     beq+ end
 
     // Else skip PTMF call

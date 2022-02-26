@@ -40,4 +40,6 @@ class dBgUnit_c {
         void generateTile(BGRender* render, u16* tileArray, int arrayLength, int slot);
         void generateHorizontalTile(BGRender* render, u16* tileArray, int arrayLength, int slot);
         void generateVerticalTile(BGRender* render, u16* tileArray, int arrayLength, int slot);
+
+        static dBgUnit_c* create(dBgUnit_c* unit, EGG::Heap* heap, int area, int layer);
 };
