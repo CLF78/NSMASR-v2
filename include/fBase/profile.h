@@ -21,10 +21,10 @@ typedef fBase_c* (*buildFunc) (void);
 
 class Profile {
 	public:
-		Profile(buildFunc func, u32 spriteId, const SpriteData* spriteData, u16 executeOrderProfileId, u16 drawOrderProfileId, u32 unk, const char* name, const char** files=NULL);
+		Profile(buildFunc func, u32 spriteId, const SpriteData* spriteData, u16 executeOrderProfileId, u16 drawOrderProfileId, u32 lookAtSettings, const char* name, const char** files=NULL);
 
 		buildFunc func;
 		u16 executeOrderProfileId;
 		u16 drawOrderProfileId;
-		u32 _8; // This field is only present in a few profiles, but having it here shouldn't hurt
+		u32 lookAtSettings; // This field is only present in a few profiles, but having it here shouldn't hurt
 };
