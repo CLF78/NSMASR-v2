@@ -4,7 +4,7 @@
 #include <dHeapAllocator.h>
 #include <m/m3d/smdl.h>
 
-class daUnitRail_c : dBaseActor_c {
+class daUnitRail_c : public dBaseActor_c {
     public:
         dHeapAllocator_c allocator;
         m3d::smdl_c mdl;

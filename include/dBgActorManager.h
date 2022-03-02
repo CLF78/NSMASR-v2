@@ -26,7 +26,8 @@ class dBgActorManager_c {
         struct BgObjName_t {
             u32 tileNum;
             u16 profileId;
-            // 2 bytes padding
+            u8 railColorIndex; // custom field, byte unused by game
+            u8 railTexSrtIndex; // custom field, byte unused by game
             float xOffs, yOffs, zOffs;
             float xScale, yScale;
             u32 settings;

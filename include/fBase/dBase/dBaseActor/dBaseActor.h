@@ -5,7 +5,7 @@
 #include <fBase/dBase/dBase.h>
 #include <rvl/mtx/mtx.h>
 
-class dBaseActor_c : dBase_c {
+class dBaseActor_c : public dBase_c {
     public:
         cListNd_c linkActor;
         MTX34 matrix;

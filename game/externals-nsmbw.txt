@@ -47,6 +47,7 @@ RailWhite=0x80310000
 RailDaishizen=0x80310010
 RailMinigame=0x80310020
 OriginalOverrides=0x8030FFE0
+RailColors=0x8097DE48
 
 __nw__FUl=0x802B9350
 __nwa__FUl=0x802B9390
