@@ -9,7 +9,7 @@ struct FlowerEntry {
     // 3 bytes padding
 };
 
-class dBg_c : dBase_c {
+class dBg_c : public dBase_c {
     public:
         u8 unk[0x8F408]; // TODO: document this properly
         u32 grassCount;

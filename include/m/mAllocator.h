@@ -2,5 +2,5 @@
 
 #include <egg/eggAllocator.h>
 
-class mAllocator_c : EGG::Allocator {
+class mAllocator_c : public EGG::Allocator {
 };

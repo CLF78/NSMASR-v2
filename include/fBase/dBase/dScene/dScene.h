@@ -3,7 +3,7 @@
 #include <fBase/dBase/dBase.h>
 #include <s/sPhase.h>
 
-class dScene_c : dBase_c {
+class dScene_c : public dBase_c {
     public:
         sPhase_c* initChain;
 

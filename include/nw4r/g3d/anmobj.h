@@ -5,7 +5,7 @@
 namespace nw4r {
 namespace g3d {
 
-class AnmObj : G3dObj {
+class AnmObj : public G3dObj {
     public:
         u32 flags;
 };

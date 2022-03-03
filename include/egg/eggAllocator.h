@@ -8,7 +8,7 @@
 
 namespace EGG {
 
-class Allocator : MEMAllocator {
+class Allocator : public MEMAllocator {
     public:
         void* vtable;
         Heap* mHeap;

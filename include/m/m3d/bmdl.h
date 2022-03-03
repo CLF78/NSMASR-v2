@@ -5,7 +5,7 @@
 
 namespace m3d {
 
-class bmdl_c : scnLeaf_c {
+class bmdl_c : public scnLeaf_c {
     public:
         banm_c* anim;
 };

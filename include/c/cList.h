@@ -10,7 +10,7 @@ class cListNd_c {
         fBase_c* owner;
 };
 
-class cListNdExt_c : cListNd_c {
+class cListNdExt_c : public cListNd_c {
     public:
         u16 _C; // count maybe?
         u16 _E; // offset maybe?

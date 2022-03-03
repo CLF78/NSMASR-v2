@@ -2,5 +2,5 @@
 
 #include <m/mHeapAllocator.h>
 
-class dHeapAllocator_c : mHeapAllocator_c {
+class dHeapAllocator_c : public mHeapAllocator_c {
 };

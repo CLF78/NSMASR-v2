@@ -14,7 +14,7 @@ typedef enum {
     MODE_EXIT_LEVEL,
 } ExitMode;
 
-class dScStage_c : dScene_c {
+class dScStage_c : public dScene_c {
     public:
         u32 frameCount;
         sPhase_c initChain;

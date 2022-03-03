@@ -10,7 +10,7 @@ namespace g3d {
 
 class IScnObjCallback;
 
-class ScnObj : G3dObj {
+class ScnObj : public G3dObj {
     public:
         MTX34 mtxArray[3]; // 0 = local, 1 = world, 2 = view
         nw4r::math::AABB AABB[2]; // 0 = local, 1 = world
