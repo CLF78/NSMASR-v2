@@ -5,7 +5,9 @@
 #include <profileid.h>
 #include <fBase/dBase/dBaseActor/daUnitRail.h>
 #include <fBase/dBase/dScene/dScStage.h>
+#include <nw4r/math/types.h>
 #include <rvl/gx/GXStruct.h>
+#include <rvl/mtx/mtx.h>
 #include <stdlib/string.h>
 #include "tileset/profoverride.h"
 
@@ -14,12 +16,14 @@ extern "C" {
 void DoObjOverride(dBgActorManager_c* mng, char* tileNames);
 void DestroyOverrides();
 GXColor GetRailColor(daUnitRail_c* rail, u32 originalType, GXColor originalColor);
+nw4r::math::VEC2* GetRailTexScale(nw4r::math::VEC2* originalScales, daUnitRail_c* rail);
 }
 
 // External data
 extern char Rail, RailWhite, RailDaishizen, RailMinigame;
 extern dBgActorManager_c::BgObjName_t* OriginalOverrides[5];
 extern GXColor RailColors[5];
+extern nw4r::math::VEC2 RailScales[5];
 
 void ParseObjOverride(ProfsBinEntry* entries, u32 entryCount, dBgActorManager_c::BgObjName_t* buffer, int slot) {
     for (int i = 0; i < entryCount; i++) {
@@ -163,7 +167,8 @@ void DestroyOverrides() {
     delete dBgActorManager_c::bgObjNameList;
 }
 
-GXColor GetRailColor(daUnitRail_c* rail, u32 type, GXColor originalColor) {
+// Helper function
+dBgActorManager_c::BgObjName_t* GetBgObjFromRail(daUnitRail_c* rail) {
 
     // Grab tilenum from settings
     u16 tileNum = rail->settings >> 16;
@@ -173,12 +178,19 @@ GXColor GetRailColor(daUnitRail_c* rail, u32 type, GXColor originalColor) {
     while(currEntry->profileId != ProfileId::DUMMY_ACTOR) {
         if (currEntry->profileId == ProfileId::UNIT_RAIL && currEntry->settings >> 16 == tileNum)
             break;
-
         currEntry++;
     }
 
+    return currEntry;
+}
+
+GXColor GetRailColor(daUnitRail_c* rail, u32 type, GXColor originalColor) {
+
+    // Get bgObj from rail
+    dBgActorManager_c::BgObjName_t* bgObj = GetBgObjFromRail(rail);
+
     // Check rail settings
-    u8 colorIndex = (currEntry->railColorIndex);
+    u8 colorIndex = (bgObj->railColorIndex);
 
     if (colorIndex == 0)
         return originalColor;
@@ -187,7 +199,7 @@ GXColor GetRailColor(daUnitRail_c* rail, u32 type, GXColor originalColor) {
         return RailColors[colorIndex];
 
     // Get tileset slot
-    u8 slot = tileNum >> 8;
+    u8 slot = rail->settings >> 24;
 
     // Get override file (failsaves not needed)
     char* tilesetName = dBgGlobal_c::instance->getEnvironment(dScStage_c::m_instance->currentArea, slot);
@@ -199,6 +211,34 @@ GXColor GetRailColor(daUnitRail_c* rail, u32 type, GXColor originalColor) {
     // Get the color according to the index given
     return table[colorIndex - 5];
 
+}
+
+nw4r::math::VEC2* GetRailTexScale(nw4r::math::VEC2* originalScales, daUnitRail_c* rail) {
+
+    // Get bgObj from rail
+    dBgActorManager_c::BgObjName_t* bgObj = GetBgObjFromRail(rail);
+
+    // Check rail settings
+    u8 texSrtIndex = (bgObj->railTexSrtIndex);
+
+    if (texSrtIndex == 0)
+        return originalScales;
+
+    else if (texSrtIndex < 5)
+        return &RailScales[texSrtIndex];
+
+    // Get tileset slot
+    u8 slot = rail->settings >> 24;
+
+    // Get override file (failsaves not needed)
+    char* tilesetName = dBgGlobal_c::instance->getEnvironment(dScStage_c::m_instance->currentArea, slot);
+    ProfsBin* bin = (ProfsBin*)dResMng_c::instance->res.getRes(tilesetName, PROFDATA);
+
+    // Go to scale table
+    nw4r::math::VEC2* table = (nw4r::math::VEC2*)((u32)&bin->entries + (bin->numEntries * sizeof(ProfsBinEntry)) + bin->numColors * sizeof(GXColor));
+
+    // Get the scale according to the index given
+    return &table[texSrtIndex - 5];
 }
 
 // Force rails to be loaded by default
@@ -267,7 +307,7 @@ kmCallDefAsm(0x808B2A38) {
     blr
 }
 
-kmCallDefAsm(0x808b2A4C) {
+kmCallDefAsm(0x808B2A4C) {
     // Let me free
     nofralloc
 
@@ -277,5 +317,38 @@ kmCallDefAsm(0x808b2A4C) {
 
     // If so set default rail color as a failsafe
     addi r30, r30, 4
+    blr
+}
+
+kmCallDefAsm(0x808B2AE0) {
+    // Let me free
+    nofralloc
+
+    // Push stack manually
+    stwu r1, -0x10(r1)
+    mflr r12
+    stw r12, 0x14(r1)
+
+    // Save r5
+    stw r5, 0xC(r1)
+
+    // Original instruction
+    add r3, r3, r0
+
+    // Call CPP function
+    addi r3, r3, 0x2C
+    mr r4, r29
+    bl GetRailTexScale
+
+    // Subtract from offset to fit the original instructions
+    subi r3, r3, 0x2C
+
+    // Restore r5
+    lwz r5, 0xC(r1)
+
+    // Pop stack manually and return
+    lwz r0, 0x14(r1)
+    mtlr r0
+    addi r1, r1, 0x10
     blr
 }
