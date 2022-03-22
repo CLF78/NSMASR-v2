@@ -9,7 +9,7 @@
 #define BRRESFMT "g3d/t%02d.brres"
 
 struct GrassBinEntry {
-    u8 tileNum;
+    u8 tileNum;        // relative tileset number
     u8 flowerValue:4;  // 0 = none, 1 = pink, 2 = yellow, 3 = blue, 4-5 = custom, any other value = invalid
     u8 grassValue:4;   // 0 = none, 1 = left edge, 2-4 = middles, 5 = right edge, any other value = invalid
 };

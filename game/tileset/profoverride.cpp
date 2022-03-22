@@ -27,8 +27,8 @@ extern nw4r::math::VEC2 RailScales[5];
 
 void ParseObjOverride(ProfsBin* data, u32 entryCount, dBgActorManager_c::BgObjName_t* buffer, int slot) {
 
-	// Get actorID version
-    u8 profileIdVersion = data->actorIDVersion;
+	// Get profileID version
+    u8 profileIdVersion = data->profileIDVersion;
 
 	// Parse entries
     for (int i = 0; i < entryCount; i++) {
@@ -38,10 +38,10 @@ void ParseObjOverride(ProfsBin* data, u32 entryCount, dBgActorManager_c::BgObjNa
         dBgActorManager_c::BgObjName_t* currDest = &buffer[i];
 
         // Copy the tile number
-        currDest->tileNum = (0x100 * slot) | currSrc->tileNumber;
+        currDest->tileNum = (0x100 * slot) | currSrc->tileNum;
 
-        // Copy the actor number based on version
-        u16 profileId = currSrc->actorID;
+        // Copy the profile number based on version
+        u16 profileId = currSrc->profileID;
         switch(profileIdVersion) {
             case PROFILEKOR:
                 if (profileId >= 702)

@@ -53,14 +53,14 @@ dRandTileMng_c::~dRandTileMng_c() {
 }
 
 // Get entry from data given a tile
-RandTileBinEntry* GetTileFromData(RandTileBin* data, u8 tile) {
+RandTileBinEntry* GetTileFromData(RandTileBin* data, u8 tileNum) {
 
     // Process every entry
     for (int i = 0; i < data->numEntries; i++) {
         RandTileBinEntry* currEntry = &data->entries[i];
 
         // If tile matches, return the entry
-        if (currEntry->tile == tile)
+        if (currEntry->tileNum == tileNum)
             return currEntry;
     }
 
@@ -72,8 +72,8 @@ RandTileBinEntry* GetTileFromData(RandTileBin* data, u8 tile) {
 bool DoRandTile(dBgUnit_c* unit, BGRender* render) {
 
     // Get tile and slot
-    u16 tile = render->currTile & 0x3FF;
-    int slot = tile >> 8;
+    u16 tileNum = render->currTile & 0x3FF;
+    int slot = tileNum >> 8;
 
     // Get random data for slot
     RandTileBin* data = dRandTileMng_c::instance->randData[slot];
@@ -83,14 +83,14 @@ bool DoRandTile(dBgUnit_c* unit, BGRender* render) {
         return false;
 
     // Find the entry for this tile
-    RandTileBinEntry* entry = GetTileFromData(data, tile & 0xFF);
+    RandTileBinEntry* entry = GetTileFromData(data, tileNum & 0xFF);
 
     // If no tile is found, still skip Nintendo's code and render original tile
     if (entry == NULL)
         return true;
 
     // Initialize pointer
-    u16* tilePtr;
+    u16* tilePtr = NULL;
 
     // Handle special tiles first
     switch(entry->specialType) {
