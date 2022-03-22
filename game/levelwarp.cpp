@@ -70,8 +70,8 @@ void WarpToStage(dNext_c* data, int fromWorld, int fromLevel) {
         // If we are in extra modes and progress is not to be saved, trigger the game over screen
         // Else if we are in regular gameplay, keep powerup state for consistency
         // Else restore it
-        if (dInfo_c::mGameFlag & ~dInfo_c::FLAG_EXTRA_MODES && discardProgress) {
-            dInfo_c::mGameFlag |= dInfo_c::FLAG_GAME_OVER;
+        if (dInfo_c::mGameFlag & ~FLAG_EXTRA_MODES && discardProgress) {
+            dInfo_c::mGameFlag |= FLAG_GAME_OVER;
             keepPowerUps = MODE_EXIT_LEVEL;
         } else if (dScStage_c::m_gameMode == NORMAL)
             keepPowerUps = MODE_BEAT_LEVEL;

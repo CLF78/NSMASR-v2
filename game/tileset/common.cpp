@@ -72,9 +72,6 @@ void FixTilesetSlot(const char* tileName, int slot) {
 // Preload the data files so we can reuse them anytime in the level
 dBgUnit_c* LoadBins(dBgUnit_c* unit, EGG::Heap* heap, int area, int layer) {
 
-    // Allocate length on the stack
-    size_t length;
-
     // Only do this operation in the first layer
     if (layer == 0) {
 
@@ -93,11 +90,11 @@ dBgUnit_c* LoadBins(dBgUnit_c* unit, EGG::Heap* heap, int area, int layer) {
 
             // Get the grass file
             #ifdef GRASSCPP
-            GrassBin* grass = (GrassBin*)dResMng_c::instance->res.getRes(tileName, GRASSDATA, &length);
+            GrassBin* grass = (GrassBin*)dResMng_c::instance->res.getRes(tileName, GRASSDATA);
 
             // If the file was found and is valid, create the class
-            if (grass != NULL && length != 0 && grass->version == GRASSSPECVERSION && dGrassBinMng_c::instance == NULL)
-                dGrassBinMng_c::build(grass, (length-3) / sizeof(GrassBinEntry), slot);
+            if (grass != NULL && grass->version == GRASSSPECVERSION && dGrassBinMng_c::instance == NULL)
+                dGrassBinMng_c::build(grass, slot);
             #endif
 
             // Create the random class

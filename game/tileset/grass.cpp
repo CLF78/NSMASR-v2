@@ -25,22 +25,21 @@ dGrassBinMng_c* dGrassBinMng_c::instance;
 extern "C" {dGrassBinMng_c** instancePtr = &dGrassBinMng_c::instance;}
 
 // Build function
-dGrassBinMng_c* dGrassBinMng_c::build(GrassBin* rawData, u8 numTiles, u8 slot) {
+dGrassBinMng_c* dGrassBinMng_c::build(GrassBin* rawData, u8 slot) {
 
     // If an instance is already initialized, return it
     if (dGrassBinMng_c::instance != NULL)
         return dGrassBinMng_c::instance;
 
     // Create class and return it
-    return new dGrassBinMng_c(rawData, numTiles, slot);
+    return new dGrassBinMng_c(rawData, slot);
 }
 
 // Constructor
-dGrassBinMng_c::dGrassBinMng_c(GrassBin* rawData, u8 numTiles, u8 slot) {
+dGrassBinMng_c::dGrassBinMng_c(GrassBin* rawData, u8 slot) {
 
     // Set variables
     this->data = rawData;
-    this->numEntries = numTiles;
     this->tileSlot = slot;
 
     // Set static instance
@@ -58,7 +57,7 @@ dGrassBinMng_c::~dGrassBinMng_c() {
 GrassBinEntry* dGrassBinMng_c::getFlowerData(u16 tileNum) {
 
     // Traverse through all entries
-    for (int i = 0; i < this->numEntries; i++) {
+    for (int i = 0; i < this->data->numEntries; i++) {
 
         // Get entry
         GrassBinEntry* current = &this->data->entries[i];
@@ -87,20 +86,20 @@ int AddFlowerEntry(dBg_c* bg, u16 tileNum, u32 x, u32 y) {
         return tileNum;
 
     // Set up flower if it was enabled and we can allocate one
-    if (data->flowerValue <= 4 && bg->flowerCount < 99) {
+    if (data->flowerValue > 0 && bg->flowerCount < 99) {
         FlowerEntry* flower = &bg->flowerEntries[bg->flowerCount];
         flower->x = float(x);
         flower->y = -float(y);
-        flower->type = data->flowerValue;
+        flower->type = data->flowerValue - 1;
         bg->flowerCount++;
     }
 
     // Set up grass if it was enabled and we can allocate one
-    if (data->grassValue <= 4 && bg->grassCount < 99) {
+    if (data->grassValue > 0 && bg->grassCount < 99) {
         FlowerEntry* grass = &bg->grassEntries[bg->grassCount];
         grass->x = float(x);
         grass->y = -float(y);
-        grass->type = data->grassValue;
+        grass->type = data->grassValue - 1;
         bg->grassCount++;
     }
 
