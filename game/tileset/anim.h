@@ -2,7 +2,7 @@
 
 #include <kamek.h>
 
-#define ANIMDATA "BG_anim/anims.bin"
+#define ANIMDATA "BG_anim/anim_overrides.bin"
 #define ANIMTILE "BG_anim/anim_%02x.bin"
 #define ANIMSPECVERSION 1
 

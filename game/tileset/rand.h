@@ -2,7 +2,7 @@
 
 #include <kamek.h>
 
-#define RANDDATA "BG_rand/randtiles.bin"
+#define RANDDATA "BG_rand/rand_overrides.bin"
 #define RANDSPECVERSION 1
 
 enum NormalType {
