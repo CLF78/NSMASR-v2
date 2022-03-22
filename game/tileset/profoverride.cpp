@@ -25,11 +25,16 @@ extern dBgActorManager_c::BgObjName_t* OriginalOverrides[5];
 extern GXColor RailColors[5];
 extern nw4r::math::VEC2 RailScales[5];
 
-void ParseObjOverride(ProfsBinEntry* entries, u32 entryCount, dBgActorManager_c::BgObjName_t* buffer, int slot) {
+void ParseObjOverride(ProfsBin* data, u32 entryCount, dBgActorManager_c::BgObjName_t* buffer, int slot) {
+
+	// Get actorID version
+    u8 profileIdVersion = data->actorIDVersion;
+
+	// Parse entries
     for (int i = 0; i < entryCount; i++) {
 
         // Get current entry
-        ProfsBinEntry* currSrc = &entries[i];
+        ProfsBinEntry* currSrc = &data->entries[i];
         dBgActorManager_c::BgObjName_t* currDest = &buffer[i];
 
         // Copy the tile number
@@ -37,7 +42,6 @@ void ParseObjOverride(ProfsBinEntry* entries, u32 entryCount, dBgActorManager_c:
 
         // Copy the actor number based on version
         u16 profileId = currSrc->actorID;
-        u8 profileIdVersion = currSrc->actorIDVersion;
         switch(profileIdVersion) {
             case PROFILEKOR:
                 if (profileId >= 702)
@@ -139,7 +143,7 @@ void DoObjOverride(dBgActorManager_c* mng, char* tileNames) {
 
             // If file was found, let the parser deal with it
             if (files[i] != NULL) {
-                ParseObjOverride(files[i]->entries, lengths[i], &buffer[parsedCount], i);
+                ParseObjOverride(files[i], lengths[i], &buffer[parsedCount], i);
 
             // Else if slot is Pa0, copy the donut lifts override
             } else if (i == 0)

@@ -11,10 +11,11 @@
 
 struct ProfsBinEntry {
     u8 tileNumber;
-    u8 actorIDVersion;
+    // 1 byte padding
     u16 actorID;
     u8 railColorIndex; // custom field, byte unused by game
     u8 railTexSrtIndex; // custom field, byte unused by game
+    // 2 bytes padding
     float xOffs, yOffs, zOffs;
     float xScale, yScale;
     u32 settings;
@@ -22,9 +23,11 @@ struct ProfsBinEntry {
 
 struct ProfsBin {
     u8 version;
+    u8 actorIDVersion;
     u8 numEntries;
     u8 numColors;
     u8 numScales;
+    // 3 bytes padding
     ProfsBinEntry entries[];
     // 8-bit rgba color table follows
     // vec2 scale table follows
