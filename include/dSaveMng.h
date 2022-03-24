@@ -6,7 +6,8 @@
 
 class dSaveMng_c {
     public:
-        u32 _0[8];
+        bool isNowSave; // set to true when accessing NAND
+        u8 pad[0x1F];
         dMj2dHeader_c save;
 
         static dSaveMng_c* m_instance;
