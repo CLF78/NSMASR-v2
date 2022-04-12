@@ -20,7 +20,7 @@ CFLAGS='-i . -I- -i ../include -nostdinc -Cpp_exceptions off -enum int -O4 -use_
 CPPFILES='audio levelwarp powerup profile savefile system tileset/anim tileset/grass tileset/profoverride tileset/rand tileset/common'
 
 # Destination
-DEST=~/.local/share/dolphin-emu/Load/Riivolution/nsmb
+DEST=~/.local/share/dolphin-emu/Load/Riivolution/NSMASR/Code
 
 # Set regions from input arguments or fallback to default
 REGIONS=''

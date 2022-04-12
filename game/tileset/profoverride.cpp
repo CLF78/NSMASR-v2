@@ -27,10 +27,10 @@ extern nw4r::math::VEC2 RailScales[5];
 
 void ParseObjOverride(ProfsBin* data, u32 entryCount, dBgActorManager_c::BgObjName_t* buffer, int slot) {
 
-	// Get profileID version
+    // Get profileID version
     u8 profileIdVersion = data->profileIDVersion;
 
-	// Parse entries
+    // Parse entries
     for (int i = 0; i < entryCount; i++) {
 
         // Get current entry
@@ -250,7 +250,11 @@ kmWrite32(0x8091FCC4, 0x48000058);
 kmWritePointer(0x8098C464, "rail");
 
 kmBranchDefAsm(0x8007E30C, 0x8007E3AC) {
-    // If there are no zones, r3 will be 0, in that case bail
+
+    // No stack saving necessary here
+    nofralloc
+
+    // If there are no zones, bail
     cmpwi r3, 0
     beq end
 
@@ -261,35 +265,24 @@ kmBranchDefAsm(0x8007E30C, 0x8007E3AC) {
 
     // Return later to skip all the Nintendo fluff
     end:
+    blr
 }
 
-kmCallDefAsm(0x8007E270) {
-    // Push stack
-    stwu r1, -0x10(r1)
-    mflr r0
-    stw r0, 0x14(r1)
+kmBranchDefAsm(0x8007E270, 0x8007E274) {
+    // No need for stack saving
+    nofralloc
 
     // Call destroyer
     bl DestroyOverrides
 
     // Original instruction
     li r0, 0
-
-    // Pop stack and return
-    lwz r12, 0x14(r1)
-    mtlr r12
-    addi r1, r1, 0x10
     blr
 }
 
-kmCallDefAsm(0x808B2A38) {
+kmBranchDefAsm(0x808B2A38, 0x808B2A3C) {
     // Let me free
     nofralloc
-
-    // Push stack manually
-    stwu r1, -0x10(r1)
-    mflr r0
-    stw r0, 0x14(r1)
 
     // Call C++ function
     srwi r4, r30, 2
@@ -299,15 +292,10 @@ kmCallDefAsm(0x808B2A38) {
     // Move color to r0
     mr r0, r3
 
-    // Restore registers
+    // Restore registers and return
     mr r3, r29
     li r4, 1
     addi r5, r1, 0x1C
-
-    // Pop stack manually and return
-    lwz r12, 0x14(r1)
-    mtlr r12
-    addi r1, r1, 0x10
     blr
 }
 
@@ -317,10 +305,14 @@ kmCallDefAsm(0x808B2A4C) {
 
     // Check if type is 0
     cmpwi r30, 0
-    bnelr+
+    bne+ end
 
     // If so set default rail color as a failsafe
     addi r30, r30, 4
+
+    // Original instruction
+    end:
+    add r3, r31, r30
     blr
 }
 
@@ -328,16 +320,16 @@ kmCallDefAsm(0x808B2AE0) {
     // Let me free
     nofralloc
 
+    // Original instruction
+    add r3, r3, r0
+
     // Push stack manually
     stwu r1, -0x10(r1)
-    mflr r12
-    stw r12, 0x14(r1)
+    mflr r0
+    stw r0, 0x14(r1)
 
     // Save r5
     stw r5, 0xC(r1)
-
-    // Original instruction
-    add r3, r3, r0
 
     // Call CPP function
     addi r3, r3, 0x2C

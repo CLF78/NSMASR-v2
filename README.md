@@ -27,11 +27,12 @@ Newer Super Mario All-Stars Revived is a New Super Mario Bros. Wii mod which aim
     - Continue the installation until the end.
 * Go to the cloned GitHub repo and make a folder named `cw`;
 * Go to the CodeWarrior installation directory and copy the contents of the `Command Line Tools` folder to the `cw` folder;
+* If not present, also copy the `license.dat` and `lmgr11.dll` files in said folder;
 * Run `build.bat` to build the mod's code or loader. Check the notes below as well.
 
 ### Installation - Mac
 
-Check the Linux installation tutorial. It doesn't work? Cope harder.
+I'm not covering this. Figure it out yourself.
 
 ### Installation - Linux
 
@@ -74,7 +75,7 @@ Check the Linux installation tutorial. It doesn't work? Cope harder.
 
 - The codebase uses C++ and PowerPC Assembly. C++ is preferred for full function replacements and for any kind of complex logic;
 - No assumption about the use of registers by C++ code is made other than the ABI. If necessary, assembly wrappers are employed to restore/backup registers;
-- The headers attempt to keep a consistent naming scheme and respect the original game's names, definitions and structures;
+- The headers attempt to keep a consistent naming scheme and respect the original game's names, definitions and structures. However, all class members are marked as public for ease of use;
 - As code is progressively added/updated, bugs may accidentally be introduced due to my incompetence. In such case, please open an issue on the matter.
 
 ## Programming Resources

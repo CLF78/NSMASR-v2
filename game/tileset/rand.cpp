@@ -158,16 +158,16 @@ kmCallDefAsm(0x80086B60) {
 
     // If return is false, fall back to original call
     cmpwi r3, 0
-
-    // Restore r3
-    mr r3, r29
     beq+ end
 
-    // Else skip PTMF call
+    // Else skip it
     addi r12, r12, 0x108
 
-    // Pop stack manually and return
+    // Restore r3
     end:
+    mr r3, r29
+
+    // Pop stack manually and return
     mtlr r12
     addi r1, r1, 0x10
     blr

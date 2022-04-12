@@ -152,25 +152,19 @@ kmWritePointer(0x8098C488, FLOWERFILE);
 kmWritePointer(0x8098C490, GRASSFILE);
 
 // Dehardcode tileset name check
-kmCallDefAsm(0x80077F88) {
+kmBranchDefAsm(0x80077F88, 0x80077F8C) {
 
-    // Prevent register restoring
+    // No stack saving necessary here
     nofralloc
-
-    // Push stack manually
-    stwu r1, -0x10(r1)
-    mflr r0
-    stw r0, 0x14(r1)
 
     // Check if flowers were loaded
     bl AreCustomFlowersLoaded
 
     // Move result to r29 and restore r0
-    mr r29, r3
+    mr. r29, r3
     lbz r0, 0(r26)
 
     // Check result
-    cmpwi r3, 0
     beq end
 
     // If result is 1, automatically set first character of string to 0 to skip the string checks
@@ -180,11 +174,6 @@ kmCallDefAsm(0x80077F88) {
     end:
     mr r3, r26
     extsh. r0, r0
-
-    // Pop stack manually and return
-    lwz r0, 0x14(r1)
-    mtlr r0
-    addi r1, r1, 0x10
     blr
 }
 
@@ -247,8 +236,7 @@ kmCallDefAsm(0x808762CC) {
     lbz r0, 0(r31)
 
     // Multiply result by 2 and move it to r28
-    slwi r28, r3, 1
-    cmpwi r3, 0
+    slwi. r28, r3, 1
     beq end
 
     // Override r0 to skip the string check

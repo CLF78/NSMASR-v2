@@ -84,11 +84,17 @@ void WarpToStage(dNext_c* data, int fromWorld, int fromLevel) {
 }
 
 kmBranchDefAsm(0x800D0250, 0x800D0340) {
+    // No stack saving necessary here
+    nofralloc
+
     // Call cpp function
     mr r3, r31
     mr r4, r30
     lbz r5, 0x120D(r28)
     bl WarpToStage
+
+    // Will be replaced by a branch
+    blr
 }
 
 kmCallDefAsm(0x808CE35C) {

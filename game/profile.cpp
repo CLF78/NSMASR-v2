@@ -51,10 +51,12 @@ Profile::Profile(buildFunc func, u32 spriteId, const SpriteData* spriteData, u16
     }
 }
 
-// ASM Patches to load from the custom lists below
+/* Spritedata List hooks */
 
-// Spritedata list hooks
 kmCallDefAsm(0x80068440) {
+    // Move r30 to r4 to preserve it, as we are inside a loop
+    mr r4, r30
+
     // Check if original sprite (using cr7 because cr0 is in use)
     cmpwi cr7, r0, SPRITECNT*0x28
     blt+ cr7, notCustom
@@ -66,15 +68,10 @@ kmCallDefAsm(0x80068440) {
     // Override table address
     lis r12, customSprites@h
     ori r12, r12, customSprites@l
-    b end
-
-    // Move r30 to r12 to preserve it
-    notCustom:
-    mr r12, r30
 
     // Modified original instruction
-    end:
-    add r28, r12, r0
+    notCustom:
+    add r28, r4, r0
     blr
 }
 
@@ -129,15 +126,9 @@ kmCallDefAsm(0x807FC8D8) {
     lis r7, customSprites@h
     ori r7, r7, customSprites@l
 
-    // Original instruction + skipped instruction
+    // Original instruction
     notCustom:
     lhzx r31, r7, r0
-    add r30, r7, r0
-
-    // Return slightly later
-    mflr r12
-    addi r12, r12, 4
-    mtlr r12
     blr
 }
 
@@ -159,7 +150,8 @@ kmCallDefAsm(0x8006894C) {
     blr
 }
 
-// Profile list hooks
+/* Profile List hooks */
+
 kmCallDefAsm(0x8006C7C8) {
     // Check if original sprite
     cmpwi r0, PROFCNT*4;
@@ -203,44 +195,28 @@ kmCallDefAsm(0x80162BC8) {
     cmpwi r31, PROFCNT*4;
     blt+ notCustom
 
-    // Subtract using r12 as r31 needs to be preserved for the next hook
-    subi r12, r31, PROFCNT*4
-
-    // Override table address
-    lis r7, customProfiles@h
-    ori r7, r7, customProfiles@l
-    b end
-
-    // Move index to r12 as r31 needs to be preserved for the next hook
-    notCustom:
-    mr r12, r31
-
-    // Modified original instruction
-    end:
-    lwzx r0, r7, r12
-    blr
-}
-
-kmCallDefAsm(0x80162BE4) {
-    // Check if original sprite
-    cmpwi r31, PROFCNT*4;
-    blt+ notCustom
-
     // Subtract
     subi r31, r31, PROFCNT*4
 
     // Override table address
-    lis r3, customProfiles@h
-    ori r3, r3, customProfiles@l
+    lis r7, customProfiles@h
+    ori r7, r7, customProfiles@l
 
     // Original instruction
     notCustom:
-    lwzx r3, r3, r31
+    lwzx r0, r7, r31
     blr
 }
 
-// File list hook
+// This simply modifies the lwzx instruction to match the previous one, as the registers are untouched from the previous hook
+kmWrite8(0x80162BE5, 0x67);
+
+/* File List hook */
+
 kmCallDefAsm(0x8091FD3C) {
+    // Move r25 to r21 to preserve it
+    mr r21, r25
+
     // Check if original sprite
     cmpwi r0, SPRITECNT*4;
     blt+ notCustom
@@ -250,21 +226,17 @@ kmCallDefAsm(0x8091FD3C) {
     sub r0, r0, r12
 
     // Override table address
-    lis r12, customSpriteFiles@h
-    ori r12, r12, customSpriteFiles@l
-    b end
-
-    // Move r25 to r12 to preserve it
-    notCustom:
-    mr r12, r25
+    lis r21, customSpriteFiles@h
+    ori r21, r21, customSpriteFiles@l
 
     // Modified original instruction
-    end:
-    lwzx r21, r12, r0
+    notCustom:
+    lwzx r21, r21, r0
     blr
 }
 
-// Profile names hook
+/* Profile Names hook */
+
 kmBranchDefCpp(0x801018CC, NULL, const char*, u16 profileId, const char** array) {
     if (profileId < ProfileId::OriginalNum)
         return array[profileId];
