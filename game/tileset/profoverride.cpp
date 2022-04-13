@@ -15,7 +15,7 @@
 extern "C" {
 void DoObjOverride(dBgActorManager_c* mng, char* tileNames);
 void DestroyOverrides();
-GXColor GetRailColor(daUnitRail_c* rail, u32 originalType, GXColor originalColor);
+GXColor GetRailColor(daUnitRail_c* rail, GXColor originalColor);
 nw4r::math::VEC2* GetRailTexScale(nw4r::math::VEC2* originalScales, daUnitRail_c* rail);
 }
 
