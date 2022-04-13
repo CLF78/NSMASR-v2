@@ -188,7 +188,7 @@ dBgActorManager_c::BgObjName_t* GetBgObjFromRail(daUnitRail_c* rail) {
     return currEntry;
 }
 
-GXColor GetRailColor(daUnitRail_c* rail, u32 type, GXColor originalColor) {
+GXColor GetRailColor(daUnitRail_c* rail, GXColor originalColor) {
 
     // Get bgObj from rail
     dBgActorManager_c::BgObjName_t* bgObj = GetBgObjFromRail(rail);
@@ -280,13 +280,12 @@ kmBranchDefAsm(0x8007E270, 0x8007E274) {
     blr
 }
 
-kmBranchDefAsm(0x808B2A38, 0x808B2A3C) {
+kmBranchDefAsm(0x808B2A40, 0x808B2A44) {
     // Let me free
     nofralloc
 
     // Call C++ function
-    srwi r4, r30, 2
-    addi r5, r6, 4
+    addi r4, r6, 4
     bl GetRailColor
 
     // Move color to r0
@@ -295,24 +294,7 @@ kmBranchDefAsm(0x808B2A38, 0x808B2A3C) {
     // Restore registers and return
     mr r3, r29
     li r4, 1
-    addi r5, r1, 0x1C
-    blr
-}
-
-kmCallDefAsm(0x808B2A4C) {
-    // Let me free
-    nofralloc
-
-    // Check if type is 0
-    cmpwi r30, 0
-    bne+ end
-
-    // If so set default rail color as a failsafe
-    addi r30, r30, 4
-
-    // Original instruction
-    end:
-    add r3, r31, r30
+    addi r5, r1, 0xC
     blr
 }
 
