@@ -163,12 +163,12 @@ void loadKamekBinary(const loaderFunctions *funcs, const void *binary, u32 binar
     // Create text + bss sections
     for (u32 i = 0; i < header->codeSize; i++) {
         *output = *(input++);
-        cacheInvalidateAddress((u32)(output++));
+        cacheInvalidateAddress(output++);
     }
 
     for (u32 i = 0; i < header->bssSize; i++) {
         *output = 0;
-        cacheInvalidateAddress((u32)(output++));
+        cacheInvalidateAddress(output++);
     }
 
     while (input < inputEnd) {
@@ -205,7 +205,7 @@ void loadKamekBinary(const loaderFunctions *funcs, const void *binary, u32 binar
                 funcs->OSReport("Unknown command: %d\n", cmd);
         }
 
-        cacheInvalidateAddress(address);
+        cacheInvalidateAddress((void*)address);
     }
 
     __sync();

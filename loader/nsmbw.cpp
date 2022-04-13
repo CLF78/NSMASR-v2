@@ -1,6 +1,7 @@
 #include <kamek.h>
 #include <stdlib/string.h>
 #include <egg/eggHeap.h>
+#include <rvl/os/OSCache.h>
 #include "kamekLoader.h"
 #include "nsmbw.h"
 
@@ -30,7 +31,6 @@ const loaderFunctionsEx functions[5] = {
     (EGG_Heap_Free_t) 0x802B90B0,
     (EGG::ExpHeap**) 0x80377F48,
     (EGG::ExpHeap**) 0x8042A72C,
-    (memmove_t) 0x802DF264,
     (u32*) 0x800CA0B8,
     (u32*) 0x80328428,
     (u32*) 0x800E52C0,
@@ -49,7 +49,6 @@ const loaderFunctionsEx functions[5] = {
     (EGG_Heap_Free_t) 0x802B8F70,
     (EGG::ExpHeap**) 0x80377C48,
     (EGG::ExpHeap**) 0x8042A44C,
-    (memmove_t) 0x802DEF74,
     (u32*) 0x800C9FC8,
     (u32*) 0x803280E0,
     (u32*) 0x800E51B0,
@@ -68,7 +67,6 @@ const loaderFunctionsEx functions[5] = {
     (EGG_Heap_Free_t) 0x802B8D80,
     (EGG::ExpHeap**) 0x803779C8,
     (EGG::ExpHeap**) 0x8042A16C,
-    (memmove_t) 0x802DED84,
     (u32*) 0x800C9F48,
     (u32*) 0x80327E48,
     (u32*) 0x800E5130,
@@ -87,7 +85,6 @@ const loaderFunctionsEx functions[5] = {
     (EGG_Heap_Free_t) 0x802B94B0,
     (EGG::ExpHeap**) 0x80384948,
     (EGG::ExpHeap**) 0x804370EC,
-    (memmove_t) 0x802DF4B4,
     (u32*) 0x800CA0D8,
     (u32*) 0x80334E10,
     (u32*) 0x800E52C0,
@@ -106,7 +103,6 @@ const loaderFunctionsEx functions[5] = {
     (EGG_Heap_Free_t) 0x802B94B0,
     (EGG::ExpHeap**) 0x80382D48,
     (EGG::ExpHeap**) 0x804354EC,
-    (memmove_t) 0x802DF4B4,
     (u32*) 0x800CA0D8,
     (u32*) 0x803331D0,
     (u32*) 0x800E52C0,
@@ -175,33 +171,36 @@ void firstStage() {
 
     // Patch out the BCA check by nopping the call in the main function
     *funcs->bcaCheck = 0x60000000;
-    cacheInvalidateAddress((u32)funcs->bcaCheck);
+    cacheInvalidateAddress(funcs->bcaCheck);
 
     // Alter the GameInitTable to load the rels earlier
-    // Copy rel loading functions in a buffer
-    u32 buffer[3];
-    memcpy(&buffer, &funcs->gameInitTable[15], 12);
+    // Copy original table to a stack buffer
+    u32 buffer[20];
+    memcpy(&buffer, funcs->gameInitTable, 80);
 
-    // Shift all previous functions by three forwards
-    funcs->memmove(&funcs->gameInitTable[3], funcs->gameInitTable, 60);
+    // Copy rel loading functions back first
+    funcs->gameInitTable[0] = buffer[15];
+    funcs->gameInitTable[1] = buffer[16];
+    funcs->gameInitTable[2] = buffer[17];
 
-    // Copy the rel loading functions back in the new spots
-    memcpy(funcs->gameInitTable, &buffer, 12);
-
-    // Move all functions after these by one again to make space for the Kamek hook
-    funcs->memmove(&funcs->gameInitTable[4], &funcs->gameInitTable[3], 68);
-
-    // Store pointer to the second stage loader in the newly-freed slot
+    // Store pointer to the second stage loader
     funcs->gameInitTable[3] = (u32)&secondStage;
-    cacheInvalidateAddress((u32)&funcs->gameInitTable[3]);
+
+    // Copy all the previous functions
+    memcpy(&funcs->gameInitTable[4], &buffer, 60);
+
+    // Copy the remaining two functions
+    funcs->gameInitTable[19] = buffer[18];
+    funcs->gameInitTable[20] = buffer[19];
+
+    // Flush the cache
+    __flush_cache(funcs->gameInitTable, 80);
 
     // Alter the fixArena function to reclaim the space between 0x80450000 and 0x806E0000
     *funcs->arenaFix = 0x3C008045;
-    cacheInvalidateAddress((u32)funcs->arenaFix);
     funcs->arenaFix[5] = 0x3C608045;
-    cacheInvalidateAddress((u32)funcs->arenaFix + 0x14);
     funcs->arenaFix[8] = 0x7C601B78;
-    cacheInvalidateAddress((u32)funcs->arenaFix + 0x20);
+    __flush_cache(funcs->arenaFix, 36);
 }
 
 // First stage injection - this is the earliest safe spot we can act at

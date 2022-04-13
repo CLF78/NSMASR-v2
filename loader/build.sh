@@ -9,7 +9,7 @@ mkdir -p 'build'
 # CPP compilation settings
 CC='../cw/mwcceppc.exe'
 CPPFILES='kamekLoader nsmbw'
-CFLAGS='-i . -I- -i ../include -nostdinc -Cpp_exceptions off -enum int -O4 -use_lmw_stmw on -fp hard -rostr -sdata 0 -sdata2 0'
+CFLAGS='-i . -I- -i ../include -nostdinc -Cpp_exceptions off -RTTI off -once -O4 -use_lmw_stmw on -fp fmadd -rostr -sdata 0 -sdata2 0'
 
 # Compile CPP
 for i in $CPPFILES; do

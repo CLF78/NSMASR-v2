@@ -26,8 +26,8 @@ struct loaderFunctions {
     KamekFree_t kamekFree;
 };
 
-inline void cacheInvalidateAddress(u32 address) {
-    register u32 addressRegister = address;
+inline void cacheInvalidateAddress(void* address) {
+    register void* addressRegister = address;
     asm {
         dcbst 0, addressRegister
         sync

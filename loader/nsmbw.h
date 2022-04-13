@@ -11,7 +11,6 @@
 
 typedef void *(*EGG_Heap_Alloc_t) (u32 size, s32 align, EGG::Heap* heap);
 typedef void (*EGG_Heap_Free_t) (void *buffer, EGG::Heap* heap);
-typedef void (*memmove_t) (void* dest, const void* src, size_t num);
 
 struct regionData {
     u16 region;
@@ -24,7 +23,6 @@ struct loaderFunctionsEx {
     EGG_Heap_Free_t eggFree;
     EGG::ExpHeap** gameHeaps; // Actually in the mHeap namespace
     EGG::ExpHeap** archiveHeap; // Actually in the mHeap namespace
-    memmove_t memmove;
     u32* bcaCheck;
     u32* gameInitTable;
     u32* arenaFix;
