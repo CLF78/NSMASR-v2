@@ -28,7 +28,6 @@
 
 [E1]
 # North American NSMBW v1 (SMNE01 rev 1)
-# .text section
 extend P1
 80000000-800b4600: +0x0
 800b4630-800b463f: -0x20

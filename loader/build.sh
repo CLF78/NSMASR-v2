@@ -22,4 +22,4 @@ done
 
 # Link
 echo 'Linking...'
-Kamek build/kamekLoader.o build/nsmbw.o -externals=externals-nsmbw.txt -static=0x800046E4 -output-code=build/loader.bin -output-riiv=build/loader.xml
+Kamek build/kamekLoader.o build/nsmbw.o -externals=externals-nsmbw.txt -static=0x800046E4 -output-code=build/Loader.bin -output-riiv=build/Loader.xml

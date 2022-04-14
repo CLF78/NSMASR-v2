@@ -1,2 +1,3 @@
 memcpy=0x80004364
 __flush_cache=0x80004330
+memset=0x80004600

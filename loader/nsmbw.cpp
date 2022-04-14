@@ -1,19 +1,17 @@
 #include <kamek.h>
-#include <stdlib/string.h>
-#include <egg/eggHeap.h>
 #include <rvl/os/OSCache.h>
-#include "kamekLoader.h"
+#include <stdlib/string.h>
 #include "nsmbw.h"
 
 void *allocAdapter(u32 size, bool isForCode, const loaderFunctions *funcs) {
     const loaderFunctionsEx *funcsEx = (const loaderFunctionsEx *)funcs;
-    EGG::ExpHeap** heapPtr = isForCode ? funcsEx->gameHeaps : funcsEx->archiveHeap;
+    EGG::ExpHeap** heapPtr = isForCode ? funcsEx->dylinkHeap : funcsEx->archiveHeap;
     return funcsEx->eggAlloc(size, 0x20, *heapPtr);
 }
 
 void freeAdapter(void *buffer, bool isForCode, const loaderFunctions *funcs) {
     const loaderFunctionsEx *funcsEx = (const loaderFunctionsEx *)funcs;
-    EGG::ExpHeap** heapPtr = isForCode ? funcsEx->gameHeaps : funcsEx->archiveHeap;
+    EGG::ExpHeap** heapPtr = isForCode ? funcsEx->dylinkHeap : funcsEx->archiveHeap;
     funcsEx->eggFree(buffer, *heapPtr);
 }
 
@@ -29,7 +27,7 @@ const loaderFunctionsEx functions[5] = {
     freeAdapter},
     (EGG_Heap_Alloc_t) 0x802B8E00,
     (EGG_Heap_Free_t) 0x802B90B0,
-    (EGG::ExpHeap**) 0x80377F48,
+    (EGG::ExpHeap**) 0x8042A734,
     (EGG::ExpHeap**) 0x8042A72C,
     (u32*) 0x800CA0B8,
     (u32*) 0x80328428,
@@ -47,7 +45,7 @@ const loaderFunctionsEx functions[5] = {
     freeAdapter},
     (EGG_Heap_Alloc_t) 0x802B8CC0,
     (EGG_Heap_Free_t) 0x802B8F70,
-    (EGG::ExpHeap**) 0x80377C48,
+    (EGG::ExpHeap**) 0x8042A454,
     (EGG::ExpHeap**) 0x8042A44C,
     (u32*) 0x800C9FC8,
     (u32*) 0x803280E0,
@@ -65,7 +63,7 @@ const loaderFunctionsEx functions[5] = {
     freeAdapter},
     (EGG_Heap_Alloc_t) 0x802B8AD0,
     (EGG_Heap_Free_t) 0x802B8D80,
-    (EGG::ExpHeap**) 0x803779C8,
+    (EGG::ExpHeap**) 0x8042A174,
     (EGG::ExpHeap**) 0x8042A16C,
     (u32*) 0x800C9F48,
     (u32*) 0x80327E48,
@@ -83,7 +81,7 @@ const loaderFunctionsEx functions[5] = {
     freeAdapter},
     (EGG_Heap_Alloc_t) 0x802B9200,
     (EGG_Heap_Free_t) 0x802B94B0,
-    (EGG::ExpHeap**) 0x80384948,
+    (EGG::ExpHeap**) 0x804370F4,
     (EGG::ExpHeap**) 0x804370EC,
     (u32*) 0x800CA0D8,
     (u32*) 0x80334E10,
@@ -101,7 +99,7 @@ const loaderFunctionsEx functions[5] = {
     freeAdapter},
     (EGG_Heap_Alloc_t) 0x802B9200,
     (EGG_Heap_Free_t) 0x802B94B0,
-    (EGG::ExpHeap**) 0x80382D48,
+    (EGG::ExpHeap**) 0x804354F4,
     (EGG::ExpHeap**) 0x804354EC,
     (u32*) 0x800CA0D8,
     (u32*) 0x803331D0,

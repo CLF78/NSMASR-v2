@@ -1,4 +1,6 @@
 #include <rvl/dvd/dvd.h>
+#include <rvl/os/OSCache.h>
+#include <stdlib/string.h>
 #include "kamekLoader.h"
 
 struct KBHeader {
@@ -148,10 +150,13 @@ void loadKamekBinary(const loaderFunctions *funcs, const void *binary, u32 binar
         kamekError(funcs, err);
     }
 
-    funcs->OSReport("header: bssSize=%u, codeSize=%u, ctors=%u-%u\n",
-        header->bssSize, header->codeSize, header->ctorStart, header->ctorEnd);
+    u32 codeSize = header->codeSize;
+    u32 bssSize = header->bssSize;
 
-    u32 textSize = header->codeSize + header->bssSize;
+    funcs->OSReport("header: bssSize=%u, codeSize=%u, ctors=%u-%u\n",
+        bssSize, codeSize, header->ctorStart, header->ctorEnd);
+
+    u32 textSize = codeSize + bssSize;
     u32 text = (u32)funcs->kamekAlloc(textSize, true, funcs);
     if (!text)
         kamekError(funcs, "FATAL ERROR: Out of code memory");
@@ -160,16 +165,11 @@ void loadKamekBinary(const loaderFunctions *funcs, const void *binary, u32 binar
     const u8 *inputEnd = ((const u8 *)binary) + binaryLength;
     u8 *output = (u8 *)text;
 
-    // Create text + bss sections
-    for (u32 i = 0; i < header->codeSize; i++) {
-        *output = *(input++);
-        cacheInvalidateAddress(output++);
-    }
-
-    for (u32 i = 0; i < header->bssSize; i++) {
-        *output = 0;
-        cacheInvalidateAddress(output++);
-    }
+    // Create text + bss sections (optimized for NSMBW, sorry!)
+    memcpy(output, input, codeSize);
+    memset(output + codeSize, 0, bssSize);
+    __flush_cache(output, textSize);
+    input += codeSize;
 
     while (input < inputEnd) {
         u32 cmdHeader = *((u32 *)input);

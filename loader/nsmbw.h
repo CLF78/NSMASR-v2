@@ -21,7 +21,7 @@ struct loaderFunctionsEx {
     loaderFunctions base;
     EGG_Heap_Alloc_t eggAlloc;
     EGG_Heap_Free_t eggFree;
-    EGG::ExpHeap** gameHeaps; // Actually in the mHeap namespace
+    EGG::ExpHeap** dylinkHeap; // Actually in the mHeap namespace
     EGG::ExpHeap** archiveHeap; // Actually in the mHeap namespace
     u32* bcaCheck;
     u32* gameInitTable;
