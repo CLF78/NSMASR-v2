@@ -1,7 +1,6 @@
 #pragma once
-
 #include <kamek.h>
-#include <dCdFile.h>
+#include <course/NextGoto.h>
 #include <dFader.h>
 
 class dNext_c {

@@ -1,5 +1,4 @@
 #pragma once
-
 #include <kamek.h>
 
 class dEffActorMng_c {

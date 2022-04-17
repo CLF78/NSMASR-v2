@@ -1,5 +1,5 @@
+// Source: nw4r
 #pragma once
-
 #include <kamek.h>
 
 namespace nw4r {

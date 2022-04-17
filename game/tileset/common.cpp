@@ -1,9 +1,9 @@
 #include <kamek.h>
+#include <fBase/dBase/dScene/dScStage.h>
+#include <stdlib/stdio.h>
 #include <dBgGlobal.h>
 #include <dBgUnit.h>
 #include <dRes.h>
-#include <fBase/dBase/dScene/dScStage.h>
-#include <stdlib/stdio.h>
 #include "tileset/grass.h"
 #include "tileset/rand.h"
 

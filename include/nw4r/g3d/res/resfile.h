@@ -1,5 +1,5 @@
+// Source: nw4r
 #pragma once
-
 #include <kamek.h>
 #include <nw4r/g3d/res/resdic.h>
 #include <nw4r/g3d/res/rescommon.h>

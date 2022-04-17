@@ -1,6 +1,5 @@
+// Source: https://github.com/aboood40091/NewerSMBW/blob/more-sprites/Kamek/include/profileid.h
 #pragma once
-
-// Originally from AboodXD's repo
 
 // Sprite count for ASM snippets
 #define SPRITECNT 483
@@ -14,9 +13,9 @@
     #define PROFCNT 750
 #endif
 
-namespace SpriteId {
+struct SpriteId {
 
-enum {
+enum Value {
     PLAYER_0,
     PLAYER_1,
     PLAYER_2,
@@ -505,14 +504,13 @@ enum {
     // Start of custom entries
 
     // End of custom entries, do NOT remove
-    Num
+    Num,
+};
 };
 
-} // namespace SpriteId
+struct ProfileId {
 
-namespace ProfileId {
-
-enum {
+enum Value {
     BOOT,
     AUTO_SELECT,
     SELECT,
@@ -1282,7 +1280,6 @@ enum {
     // Start of custom entries
 
     // End of custom entries, do NOT remove
-    Num
+    Num,
 };
-
-} // namespace ProfileId
+};

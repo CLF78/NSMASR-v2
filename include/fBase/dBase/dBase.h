@@ -1,5 +1,4 @@
 #pragma once
-
 #include <fBase/fBase.h>
 
 class dBase_c : public fBase_c {

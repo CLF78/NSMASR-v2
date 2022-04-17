@@ -1,9 +1,7 @@
 #pragma once
-
 #include <kamek.h>
 #include <c/cList.h>
 #include <fBase/dBase/dBase.h>
-#include <rvl/mtx/mtx.h>
 
 class dBaseActor_c : public dBase_c {
     public:

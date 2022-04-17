@@ -1,6 +1,6 @@
 #pragma once
 #include <kamek.h>
-#include <egg/eggExpHeap.h>
+#include <egg/core/eggExpHeap.h>
 #include "kamekLoader.h"
 
 #define REGION_P 0

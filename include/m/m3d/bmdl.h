@@ -1,5 +1,4 @@
 #pragma once
-
 #include <m/m3d/banm.h>
 #include <m/m3d/scnLeaf.h>
 

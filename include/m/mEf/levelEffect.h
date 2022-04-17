@@ -1,5 +1,4 @@
 #pragma once
-
 #include <kamek.h>
 #include <m/mEf/effect.h>
 

@@ -1,7 +1,6 @@
 #pragma once
-
 #include <kamek.h>
-#include <egg/eggFrmHeap.h>
+#include <egg/core/eggFrmHeap.h>
 
 // Documentation by Ninji
 

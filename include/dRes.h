@@ -1,5 +1,4 @@
 #pragma once
-
 #include <kamek.h>
 
 // Actually a subclass of dResMng_c but i'm dumb so i can't do it correctly

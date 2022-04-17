@@ -1,10 +1,8 @@
+// Source: https://github.com/aboood40091/NewerSMBW/blob/more-sprites/Kamek/src/profile.cpp
+// Source: https://github.com/aboood40091/NewerSMBW/blob/more-sprites/Kamek/include/profile.h
 #pragma once
-
 #include <kamek.h>
 #include <fBase/fBase.h>
-#include <profileid.h>
-
-// Documentation courtesy of AboodXD
 
 struct SpriteData {
     u16 profileId;
@@ -17,14 +15,14 @@ struct SpriteData {
     u16 flags;
 };
 
-typedef fBase_c* (*buildFunc) (void);
-
 class Profile {
-	public:
-		Profile(buildFunc func, u32 spriteId, const SpriteData* spriteData, u16 executeOrderProfileId, u16 drawOrderProfileId, u32 lookAtSettings, const char* name, const char** files=NULL);
+    public:
+        typedef fBase_c* (*buildFunc) (void);
 
-		buildFunc func;
-		u16 executeOrderProfileId;
-		u16 drawOrderProfileId;
-		u32 lookAtSettings; // This field is only present in a few profiles, but having it here shouldn't hurt
+        Profile(buildFunc func, u32 spriteId, const SpriteData* spriteData, u16 executeOrderProfileId, u16 drawOrderProfileId, u32 lookAtSettings, const char* name, const char** files=NULL);
+
+        buildFunc func;
+        u16 executeOrderProfileId;
+        u16 drawOrderProfileId;
+        u32 lookAtSettings; // This field is only present in a few profiles, but having it here shouldn't hurt
 };

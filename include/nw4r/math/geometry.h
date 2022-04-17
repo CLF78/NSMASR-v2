@@ -1,6 +1,5 @@
 #pragma once
-
-#include <rvl/mtx/mtx.h>
+#include <kamek.h>
 
 namespace nw4r {
 namespace math {

@@ -1,8 +1,7 @@
 #pragma once
-
+#include <egg/core/eggFrmHeap.h>
+#include <m/mHeap/mAllocator.h>
 #include <nw4r/g3d/anmobj.h>
-#include <egg/eggFrmHeap.h>
-#include <m/mAllocator.h>
 
 namespace m3d {
 

@@ -1,10 +1,9 @@
 #pragma once
-
 #include <kamek.h>
 
 class PauseManager_c {
     public:
-        void* vtable; // Will be removed if necessary
+        void* vtable;
 
         u32 ptmfIndex;
         u32 selection;  // 0 for Continue, 1 for Quit

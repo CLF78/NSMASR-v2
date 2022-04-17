@@ -1,5 +1,4 @@
 #pragma once
-
 #include <kamek.h>
 
 #define GRASSDATA "BG_grass/grass_overrides.bin"

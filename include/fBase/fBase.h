@@ -1,9 +1,7 @@
 #pragma once
-
 #include <kamek.h>
-#include <egg/eggFrmHeap.h>
-#include <f/fManager.h>
-#include <profileid.h>
+#include <egg/core/eggFrmHeap.h>
+#include <fBase/fManager.h>
 
 class fBase_c {
     public:

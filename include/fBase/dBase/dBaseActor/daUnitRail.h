@@ -1,8 +1,7 @@
 #pragma once
-
 #include <fBase/dBase/dBaseActor/dBaseActor.h>
-#include <dHeapAllocator.h>
 #include <m/m3d/smdl.h>
+#include <dHeapAllocator.h>
 
 class daUnitRail_c : public dBaseActor_c {
     public:

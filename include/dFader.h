@@ -1,15 +1,13 @@
 #pragma once
 
-namespace dFader_c {
-
-enum fader_type_e {
-    FADE,
-    FADE_CIRCLE,
-    FADE_BOWSER,
-    FADE_WAVY,
-    FADE_MARIO,
-    FADE_UNK5,
-    FADE_NONE
+struct dFader_c {
+	enum fader_type_e {
+    	Fade,
+    	Circle,
+    	Bowser,
+    	Wavy,
+    	Mario,
+    	Unk5,
+    	None,
+	};
 };
-
-} // namespace dFader_c

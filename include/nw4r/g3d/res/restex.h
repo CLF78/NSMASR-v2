@@ -1,5 +1,5 @@
+// Source: nw4r
 #pragma once
-
 #include <kamek.h>
 #include <nw4r/g3d/res/rescommon.h>
 #include <rvl/gx/GXEnum.h>
@@ -13,7 +13,7 @@ struct ResTexData {
     s32 toResFileData;  // Offset from the start of the structure to ResFileData
     s32 toTexData;      // Offset from the start of the structure to the texture data
     s32 name;           // Offset from the start of the structure to the texture name
-    u32 flag;           // See enum
+    u32 flag;           // 0 = use GXTexFmt, 1 = use GXCITexFmt
     u16 width;
     u16 height;
 
@@ -27,10 +27,6 @@ struct ResTexData {
     f32 max_lod;
     s32 original_path;  // Offset from the start of the structure to the absolute path of the intermediate file that generated this one
     s32 toResUserData;  // Offset from the start of the structure to the user data (0 if none)
-
-    enum Flag {
-        TEXFMT_CI = 0x1 // If this is set, interpret texture using cifmt
-    };
 
     // User data here
     // ALIGN(32)

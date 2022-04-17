@@ -1,15 +1,14 @@
 #pragma once
-
-// Forward declaration
-class fBase_c;
+#include <kamek.h>
 
 class cListNd_c {
     public:
         cListNd_c* prev;
         cListNd_c* next;
-        fBase_c* owner;
+        void* owner;
 };
 
+// Unofficial name
 class cListNdExt_c : public cListNd_c {
     public:
         u16 _C; // count maybe?
@@ -18,6 +17,6 @@ class cListNdExt_c : public cListNd_c {
 
 class cListMg_c {
     public:
-        cListNdExt_c* first;
+        cListNd_c* first;
         cListNd_c* last;
 };

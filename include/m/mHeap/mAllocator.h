@@ -1,6 +1,5 @@
 #pragma once
-
-#include <egg/eggAllocator.h>
+#include <egg/core/eggAllocator.h>
 
 class mAllocator_c : public EGG::Allocator {
 };

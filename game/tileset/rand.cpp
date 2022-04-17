@@ -94,7 +94,7 @@ bool DoRandTile(dBgUnit_c* unit, BGRender* render) {
 
     // Handle special tiles first
     switch(entry->specialType) {
-        case VDOUBLE_BOTTOM:
+        case SpecialType::VDoubleBottom:
             // Get pointer to top tile
             tilePtr = unit->getTileP(render->currX*16, (render->currY-1) * 16, NULL, false);
 
@@ -103,7 +103,7 @@ bool DoRandTile(dBgUnit_c* unit, BGRender* render) {
                 render->currTile = (*tilePtr + 16) & 0xFF;
             return true;
 
-        case HDOUBLE_RIGHT:
+        case SpecialType::HDoubleRight:
             // Get pointer to left tile
             tilePtr = unit->getTileP((render->currX-1) * 16, render->currY*16, NULL, false);
 
@@ -120,13 +120,13 @@ bool DoRandTile(dBgUnit_c* unit, BGRender* render) {
 
     // Handle regular tiles with the game's original functions (setting slot to 0 in order to insert it manually later)
     switch(entry->normalType) {
-        case HORZ:
+        case NormalType::Horizontal:
             unit->generateHorizontalTile(render, tileArray, entry->arrayLen, 0);
             break;
-        case VERT:
+        case NormalType::Vertical:
             unit->generateVerticalTile(render, tileArray, entry->arrayLen, 0);
             break;
-        case BOTH:
+        case NormalType::Both:
             unit->generateTile(render, tileArray, entry->arrayLen, 0);
             break;
         default:

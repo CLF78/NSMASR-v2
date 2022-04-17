@@ -16,7 +16,7 @@ ASMFILES=''
 
 # CPP compilation settings
 CC='../cw/mwcceppc.exe'
-CFLAGS='-i . -I- -i ../include -nostdinc -Cpp_exceptions off -RTTI off -once -O4,s -use_lmw_stmw on -fp fmadd -rostr -sdata 0 -sdata2 0'
+CFLAGS='-i . -I- -i ../include -nostdinc -Cpp_exceptions off -enum int -RTTI off -once -O4,s -use_lmw_stmw on -fp fmadd -rostr -sdata 0 -sdata2 0'
 CPPFILES='audio levelwarp powerup profile savefile system tileset/anim tileset/grass tileset/profoverride tileset/rand tileset/common'
 
 # Destination

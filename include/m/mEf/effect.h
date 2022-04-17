@@ -1,6 +1,5 @@
 #pragma once
-
-#include <egg/eggEffect.h>
+#include <egg/video/eggEffect.h>
 
 namespace mEf {
 

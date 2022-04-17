@@ -3,7 +3,6 @@ cw/
 
 # Kamek build files/directories
 *.o
-*.dol
 *.bin
 game/build/
 loader/build

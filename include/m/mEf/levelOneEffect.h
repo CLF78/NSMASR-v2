@@ -1,6 +1,4 @@
 #pragma once
-
-#include <kamek.h>
 #include <m/mEf/levelEffect.h>
 #include <nw4r/ef/emitter.h>
 

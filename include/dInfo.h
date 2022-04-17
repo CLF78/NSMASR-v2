@@ -1,15 +1,16 @@
 #pragma once
-
 #include <kamek.h>
 #include <startinfo.h>
 
-enum GameFlag {
-    FLAG_DISABLE_ACTOR_SPAWNING = 0x1,
-    FLAG_IS_STOPPED = 0x2, // enables player state change freeze
-    FLAG_LEVEL_LOADED_MAYBE = 0x4,
-    FLAG_EXTRA_MODES = 0x10,
-    FLAG_GAME_OVER = 0x20,
-    FLAG_COIN_BATTLE = 0x40,
+struct GameFlag {
+    enum Value {
+        DisableActorSpawning = 1,
+        IsStopped = 2, // enables player state change freeze
+        LevelLoadedMaybe = 4,
+        ExtraMode = 0x10,
+        GameOver = 0x20,
+        CoinBattle = 0x40,
+    };
 };
 
 class dInfo_c {

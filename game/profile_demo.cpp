@@ -1,7 +1,7 @@
 #include <fBase/profile.h>
-#include <profileid.h>
+#include <fBase/profileid.h>
 
-// This file is only provided as an example of how to use custom profiles, do not use in your projects!
+#error "This file is only provided as an example of how to use custom profiles, do not use in your projects!"
 
 extern fBase_c* goombaFunc();
 extern const char* goombaFiles;

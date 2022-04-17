@@ -1,8 +1,6 @@
 #pragma once
-
 #include <kamek.h>
-#include <m/mHeapAllocator.h>
-#include <rvl/mtx/mtx.h>
+#include <m/mHeap/mHeapAllocator.h>
 
 class dBgActorManager_c {
     public:
@@ -15,14 +13,6 @@ class dBgActorManager_c {
                 u32 profileId;
         };
 
-        void* vtable;
-        mHeapAllocator_c allocator;
-        VEC3 screenBL;
-        VEC3 screenTR;
-        BgObj_c* objects;
-        int count;
-        int type;
-
         struct BgObjName_t {
             u32 tileNum;
             u16 profileId;
@@ -32,6 +22,14 @@ class dBgActorManager_c {
             float xScale, yScale;
             u32 settings;
         };
+
+        void* vtable;
+        mHeapAllocator_c allocator;
+        VEC3 screenBL;
+        VEC3 screenTR;
+        BgObj_c* objects;
+        int count;
+        int type;
 
         static BgObjName_t* bgObjNameList; // unofficial name
 

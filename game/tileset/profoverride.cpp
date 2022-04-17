@@ -1,14 +1,12 @@
 #include <kamek.h>
+#include <fBase/dBase/dBaseActor/daUnitRail.h>
+#include <fBase/dBase/dScene/dScStage.h>
+#include <fBase/profileid.h>
+#include <rvl/gx/GXStruct.h>
+#include <stdlib/string.h>
 #include <dBgActorManager.h>
 #include <dBgGlobal.h>
 #include <dRes.h>
-#include <profileid.h>
-#include <fBase/dBase/dBaseActor/daUnitRail.h>
-#include <fBase/dBase/dScene/dScStage.h>
-#include <nw4r/math/types.h>
-#include <rvl/gx/GXStruct.h>
-#include <rvl/mtx/mtx.h>
-#include <stdlib/string.h>
 #include "tileset/profoverride.h"
 
 // Externs for ASM call
@@ -16,14 +14,14 @@ extern "C" {
 void DoObjOverride(dBgActorManager_c* mng, char* tileNames);
 void DestroyOverrides();
 GXColor GetRailColor(daUnitRail_c* rail, GXColor originalColor);
-nw4r::math::VEC2* GetRailTexScale(nw4r::math::VEC2* originalScales, daUnitRail_c* rail);
+VEC2* GetRailTexScale(VEC2* originalScales, daUnitRail_c* rail);
 }
 
 // External data
 extern char Rail, RailWhite, RailDaishizen, RailMinigame;
 extern dBgActorManager_c::BgObjName_t* OriginalOverrides[5];
 extern GXColor RailColors[5];
-extern nw4r::math::VEC2 RailScales[5];
+extern VEC2 RailScales[5];
 
 void ParseObjOverride(ProfsBin* data, u32 entryCount, dBgActorManager_c::BgObjName_t* buffer, int slot) {
 
@@ -217,7 +215,7 @@ GXColor GetRailColor(daUnitRail_c* rail, GXColor originalColor) {
 
 }
 
-nw4r::math::VEC2* GetRailTexScale(nw4r::math::VEC2* originalScales, daUnitRail_c* rail) {
+VEC2* GetRailTexScale(VEC2* originalScales, daUnitRail_c* rail) {
 
     // Get bgObj from rail
     dBgActorManager_c::BgObjName_t* bgObj = GetBgObjFromRail(rail);
@@ -239,7 +237,7 @@ nw4r::math::VEC2* GetRailTexScale(nw4r::math::VEC2* originalScales, daUnitRail_c
     ProfsBin* bin = (ProfsBin*)dResMng_c::instance->res.getRes(tilesetName, PROFDATA);
 
     // Go to scale table
-    nw4r::math::VEC2* table = (nw4r::math::VEC2*)((u32)&bin->entries + (bin->numEntries * sizeof(ProfsBinEntry)) + bin->numColors * sizeof(GXColor));
+    VEC2* table = (VEC2*)((u32)&bin->entries + (bin->numEntries * sizeof(ProfsBinEntry)) + bin->numColors * sizeof(GXColor));
 
     // Get the scale according to the index given
     return &table[texSrtIndex - 5];

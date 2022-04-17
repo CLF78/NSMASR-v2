@@ -1,5 +1,4 @@
 #pragma once
-
 #include <kamek.h>
 #include <fBase/dBase/dScene/dScene.h>
 

@@ -1,14 +1,15 @@
 #pragma once
-
 #include <kamek.h>
 
-enum WaterType {
-    WATER = 0,
-    LAVA = 1,
-    POISON = 2,
-    ROUND_BUBBLE = 3,
-    TALL_BUBBLE = 4,
-    WIDE_BUBBLE = 5,
+struct WaterType {
+    enum Value {
+        Water,
+        Lava,
+        Poison,
+        RoundBubble,
+        TallBubble,
+        WideBubble,
+    };
 };
 
 class dWaterEntry_c {

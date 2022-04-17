@@ -1,27 +1,30 @@
+// I didn't know where to put this
 #pragma once
-
 #include <kamek.h>
 
-// I didn't know where to put this
-
-enum MovieType {
-    SUPER_SKILLS = 0,
-    INFINITE_1UP = 1,
-    STAR_COINS = 2,
-    SECRET_EXIT = 3,
+// Only used for Hint Movies
+struct MovieType {
+    enum Value {
+        SuperSkills,
+        Infinite1UP,
+        StarCoins,
+        SecretExit,
+    };
 };
 
-enum ScreenType {
-    NORMAL = 0,
-    SUPER_GUIDE = 1,
-    TITLE = 2,
-    TITLE_REPLAY = 3,
-    HINT_MOVIE = 4,
+struct ScreenType {
+    enum Value {
+        Normal,
+        SuperGuide,
+        Title,
+        TitleReplay,
+        HintMovie,
+    };
 };
 
 struct StartGameInfo {
     u32 replayDuration;     // 0x00 (in frames, max value 0x3840 aka 4 minutes)
-    u8 movieType;           // 0x04 (only used for Hint Movies)
+    u8 movieType;           // 0x04
     u8 entrance;            // 0x05
     u8 area;                // 0x06
     bool isReplay;          // 0x07

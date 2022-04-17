@@ -1,11 +1,9 @@
+// Source: https://github.com/riidefi/mkw/blob/master/source/egg/core/eggHeap.hpp
 #pragma once
-
 #include <kamek.h>
-#include <egg/eggDisposer.h>
+#include <egg/core/eggDisposer.h>
 #include <nw4r/ut/utList.h>
 #include <rvl/mem/heapCommon.h>
-
-// Shamelessly copied from https://github.com/riidefi/mkw/blob/master/source/egg/core/eggHeap.hpp
 
 namespace EGG {
 

@@ -1,5 +1,4 @@
 #pragma once
-
 #include <kamek.h>
 
 #define ANIMDATA "BG_anim/anim_overrides.bin"

@@ -60,8 +60,8 @@ I'm not covering this. Figure it out yourself.
 
 ### Notes
 
-* The scripts automatically place the compiled binaries into the default Dolphin folders for the respective OSes. Edit them to match your own folder structure or remove them altogether if you don't like them;
-* The `game` build script accepts a list of regions (separated by ";" on Windows and by " " on Mac/Linux) to compile the code to. If no regions are given, the code will be compiled for all of them. The list is as follows:
+* The scripts automatically place the compiled binaries into the default Dolphin folders for the respective OSes. Edit them to match your own folder structure or remove them altogether if you don't like that;
+* The `game` build script accepts a list of regions (separated by ";" on Windows and by " " on Mac/Linux) to compile the code to. If no regions are given, the code will be compiled for every region. The list is as follows:
     - P1 = EU v1;
     - P2 = EU v2;
     - E1 = US v1;
@@ -76,7 +76,7 @@ I'm not covering this. Figure it out yourself.
 - The codebase uses C++ and PowerPC Assembly. C++ is preferred for full function replacements and for any kind of complex logic;
 - No assumption about the use of registers by C++ code is made other than the ABI. If necessary, assembly wrappers are employed to restore/backup registers;
 - The headers attempt to keep a consistent naming scheme and respect the original game's names, definitions and structures. However, all class members are marked as public for ease of use;
-- As code is progressively added/updated, bugs may accidentally be introduced due to my incompetence. In such case, please open an issue on the matter.
+- As code is progressively added/updated, bugs may accidentally be introduced due to incompetence. In such case, please open an issue on the matter.
 
 ## Programming Resources
 

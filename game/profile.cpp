@@ -1,7 +1,7 @@
 #include <kamek.h>
 #include <fBase/fBase.h>
 #include <fBase/profile.h>
-#include <profileid.h>
+#include <fBase/profileid.h>
 
 // Arrays of data used by the game
 extern SpriteData sprites[SpriteId::OriginalNum];

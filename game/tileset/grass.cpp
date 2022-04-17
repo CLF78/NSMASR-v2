@@ -1,11 +1,11 @@
 #include <kamek.h>
 #include <fBase/dBase/dScene/dScStage.h>
-#include <dBgGlobal.h>
-#include <dBg.h>
-#include <dRes.h>
+#include <fBase/dBase/dBg/dBg.h>
 #include <nw4r/g3d/res/resfile.h>
 #include <nw4r/g3d/res/restex.h>
 #include <stdlib/stdio.h>
+#include <dBgGlobal.h>
+#include <dRes.h>
 #include "tileset/grass.h"
 
 // External filenames

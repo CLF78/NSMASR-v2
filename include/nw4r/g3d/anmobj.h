@@ -1,5 +1,6 @@
+// Source: nw4r
 #pragma once
-
+#include <kamek.h>
 #include <nw4r/g3d/obj.h>
 
 namespace nw4r {

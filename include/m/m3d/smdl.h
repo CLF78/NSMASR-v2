@@ -1,5 +1,4 @@
 #pragma once
-
 #include <m/m3d/bmdl.h>
 
 namespace m3d {

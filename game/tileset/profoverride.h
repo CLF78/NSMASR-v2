@@ -1,5 +1,4 @@
 #pragma once
-
 #include <kamek.h>
 
 #define PROFDATA "BG_prof/prof_overrides.bin"
