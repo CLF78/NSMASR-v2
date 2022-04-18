@@ -71,3 +71,11 @@ create__9dBgUnit_cFP9dBgUnit_cPQ23EGG4Heapii=0x80083560
 
 UnitHeadDataFmt=0x803100BC
 UnitDataFmt=0x803100D0
+
+createBlockFragEff__14dEffActorMng_cFR7mVec3_cUlSc=0x800925F0
+m_instance__14dEffActorMng_c=0x8042A1C8
+
+createEffect__3mEfFPCcUlPC7mVec3_cPC7mAng3_cPC7mVec3_c=0x8016C9D0
+
+TileGodTiles=0x80936868
+TileTable=0x802EFCB8

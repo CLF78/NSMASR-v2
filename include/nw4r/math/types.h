@@ -4,9 +4,9 @@
 namespace nw4r {
 namespace math {
 
-struct VEC2 : VEC2;
-struct VEC3 : VEC3;
-struct MTX34 : MTX34;
+typedef VEC2 nw4r::math::VEC2;
+typedef VEC3 nw4r::math::VEC3;
+typedef MTX34 nw4r::math::MTX34;
 
 } // namespace math
 } // namespace nw4r
