@@ -17,5 +17,10 @@ struct EmitterInheritSetting {
     u8 alphaFuncSec; // same as above
 };
 
+struct EmitterResource {
+    char* name;
+    u32 headersize;
+};
+
 } // namespace ef
 } // namespace nw4r
