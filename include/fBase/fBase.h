@@ -53,4 +53,7 @@ class fBase_c {
         virtual ~fBase_c();
 
         void deleteRequest();
+
+        static void* operator new(size_t size);
+        static void operator delete(void* ptr);
 };

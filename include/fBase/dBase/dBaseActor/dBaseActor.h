@@ -52,7 +52,7 @@ class dBaseActor_c : public dBase_c {
         virtual int preDraw();
         virtual void postDraw(fBase_c::MAIN_STATE_e status);
 
-        virtual ~dBase_c();
+        virtual ~dBaseActor_c();
 
         virtual void draw2D();
         virtual void draw2DSpecial();
