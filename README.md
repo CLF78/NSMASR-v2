@@ -12,7 +12,7 @@ Newer Super Mario All-Stars Revived is a New Super Mario Bros. Wii mod which aim
 
 ### Requirements
 
-- [CodeWarrior for MPC55xx/MPC56xx v2.10 Special Edition](https://www.nxp.com/lgfiles/devsuites/PowerPC/CW55xx_v2_10_SE.exe)
+- [CodeWarrior for MPC55xx/MPC56xx v2.10 Special Edition](https://cache.nxp.com/lgfiles/devsuites/PowerPC/CW55xx_v2_10_SE.exe)
 - [Kamek](https://github.com/Lord-Giganticus/Kamek/releases) (pick the one you need according to your OS)
 
 ### Installation - Windows
@@ -41,21 +41,8 @@ I'm not covering this. Figure it out yourself.
 * Kamek requires `dotnet` to be installed, so get that as well;
 * Add Kamek to your `PATH` variable (sourcing may be necessary in order for the change to be detected);
 * Do NOT run the CodeWarrior installer in WINE, as the installer will fail;
-* Due to the above, you'll need to extract the needed files manually. To do so, first make sure the `p7zip` and `cabextract` packages are installed;
-* Unpack the exe, then unpack `Data1.cab` in a folder of choice;
-* As you can see, many files have random gibberish in their name. Here is a list of the important files (and their correct names between parentheses):
-    - `lmgr11.dll` **(required)**
-    - `_44CD8EA541F44E56801091477F3DC9AA` (license.dat) **(required)**
-    - `_4C8ADA37887647F5955B4FB0F716277F` (mwcceppc.exe) **(required)**
-    - `_C63F22BC0503480DAFDCAFC394185CBA` (mwasmeppc.exe) **(required)**
-    - `lmgr8c.dll` **(optional)**
-    - `_112A80A88B6147C590AE2CD9AE3F354F` (mwcceppc.txt) **(optional)**
-    - `_312B4591741B497CB5EB342A632170BE` (mwldeppc.txt) **(optional)**
-    - `_39217B1AFC714B7083E6CB5CBB10FC83` (mwasmeppc.txt) **(optional)**
-    - `_4901FAD667D24E13BCF700F695CDD6D7` (mwldeppc.exe) **(optional)**
-    - `_6F672001C92D4DF8B1893652C3B19743` (CLT_Usage_Notes.txt) **(optional)**
-    - `_87844F06D94541B3B62E7A69C029A35D` (CLT_EABI_PPC_Tools_Notes.txt) **(optional)**
-* Once you have gathered the files, make a folder named `cw` next to `game` and place them there;
+* Due to the above, you'll need to extract the needed files manually. To do so, first make sure the `cabextract` package is installed;
+* Place the CodeWarrior installer in the same folder as `extractCW.sh`, then run that script;
 * Run `build.sh` to build the mod's code or loader.
 
 ### Notes

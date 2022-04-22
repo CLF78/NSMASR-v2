@@ -1,9 +1,10 @@
 #pragma once
+#include <c/cTree.h>
 #include <fBase/fBase.h>
 
 class dBase_c : public fBase_c {
     public:
-        void* _64;
+        cTreeMg firstLinkedNode;
         char* kindString;
         char* nameString;
 
