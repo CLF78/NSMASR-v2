@@ -3,6 +3,8 @@
 #include <m/mEf/effect.h>
 #include <nw4r/ef/resource.h>
 #include <nw4r/ut/utList.h>
+#include <sound/sndplayer.h>
+#include <dAudio.h>
 #include <dSwitchFlagMng.h>
 #include "effectspawner.h"
 
@@ -99,7 +101,12 @@ int dEffectSpawner_c::execute() {
 
             } else {
 
-                // TODO
+                // Convert stage position to screen position
+                VEC2 soundPos;
+                dAudio::convertStagePosition(&soundPos, &this->pos);
+
+                // Play the chosen sound
+                SndPlayer::instance->startSound(this->effect, &soundPos, 0);
             }
 
             // If the effect only needs to be played once delete the sprite, else reset the timer

@@ -114,3 +114,8 @@ breffIndexOf__Q24nw4r2efFPQ34nw4r2ef13EffectProjectUs=0x80294EA0
 mResource__Q34nw4r2ef8Resource=0x80423470
 
 List_GetNext__Q24nw4r2utFPCQ34nw4r2ut4ListPCv=0x80229130
+
+convertStagePosition__6dAudioFP4VEC2P4VEC3=0x8006A4B0
+
+startSound__9SndPlayerFUlP4VEC2Ul=0x80198D70
+instance__9SndPlayer=0x8042A040
