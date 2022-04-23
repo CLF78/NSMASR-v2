@@ -1,4 +1,6 @@
 #include <kamek.h>
+#include <fBase/profile.h>
+#include <fBase/profileid.h>
 #include <m/mTypes.h>
 #include <m/mEf/effect.h>
 #include <nw4r/ef/resource.h>
@@ -6,6 +8,7 @@
 #include <sound/sndplayer.h>
 #include <dAudio.h>
 #include <dSwitchFlagMng.h>
+#include <PauseManager.h>
 #include "effectspawner.h"
 
 // A nw4r function to help myself stay sane
@@ -37,7 +40,7 @@ int dEffectSpawner_c::create() {
     this->effect = this->settings & 0xFFF;
 
     // Setup timer and delay (nybble 9)
-    this->delay = (this->settings >> 12) & 0xF * 60;
+    this->delay = ((this->settings >> 12) & 0xF) * 60;
     this->timer = this->delay;
 
     // Setup isGFX (nybble 8 bit 4)
@@ -50,8 +53,8 @@ int dEffectSpawner_c::create() {
 
 int dEffectSpawner_c::execute() {
 
-    // If event is triggered, act!
-    if (dSwitchFlagMng_c::m_instance->flags & this->eventFlag) {
+    // If event is triggered and the game isn't paused, act!
+    if ((dSwitchFlagMng_c::m_instance->flags & this->eventFlag) && (!PauseManager_c::m_Pause)) {
 
         // If the loop delay matches the timer, play the effect
         if (this->timer == this->delay) {
@@ -78,12 +81,11 @@ int dEffectSpawner_c::execute() {
                         nw4r::ef::EmitterResource* breffEntry = nw4r::ef::breffIndexOf(currBreff, effectIdx);
                         effectName = breffEntry->name;
                         break;
+                    }
 
                     // Else go to the next BREFF and subtract the count
-                    } else {
-                        effectIdx -= numEmitter;
-                        currBreff = (nw4r::ef::EffectProject*)nw4r::ut::List_GetNext(&res->mBREFFList, currBreff);
-                    }
+                    effectIdx -= numEmitter;
+                    currBreff = (nw4r::ef::EffectProject*)nw4r::ut::List_GetNext(&res->mBREFFList, currBreff);
                 }
 
                 // If effect was found, spawn it
@@ -96,7 +98,11 @@ int dEffectSpawner_c::execute() {
                     scale.x = this->scale;
                     scale.y = this->scale;
                     scale.z = this->scale;
-                    mEf::createEffect(effectName, 0, (const mVec3_c*)&this->pos, &rotation, &scale);
+                    mVec3_c pos;
+                    pos.x = this->pos.x + 8;
+                    pos.y = this->pos.y - 8;
+                    pos.z = this->pos.z;
+                    mEf::createEffect(effectName, 0, &pos, &rotation, &scale);
                 }
 
             } else {
@@ -122,3 +128,7 @@ int dEffectSpawner_c::execute() {
 
     return 1;
 }
+
+// Profile
+const SpriteData effectSpawnerData = {ProfileId::FX_CREATE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8};
+Profile effectSpawnerProfile = Profile(&dEffectSpawner_c::build, SpriteId::FX_CREATE, &effectSpawnerData, ProfileId::FX_CREATE, ProfileId::FX_CREATE, 0, "FX_CREATE");

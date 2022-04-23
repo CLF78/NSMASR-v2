@@ -119,3 +119,5 @@ convertStagePosition__6dAudioFP4VEC2P4VEC3=0x8006A4B0
 
 startSound__9SndPlayerFUlP4VEC2Ul=0x80198D70
 instance__9SndPlayer=0x8042A040
+
+m_Pause__14PauseManager_c=0x8042A2C0

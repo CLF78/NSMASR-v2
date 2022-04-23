@@ -502,6 +502,7 @@ enum Value {
     OriginalNum,
 
     // Start of custom entries
+    FX_CREATE = OriginalNum + 0,
 
     // End of custom entries, do NOT remove
     Num,
@@ -1278,6 +1279,7 @@ enum Value {
     OriginalNum,
 
     // Start of custom entries
+    FX_CREATE = OriginalNum + 0,
 
     // End of custom entries, do NOT remove
     Num,

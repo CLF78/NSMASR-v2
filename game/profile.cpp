@@ -17,11 +17,11 @@ extern const char* profileNames[ProfileId::OriginalNum];
 const char* customProfileNames[ProfileId::Num - ProfileId::OriginalNum];
 
 // Custom Profile ctor by AboodXD, edited by myself
-Profile::Profile(buildFunc func, u32 spriteId, const SpriteData* spriteData, u16 executeOrderProfileId, u16 drawOrderProfileId, u32 lookAtSettings, const char* name, const char** files) {
+Profile::Profile(void* buildFunc, u32 spriteId, const SpriteData* spriteData, u16 executeOrderProfileId, u16 drawOrderProfileId, u32 lookAtSettings, const char* name, const char** files) {
     u32 profile;
 
     // Store variables
-    this->func = func;
+    this->buildFunc = buildFunc;
     this->executeOrderProfileId = executeOrderProfileId;
     this->drawOrderProfileId = drawOrderProfileId;
     this->lookAtSettings = lookAtSettings;

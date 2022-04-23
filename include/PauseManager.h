@@ -19,4 +19,9 @@ class PauseManager_c {
         bool _1C; // stuff with otasukeInfo i think
         bool disablePause; // use this to disable pausing at will, since dScStage_c turns off flag 2 every frame
         // 2 bytes padding
+
+        static PauseManager_c* m_instance;
+        static bool m_Pause;
+        static bool m_Created;
+        static bool m_OtasukeAfter;
 };

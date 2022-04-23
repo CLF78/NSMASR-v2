@@ -2,7 +2,6 @@
 // Source: https://github.com/aboood40091/NewerSMBW/blob/more-sprites/Kamek/include/profile.h
 #pragma once
 #include <kamek.h>
-#include <fBase/fBase.h>
 
 struct SpriteData {
     u16 profileId;
@@ -17,11 +16,9 @@ struct SpriteData {
 
 class Profile {
     public:
-        typedef fBase_c* (*buildFunc) (void);
+        Profile(void* buildFunc, u32 spriteId, const SpriteData* spriteData, u16 executeOrderProfileId, u16 drawOrderProfileId, u32 lookAtSettings, const char* name, const char** files=NULL);
 
-        Profile(buildFunc func, u32 spriteId, const SpriteData* spriteData, u16 executeOrderProfileId, u16 drawOrderProfileId, u32 lookAtSettings, const char* name, const char** files=NULL);
-
-        buildFunc func;
+        void* buildFunc;
         u16 executeOrderProfileId;
         u16 drawOrderProfileId;
         u32 lookAtSettings; // This field is only present in a few profiles, but having it here shouldn't hurt
