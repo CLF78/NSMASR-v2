@@ -1,6 +1,7 @@
 // Source: nw4r
 #pragma once
 #include <kamek.h>
+#include <nw4r/ef/emitter.h>
 #include <nw4r/ut/utList.h>
 
 namespace nw4r {
@@ -22,9 +23,18 @@ class Resource {
         u32 mNumTexture;
 
         static Resource mResource;
-
-        static EmitterResource* breffIndexOf(EffectProject* project, u16 idx);
 };
 
+static EmitterResource* breffIndexOf(EffectProject* project, u16 idx);
+
+namespace resource {
+
+struct NameTable {
+    u32 tablesize;
+    u16 numEntry;
+    u16 padding;
+};
+
+} // namespace resource
 } // namespace ef
 } // namespace nw4r

@@ -46,8 +46,8 @@ class fBase_c {
 
         virtual void deleteReady();
 
-        virtual bool entryFrmHeap(int size, EGG::FrmHeap* heap);
-        virtual bool entryFrmHeapNonAdjust(int size, EGG::FrmHeap* heap);
+        virtual bool entryFrmHeap(size_t size, EGG::Heap* heap);
+        virtual bool entryFrmHeapNonAdjust(size_t size, EGG::Heap* heap);
         virtual bool createHeap();
 
         virtual ~fBase_c();

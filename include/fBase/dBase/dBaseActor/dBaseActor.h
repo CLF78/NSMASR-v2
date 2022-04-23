@@ -55,7 +55,7 @@ class dBaseActor_c : public dBase_c {
         virtual ~dBaseActor_c();
 
         virtual void draw2D();
-        virtual void draw2DSpecial();
+        virtual void draw2DSpecial(); // unofficial name
 
         virtual int GetActorType();
 

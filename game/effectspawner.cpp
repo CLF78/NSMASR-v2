@@ -1,5 +1,18 @@
 #include <kamek.h>
+#include <m/mTypes.h>
+#include <m/mEf/effect.h>
+#include <nw4r/ef/resource.h>
+#include <nw4r/ut/utList.h>
+#include <dSwitchFlagMng.h>
 #include "effectspawner.h"
+
+// A nw4r function to help myself stay sane
+u16 breffNumEmitter(nw4r::ef::EffectProject* project) {
+    u8* ptr = (u8*)project;
+    ptr += project->headersize;
+    nw4r::ef::resource::NameTable* nametbl = (nw4r::ef::resource::NameTable*)ptr;
+    return nametbl->numEntry;
+}
 
 // Build function
 dEffectSpawner_c* dEffectSpawner_c::build() {
@@ -22,8 +35,8 @@ int dEffectSpawner_c::create() {
     this->effect = this->settings & 0xFFF;
 
     // Setup timer and delay (nybble 9)
-    this->timer = 0;
     this->delay = (this->settings >> 12) & 0xF * 60;
+    this->timer = this->delay;
 
     // Setup isGFX (nybble 8 bit 4)
     this->isGFX = (this->settings >> 16) & 1;
@@ -34,6 +47,71 @@ int dEffectSpawner_c::create() {
 }
 
 int dEffectSpawner_c::execute() {
-    // TODO: everything
-    return true;
+
+    // If event is triggered, act!
+    if (dSwitchFlagMng_c::m_instance->flags & this->eventFlag) {
+
+        // If the loop delay matches the timer, play the effect
+        if (this->timer == this->delay) {
+
+            // Act depending on the type
+            if (isGFX) {
+
+                // Setup breff parsing
+                nw4r::ef::Resource* res = &nw4r::ef::Resource::mResource;
+                u16 effectIdx = this->effect;
+                char* effectName = NULL;
+
+                // Parse linked list
+                nw4r::ef::EffectProject* currBreff = (nw4r::ef::EffectProject*)nw4r::ut::List_GetNext(&res->mBREFFList, NULL);
+                for (int i = 0; i < res->mBREFFList.count; i++) {
+
+                    // Get the number of entries for the current breff
+                    u16 numEmitter = breffNumEmitter(currBreff);
+
+                    // If the index fits in this breff, use it
+                    if (effectIdx < numEmitter) {
+
+                        // Get emitter and its name
+                        nw4r::ef::EmitterResource* breffEntry = nw4r::ef::breffIndexOf(currBreff, effectIdx);
+                        effectName = breffEntry->name;
+                        break;
+
+                    // Else go to the next BREFF and subtract the count
+                    } else {
+                        effectIdx -= numEmitter;
+                        currBreff = (nw4r::ef::EffectProject*)nw4r::ut::List_GetNext(&res->mBREFFList, currBreff);
+                    }
+                }
+
+                // If effect was found, spawn it
+                if (effectName) {
+                    mAng3_c rotation;
+                    rotation.x = 0;
+                    rotation.y = 0;
+                    rotation.z = 0;
+                    mVec3_c scale;
+                    scale.x = this->scale;
+                    scale.y = this->scale;
+                    scale.z = this->scale;
+                    mEf::createEffect(effectName, 0, (const mVec3_c*)&this->pos, &rotation, &scale);
+                }
+
+            } else {
+
+                // TODO
+            }
+
+            // If the effect only needs to be played once delete the sprite, else reset the timer
+            if (runOnce)
+                this->deleteRequest();
+            else
+                this->timer = 0;
+        }
+
+        // Update timer
+        this->timer++;
+    }
+
+    return 1;
 }

@@ -16,5 +16,7 @@ typedef struct {
     u16 offset;
 } List;
 
+void* List_GetNext(const List* list, const void* object);
+
 } // namespace ut
 } // namespace nw4r

@@ -11,7 +11,7 @@ class dEffectSpawner_c : public dBaseActor_c {
 
         u64 eventFlag;
         float scale;
-        u16 effectIdx;
+        u16 effect;
         u16 timer;
         u16 delay;
         bool isGFX;

@@ -4,7 +4,7 @@
 
 class dBase_c : public fBase_c {
     public:
-        cTreeMg firstLinkedNode;
+        cTreeMg_c firstLinkedNode;
         char* kindString;
         char* nameString;
 
@@ -24,5 +24,5 @@ class dBase_c : public fBase_c {
 
         virtual ~dBase_c();
 
-        virtual char* getKindString();
+        virtual char* getKindString() const;
 };
