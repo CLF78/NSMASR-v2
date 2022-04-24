@@ -94,3 +94,13 @@ kmCallDefAsm(0x809C176C) {
     lwz r5, 0x4(r29)
     b ApplyRotation
 }
+
+// Rotation Controlled Coin - Fix Double Rotation Bug (by RoadrunnerWMC)
+// Source: https://github.com/RoadrunnerWMC/NSMBW-Updated/blob/master/code/src/rotation_controlled_actors_starting_rotation.cpp
+kmWrite32(0x809E55F4, 0x3860C000);
+kmWrite32(0x809E560C, 0x3860C000);
+
+// Rotation Controlled Block - Fix Double Rotation Bug (by RoadrunnerWMC)
+// Source: https://github.com/RoadrunnerWMC/NSMBW-Updated/blob/master/code/src/rotation_controlled_actors_starting_rotation.cpp
+kmWrite32(0x809C15C4, 0x3860C000);
+kmWrite32(0x809C15DC, 0x3860C000);
