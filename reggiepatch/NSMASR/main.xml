@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<game name="Newer Super Mario All Stars Revived" version="0.0.1" description="Retro games galore!">
+
+    <!-- Folders -->
+    <folder name="external" path="external" />
+
+    <!-- Files -->
+    <file name="spritedata" path="spritedata.xml" />
+    <file name="sprites" path="sprites.py" />
+
+</game>

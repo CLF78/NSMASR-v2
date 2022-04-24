@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sprites>
+  <sprite id="191" name="Tile God Event" notes="The Tile God can Create / Change / Destroy tiles within a specified area when an Event is activated.">
+    <dependency notes="The Tile God sprite can be placed no more than one block outside of the Zone it is being activated in for it to function."/>
+    <value nybble="3-4" title="Triggering Event ID" comment="When this Event ID is activated, the tiles affected by the Tile God's area will be created or destroyed, depending on the Mode." idtype="Triggering Event"/>
+    <value nybble="11" title="Width" comment="This determines the width of the area that is affected."/>
+    <value nybble="12" title="Height" comment="This determines the height of the area that is affected."/>
+    <list nybble="16" title="Target Layer" comment="This determines which terrain layer is affected.">
+      <entry value="2">Layer 0</entry>
+      <entry value="0">Layer 1</entry>
+      <entry value="1">Layer 2</entry>
+    </list>
+    <dualbox nybble="10.4" title1="Destroys Tiles" title2="Creates Tiles" comment="This determines how the Tile God will act when the Triggering Event is activated." comment2="When creating, the Tile God will place these tiles on top of existing tiles instead of replacing them."/>
+    <dualbox nybble="5.4" title1="Reverse Action when Deactivated" title2="Permanent" comment="This determines how the Tile God will act when the Triggering Event is deactivated" comment2="When set to Reverse, previously created tiles will be destroyed, and locations where tiles were destroyed will be filled by the creation settings of the Tile God."/>
+    <checkbox nybble="8.2" title="Disable Effects" comment="When enabled, the visual effect for Tile Creation/Destruction will be removed." comment2="You can use the Effect/Sound Spawner (483) to add your own effect in its place."/>
+    <checkbox nybble="8.1" title="Disable Sounds" comment="When enabled, the sound effect for Tile Creation/Destruction will be removed." comment2="You can use the Effect/Sound Spawner (483) to add your own sound in its place."/>
+    <list nybble="8.3-8.4" title="Pattern" comment="This determines the fill pattern for the Tile God's selected area." comment2="A checkered pattern and reverse checked pattern overlapping will create the same effect as a regular fill. This is sometimes useful for its visual effect.">
+      <entry value="0">Fill</entry>
+      <entry value="1">Checkers</entry>
+      <entry value="2">Reverse Checkers</entry>
+    </list>
+    <list nybble="10.1-10.3" title="Shard Effect" comment="This determines what shard spawns when the block is destroyed. If none, it will spawn the original poof effect." requirednybble="8.2" requiredval="0">
+      <entry value="0">None</entry>
+      <entry value="1">Brick Block</entry>
+      <entry value="2">Stone Block</entry>
+      <entry value="3">Wooden Block</entry>
+      <entry value="4">Question Block</entry>
+      <entry value="5">Used Block</entry>
+      <entry value="6">Red Block</entry>
+      <entry value="7">Used Block</entry>
+    </list>
+    <list nybble="9" title="Tile" comment="This determines what terrain tile will appear at the Tile God's selected area">
+      <entry value="0">Red Block (Pa0 3,7) (Object #57)</entry>
+      <entry value="1">Brick Block (Pa0 3,0) (Object #26)</entry>
+      <entry value="3">Stone Block (Pa0 3,4) (Object #51)</entry>
+      <entry value="4">Wooden Block (Pa0 3,3) (Object #50)</entry>
+      <entry value="8">Tile from Pa0</entry>
+      <entry value="9">Tile from Pa1</entry>
+      <entry value="10">Tile from Pa2</entry>
+      <entry value="11">Tile from Pa3</entry>
+    </list>
+    <value nybble="6" title="Tileset Row" comment="When using [Tile: Tile from Pa(x)], you can spawn every tile from the tileset by selecting it from a grid formation. Each tileset contains 16 Rows (0-15), and 16 Columns (0-15). The first tile in the top left is 0,0 and the last tile in the bottom right is 15,15." comment2="Some common examples for Pa0: &lt;br&gt; &lt;i&gt;Coin: 1,14 | Coin Outline: 1,15 | ?-Block: 3,1 | Used Block: 3,2 | Wooden Block: 3,3 | Stone Block: 3,4 | Donut Lift: 3,5 | Steel Block: 3,6" requirednybble="9" requiredval="8-11"/> <!-- Appears only if Block Type (Tile) = 8-11 -->
+    <value nybble="7" title="Tileset Column" comment="When using [Block Type: Tile from Pa(x)], you can spawn every tile from the tileset by selecting it from a grid formation. Each tileset contains 16 Rows (0-15), and 16 Columns (0-15). The first tile in the top left is 0,0 and the last tile in the bottom right is 15,15." comment2="Some common examples for Pa0: &lt;br&gt; &lt;i&gt;Coin: 1,14 | Coin Outline: 1,15 | ?-Block: 3,1 | Used Block: 3,2 | Wooden Block: 3,3 | Stone Block: 3,4 | Donut Lift: 3,5 | Steel Block: 3,6" requirednybble="9" requiredval="8-11"/> <!-- Appears only if Block Type (Tile) = 8-11 -->
+  </sprite> <!-- #191: Tile God Event -->
+
+  <sprite id="253" name="Rotation Controlled Coin" notes="A standard coin that can be paired with rotation controllers. It does not have any additional features like [147] Coin.">
+    <dependency notes="This coin does not function and cannot be collected unless actually paired to a rotation controller.">
+      <suggested sprite="96"/>
+      <suggested sprite="149"/>
+    </dependency>
+    <value nybble="11-12" title="Rotation ID" comment="This pairs the Coin to a matching rotation controller." idtype="Rotation"/>
+    <dualbox nybble="7.4" title1="Enable Tilt" title2="Disable Tilt" comment="If disabled, the coin will maintain its Z-rotation while under the effect of a controller."/>
+  </sprite> <!-- #253: Rotation Controlled Coin -->
+
+  <sprite id="255" name="Rotation Controlled ? Block" notes="A ?-Block that can either be moved by rotation controllers or manually angled.">
+    <dependency notes="A rotation controller is not required for this sprite to function. You can, instead, set a manual angle for the block.">
+      <suggested sprite="96"/>
+      <suggested sprite="149"/>
+    </dependency>
+    <value nybble="11-12" title="Rotation ID" comment="This pairs the ?-Block to a matching rotation controller." requirednybble="9" requiredval="0" idtype="Rotation"/>
+    <list nybble="9" title="Tilt Angle" comment="This determines the angle the block will be tilted. Tilted blocks can not be rotation controlled.">
+      <entry value="0">0°</entry>
+      <entry value="1">3°</entry>
+      <entry value="2">6°</entry>
+      <entry value="3">9°</entry>
+      <entry value="4">12°</entry>
+      <entry value="5">15°</entry>
+      <entry value="6">18°</entry>
+      <entry value="7">21°</entry>
+      <entry value="8">24°</entry>
+      <entry value="9">27°</entry>
+      <entry value="10">30°</entry>
+      <entry value="11">33°</entry>
+      <entry value="12">36°</entry>
+      <entry value="13">39°</entry>
+      <entry value="14">42°</entry>
+      <entry value="15">45°</entry>
+    </list>
+    <dualbox nybble="8.4" title1="Tilts Right" title2="Tilts Left"/>
+    <list nybble="10" title="Block Contains" comment="This determines what item the block contains." comment2="This block will release as many items as there are players. Some items, such as the Spring, won't appear if the player strikes the Block while it is actively rotating.">
+      <entry value="0">Empty</entry>
+      <entry value="1">1 Coin</entry>
+      <entry value="10">10-Coin</entry>
+      <entry value="14">Mushroom (if small)</entry>
+      <entry value="2">Fire Flower</entry>
+      <entry value="3">Fire Flower</entry>
+      <entry value="15">Ice Flower</entry>
+      <entry value="4">Propeller Shroom</entry>
+      <entry value="5">Penguin Suit</entry>
+      <entry value="6">Mini Mushroom</entry>
+      <entry value="7">Star</entry>
+      <entry value="8">Continuous Star</entry>
+      <entry value="9">Yoshi Egg</entry>
+      <entry value="11">1-Up</entry>
+      <entry value="12">Vine</entry>
+      <entry value="13">Spring</entry>
+    </list>
+    <dualbox nybble="7.4" title1="Enable Tilt" title2="Disable Tilt" comment="If disabled, the block will maintain its Z-rotation while under the effect of a controller." requirednybble="9" requiredval="0"/>
+  </sprite> <!-- #255: Rotation Controlled ? Block -->
+
+  <sprite id="256" name="Rotation Controlled Brick Block" notes="A Brick Block that can either be moved by rotation controllers or manually angled.">
+    <dependency notes="A rotation controller is not required for this sprite to function. You can, instead, set a manual angle for the block.">
+      <suggested sprite="96"/>
+      <suggested sprite="149"/>
+    </dependency>
+    <value nybble="11-12" title="Rotation ID" comment="This pairs the Brick Block to a matching rotation controller." requirednybble="9" requiredval="0" idtype="Rotation"/>
+    <list nybble="9" title="Tilt Angle" comment="This determines the angle the block will be tilted. Tilted blocks can not be rotation controlled.">
+      <entry value="0">0°</entry>
+      <entry value="1">3°</entry>
+      <entry value="2">6°</entry>
+      <entry value="3">9°</entry>
+      <entry value="4">12°</entry>
+      <entry value="5">15°</entry>
+      <entry value="6">18°</entry>
+      <entry value="7">21°</entry>
+      <entry value="8">24°</entry>
+      <entry value="9">27°</entry>
+      <entry value="10">30°</entry>
+      <entry value="11">33°</entry>
+      <entry value="12">36°</entry>
+      <entry value="13">39°</entry>
+      <entry value="14">42°</entry>
+      <entry value="15">45°</entry>
+    </list>
+    <dualbox nybble="8.4" title1="Tilts Right" title2="Tilts Left"/>
+    <list nybble="10" title="Block Contains" comment="This determines what item the block contains." comment2="This block will only release one power-up item. Some items, such as the Spring, won't appear if the player strikes the Block while it is actively rotating.">
+      <entry value="0">Empty</entry>
+      <entry value="1">1 Coin</entry>
+      <entry value="10">10-Coin</entry>
+      <entry value="14">Mushroom (if small)</entry>
+      <entry value="2">Fire Flower</entry>
+      <entry value="3">Fire Flower</entry>
+      <entry value="15">Ice Flower</entry>
+      <entry value="4">Propeller Shroom</entry>
+      <entry value="5">Penguin Suit</entry>
+      <entry value="6">Mini Mushroom</entry>
+      <entry value="7">Star</entry>
+      <entry value="8">Continuous Star</entry>
+      <entry value="9">Yoshi Egg</entry>
+      <entry value="11">1-Up</entry>
+      <entry value="12">Vine</entry>
+      <entry value="13">Spring</entry>
+    </list>
+    <dualbox nybble="7.4" title1="Enable Tilt" title2="Disable Tilt" comment="If disabled, the block will maintain its Z-rotation while under the effect of a controller." requirednybble="9" requiredval="0"/>
+  </sprite> <!-- #256: Rotation Controlled Brick Block -->
+
+  <sprite id="483" name="Sound/Graphic Effects Spawner" phonebook="Effects" notes="Enables event-driven spawning of Sound Effects and Graphic Effects.&lt;br&gt;&lt;u&gt;Limitations&lt;/u&gt;&lt;br&gt; 1) Do not use 1000 or more sounds/effects per area.&lt;br&gt; 2) A single Event ID can only trigger one sound/effect per area&lt;br&gt; 3) Only a specific number of sounds/effects can be active at the same time&lt;br&gt; 4) Only two BRSTMs can be active at the same time." advancednotes="If spawning a Sound Effect, the placement of the sprite is crucial, as the sound is emitted from that position. If the player is ~3 screens away from the sprite, then they won't hear it anymore. Placing multiple sprites with the same settings at different locations is possible.">
+      <value nybble="5-6" title="Triggering Event ID" comment="When this Event ID is activated, the associated sound or affect will be played." idtype="Triggering Event"/>
+      <external type="sfx" nybble="10-12" title="Sfx ID" comment="Use this external window to select your Sound Effect." requirednybble="8.4" requiredval="0"/>
+      <external type="gfx" nybble="10-12" title="Gfx ID" comment="Use this external window to select your Graphic Effect." requirednybble="8.4" requiredval="1"/>
+      <dualbox nybble="8.4" title1="Sound Effect" title2="Graphical Effect" comment="This determines if you are spawning a sound effect or a graphical effect. The volume of the sound effect is relative to the distance of the placement of the spawner."/>
+      <list nybble="7" title="Effect Scale" requirednybble="8.4">
+          <entry value="1">x0.25 (25%)</entry>
+          <entry value="2">x0.5 (50%)</entry>
+          <entry value="3">x0.75 (75%)</entry>
+          <entry value="0">x1.0 (100%)</entry>
+          <entry value="5">x1.25</entry>
+          <entry value="6">x1.5</entry>
+          <entry value="7">x1.75</entry>
+          <entry value="8">x2.0 (200%)</entry>
+          <entry value="9">x2.25</entry>
+          <entry value="10">x2.5</entry>
+          <entry value="11">x2.75</entry>
+          <entry value="12">x3.0 (300%)</entry>
+          <entry value="13">x3.25</entry>
+          <entry value="14">x3.5</entry>
+          <entry value="15">x3.75</entry>
+      </list>
+      <value nybble="9" title="Loop Delay" comment="This determines the number of seconds between activations of the sound or graphic effect." comment2="The effect will only activate once if the delay is left at 0."/>
+  </sprite> <!-- #483: Effect/Sound Spawner -->
+</sprites>
+<!-- Thank you so much for a-playing my game! -->
