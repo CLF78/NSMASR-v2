@@ -1,0 +1,247 @@
+diff -ur Reggie-Next-master/editors.py Reggie-Next/editors.py
+--- Reggie-Next-master/editors.py	2022-04-22 12:13:29.000000000 +0200
++++ Reggie-Next/editors.py	2022-04-24 14:59:48.858061758 +0200
+@@ -87,6 +87,27 @@
+         self.cpDirection.setToolTip(globals_.trans.string('EntranceDataEditor', 26))
+         self.cpDirection.activated.connect(self.HandleCpDirectionChanged)
+ 
++        self.destMapNode = QtWidgets.QSpinBox()
++        self.destMapNode.setRange(0, 255)
++        self.destMapNode.setToolTip('Changes the node the player will end up on in the world map.')
++        self.destMapNode.valueChanged.connect(self.HandleMapNodeChanged)
++
++        self.destWorld = QtWidgets.QSpinBox()
++        self.destWorld.setRange(0, 10)
++        self.destWorld.setToolTip('Changes the world the player will end up on when entering.')
++        self.destWorld.valueChanged.connect(self.HandleWorldChanged)
++
++        self.destLevel = QtWidgets.QSpinBox()
++        self.destLevel.setRange(0, 99)
++        self.destLevel.setToolTip('Changes the level the player will end up on when entering.')
++        self.destLevel.valueChanged.connect(self.HandleLevelChanged)
++
++        self.clearWithSecretCheckbox = QtWidgets.QCheckBox('Clear With Secret Exit')
++        self.clearWithSecretCheckbox.clicked.connect(self.HandleSecretExitCheckboxClicked)
++
++        self.noSaveCheckbox = QtWidgets.QCheckBox('Discard Level Progress')
++        self.noSaveCheckbox.clicked.connect(self.HandleNoSaveCheckboxClicked)
++
+         # create a layout
+         layout = QtWidgets.QGridLayout()
+         self.setLayout(layout)
+@@ -124,14 +145,28 @@
+         layout.addWidget(self.forwardPipeCheckbox, 8, 0, 1, 2)  # , QtCore.Qt.AlignRight)
+         layout.addWidget(self.connectedPipeCheckbox, 8, 2, 1, 2)  # , QtCore.Qt.AlignRight)
+ 
++        self.warpHorzLine = createHorzLine()
++        layout.addWidget(self.warpHorzLine, 9, 0, 1, 4)
++        self.destMapNodeLabel = QtWidgets.QLabel('Destination Map Node:')
++        layout.addWidget(self.destMapNodeLabel, 10, 0, 1, 1, QtCore.Qt.AlignRight)
++        layout.addWidget(self.destMapNode, 10, 1, 1, 1)
++        self.destWorldLabel = QtWidgets.QLabel('Destination World:')
++        layout.addWidget(self.destWorldLabel, 10, 2, 1, 1, QtCore.Qt.AlignRight)
++        layout.addWidget(self.destWorld, 10, 3, 1, 1)
++        self.destLevelLabel = QtWidgets.QLabel('Destination Level:')
++        layout.addWidget(self.destLevelLabel, 11, 2, 1, 1, QtCore.Qt.AlignRight)
++        layout.addWidget(self.destLevel, 11, 3, 1, 1)
++        layout.addWidget(self.clearWithSecretCheckbox, 12, 0, 1, 1)
++        layout.addWidget(self.noSaveCheckbox, 12, 2, 1, 1)
++
+         self.cpHorzLine = createHorzLine()
+-        layout.addWidget(self.cpHorzLine, 9, 0, 1, 4)
+-        layout.addWidget(self.connectedPipeReverseCheckbox, 10, 0, 1, 2)  # , QtCore.Qt.AlignRight)
+-        layout.addWidget(self.pathID, 10, 3, 1, 1)
+-        layout.addWidget(self.pathIDLabel, 10, 2, 1, 1, QtCore.Qt.AlignRight)
++        layout.addWidget(self.cpHorzLine, 13, 0, 1, 4)
++        layout.addWidget(self.connectedPipeReverseCheckbox, 14, 0, 1, 2)  # , QtCore.Qt.AlignRight)
++        layout.addWidget(self.pathID, 14, 3, 1, 1)
++        layout.addWidget(self.pathIDLabel, 14, 2, 1, 1, QtCore.Qt.AlignRight)
+ 
+-        layout.addWidget(self.cpDirectionLabel, 11, 0, 1, 2, QtCore.Qt.AlignRight)
+-        layout.addWidget(self.cpDirection, 11, 2, 1, 2)
++        layout.addWidget(self.cpDirectionLabel, 15, 0, 1, 2, QtCore.Qt.AlignRight)
++        layout.addWidget(self.cpDirection, 15, 2, 1, 2)
+ 
+         self.ent = None
+         self.UpdateFlag = False
+@@ -178,7 +213,22 @@
+         self.cpDirectionLabel.setVisible(ent.enttype in self.CanUseFlag8 and ((ent.entsettings & 8) != 0))
+         self.cpHorzLine.setVisible(ent.enttype in self.CanUseFlag8 and ((ent.entsettings & 8) != 0))
+ 
+-        self.activeLayer.setCurrentIndex(ent.entlayer)
++        self.exit_level_checkbox.setChecked(ent.leave_level)
++
++        self.warpHorzLine.setVisible(ent.leave_level)
++        self.destMapNodeLabel.setVisible(ent.leave_level)
++        self.destMapNode.setVisible(ent.leave_level)
++        self.destMapNode.setValue(ent.destmapnode)
++        self.destWorldLabel.setVisible(ent.leave_level)
++        self.destWorld.setVisible(ent.leave_level)
++        self.destWorld.setValue(ent.destworld)
++        self.destLevelLabel.setVisible(ent.leave_level)
++        self.destLevel.setVisible(ent.leave_level)
++        self.destLevel.setValue(ent.destlevel)
++        self.clearWithSecretCheckbox.setVisible(ent.leave_level)
++        self.clearWithSecretCheckbox.setChecked((ent.entsettings & 0x100) != 0)
++        self.noSaveCheckbox.setVisible(ent.leave_level)
++        self.noSaveCheckbox.setChecked((ent.entsettings & 0x200) != 0)
+ 
+         self.UpdateFlag = False
+ 
+@@ -220,6 +270,15 @@
+         self.cpDirectionLabel.setVisible(self.ent.enttype in self.CanUseFlag8 and ((self.ent.entsettings & 8) != 0))
+         self.cpHorzLine.setVisible(self.ent.enttype in self.CanUseFlag8 and ((self.ent.entsettings & 8) != 0))
+         self.forwardPipeCheckbox.setVisible(i in self.CanUseFlag4)
++        self.warpHorzLine.setVisible(self.ent.leave_level)
++        self.destMapNodeLabel.setVisible(self.ent.leave_level)
++        self.destMapNode.setVisible(self.ent.leave_level)
++        self.destWorldLabel.setVisible(self.ent.leave_level)
++        self.destWorld.setVisible(self.ent.leave_level)
++        self.destLevelLabel.setVisible(self.ent.leave_level)
++        self.destLevel.setVisible(self.ent.leave_level)
++        self.clearWithSecretCheckbox.setVisible(self.ent.leave_level)
++        self.noSaveCheckbox.setVisible(self.ent.leave_level)
+         if self.UpdateFlag: return
+         SetDirty()
+         self.ent.enttype = i
+@@ -277,6 +336,15 @@
+         """
+         Handle the Send to World Map checkbox being clicked
+         """
++        self.warpHorzLine.setVisible(checked)
++        self.destMapNodeLabel.setVisible(checked)
++        self.destMapNode.setVisible(checked)
++        self.destWorldLabel.setVisible(checked)
++        self.destWorld.setVisible(checked)
++        self.destLevelLabel.setVisible(checked)
++        self.destLevel.setVisible(checked)
++        self.clearWithSecretCheckbox.setVisible(checked)
++        self.noSaveCheckbox.setVisible(checked)
+         if self.UpdateFlag or self.ent.leave_level == checked: return
+         SetDirty()
+         self.ent.leave_level = checked
+@@ -346,6 +414,51 @@
+         SetDirty()
+         self.ent.cpdirection = i
+ 
++    def HandleMapNodeChanged(self, i):
++        """
++        Handler for the map node ID changing
++        """
++        if self.UpdateFlag: return
++        SetDirty()
++        self.ent.destmapnode = i
++
++    def HandleWorldChanged(self, i):
++        """
++        Handler for the world number changing
++        """
++        if self.UpdateFlag: return
++        SetDirty()
++        self.ent.destworld = i
++
++    def HandleLevelChanged(self, i):
++        """
++        Handler for the level number changing
++        """
++        if self.UpdateFlag: return
++        SetDirty()
++        self.ent.destlevel = i
++
++    def HandleSecretExitCheckboxClicked(self, checked):
++        """
++        Handle for the warp with secret exit option being clicked
++        """
++        if self.UpdateFlag: return
++        SetDirty()
++        if checked:
++            self.ent.entsettings |= 0x100
++        else:
++            self.ent.entsettings &= ~0x100
++
++    def HandleNoSaveCheckboxClicked(self, checked):
++        """
++        Handle for the warp without saving option being clicked
++        """
++        if self.UpdateFlag: return
++        SetDirty()
++        if checked:
++            self.ent.entsettings |= 0x200
++        else:
++            self.ent.entsettings &= ~0x200
+ 
+ class PathNodeEditorWidget(QtWidgets.QWidget):
+     """
+diff -ur Reggie-Next-master/levelitems.py Reggie-Next/levelitems.py
+--- Reggie-Next-master/levelitems.py	2022-04-22 12:13:29.000000000 +0200
++++ Reggie-Next/levelitems.py	2022-04-24 14:13:12.884096415 +0200
+@@ -183,6 +183,9 @@
+     Definition of an instance of EntranceItem
+     """
+     fieldNames = (
++    	'destmapnode',
++    	'destworld',
++    	'destlevel',
+         'entid',
+         'destarea',
+         'destentrance',
+@@ -2518,7 +2521,7 @@
+             """
+             return self.BoundingRect
+ 
+-    def __init__(self, x, y, id, destarea, destentrance, type, zone, layer, path, settings, leave_level_val, cpd):
++    def __init__(self, x, y, destmapnode, destworld, destlevel, id, destarea, destentrance, type, zone, layer, path, settings, leave_level_val, cpd):
+         """
+         Creates an entrance with specific data
+         """
+@@ -2535,6 +2538,9 @@
+         self.objx = x
+         self.objy = y
+         self.entid = id
++        self.destmapnode = destmapnode
++        self.destworld = destworld
++        self.destlevel = destlevel
+         self.destarea = destarea
+         self.destentrance = destentrance
+         self.enttype = type
+diff -ur Reggie-Next-master/level.py Reggie-Next/level.py
+--- Reggie-Next-master/level.py	2022-04-22 12:13:29.000000000 +0200
++++ Reggie-Next/level.py	2022-04-24 14:57:13.743382694 +0200
+@@ -529,7 +529,7 @@
+         Loads block 7, the entrances
+         """
+         entdata = self.blocks[6]
+-        entstruct = struct.Struct('>HHxxxxBBBBxBBBHBB')
++        entstruct = struct.Struct('>HHxBBBBBBBxBBBHBB')
+ 
+         entrances = []
+         for offset in range(0, len(entdata), 20):
+@@ -819,7 +819,7 @@
+         Saves the entrances back to block 7
+         """
+         offset = 0
+-        entstruct = struct.Struct('>HHxxxxBBBBxBBBHBB')
++        entstruct = struct.Struct('>HHxBBBBBBBxBBBHBB')
+         buffer = bytearray(len(self.entrances) * 20)
+         f_MapPositionToZoneID = SLib.MapPositionToZoneID
+         zonelist = self.zones
+@@ -834,6 +834,7 @@
+                 zoneID = 0
+ 
+             entstruct.pack_into(buffer, offset, int(entrance.objx), int(entrance.objy),
++                                int(entrance.destmapnode), int(entrance.destworld), int(entrance.destlevel),
+                                 int(entrance.entid), int(entrance.destarea), int(entrance.destentrance),
+                                 int(entrance.enttype), zoneID, int(entrance.entlayer), int(entrance.entpath),
+                                 int(entrance.entsettings), int(entrance.leave_level), int(entrance.cpdirection))
+diff -ur Reggie-Next-master/reggie.py Reggie-Next/reggie.py
+--- Reggie-Next-master/reggie.py	2022-04-22 12:13:29.000000000 +0200
++++ Reggie-Next/reggie.py	2022-04-24 15:01:34.052226372 +0200
+@@ -2133,7 +2133,7 @@
+             print("ReggieWindow#CreateEntrance: Given entrance id (%d) already in use" % id_)
+             return None
+ 
+-        ent = EntranceItem(x, y, id_, 0, 0, 0, 0, 0, 0, 0x80, 0, 0)
++        ent = EntranceItem(x, y, 0, 0, 0, id_, 0, 0, 0, 0, 0, 0, 0x80, 0, 0)
+         ent.positionChanged = self.HandleEntPosChange
+         ent.listitem = ListWidgetItem_SortsByOther(ent)
+ 
