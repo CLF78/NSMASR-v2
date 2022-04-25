@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <sprites>
+  <sprite id="113" name="Goal Pole and Fortress" notes="The invisible wall does not extend below the Goal Pole.">
+    <dualbox nybble="5.4" title1="Normal Exit" title2="Secret Exit"/>
+    <dualbox nybble="6.4" title1="Enable Invisible Wall" title2="Disable Invisible Wall"/>
+    <checkbox nybble="12.4" title="Snowy Castle"/>
+  </sprite> <!-- #113: Goal Pole and Fortress -->
+
   <sprite id="191" name="Tile God Event" notes="The Tile God can Create / Change / Destroy tiles within a specified area when an Event is activated.">
     <dependency notes="The Tile God sprite can be placed no more than one block outside of the Zone it is being activated in for it to function."/>
     <value nybble="3-4" title="Triggering Event ID" comment="When this Event ID is activated, the tiles affected by the Tile God's area will be created or destroyed, depending on the Mode." idtype="Triggering Event"/>

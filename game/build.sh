@@ -17,7 +17,7 @@ ASMFILES=''
 # CPP compilation settings
 CC='../cw/mwcceppc.exe'
 CFLAGS='-i . -I- -i ../include -nostdinc -Cpp_exceptions off -enum int -RTTI off -once -O4,s -use_lmw_stmw on -fp fmadd -rostr -sdata 0 -sdata2 0'
-CPPFILES='audio effectspawner levelwarp powerup profile rotcontroller savefile system tilegod tileset/anim tileset/grass tileset/profoverride tileset/rand tileset/common zone'
+CPPFILES='audio effectspawner flagpole levelwarp powerup profile rotcontroller savefile system tilegod tileset/anim tileset/grass tileset/profoverride tileset/rand tileset/common zone'
 
 # Destination
 DEST=~/.local/share/dolphin-emu/Load/Riivolution/NSMASR/Code
