@@ -4,6 +4,7 @@
   <sprite id="113" name="Goal Pole and Fortress" notes="The invisible wall does not extend below the Goal Pole.">
     <dualbox nybble="5.4" title1="Normal Exit" title2="Secret Exit"/>
     <dualbox nybble="6.4" title1="Enable Invisible Wall" title2="Disable Invisible Wall"/>
+    <value nybble="7" title="Style" comment="This determines the style of the flagpole."/>
     <checkbox nybble="12.4" title="Snowy Castle"/>
   </sprite> <!-- #113: Goal Pole and Fortress -->
 

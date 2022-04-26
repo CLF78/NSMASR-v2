@@ -7,7 +7,7 @@ kmWrite32(0x80A09CD4, 0x48000048);
 // Disable invisible wall option
 kmCallDefAsm(0x80A09B80) {
 
-    // No stack saving thank you
+    // No stack saving needed
     nofralloc
 
     // Original instruction
@@ -25,5 +25,24 @@ kmCallDefAsm(0x80A09B80) {
     // Add it to the LR and return
     add r12, r12, r0
     mtlr r12
+    blr
+}
+
+kmCallDefAsm(0x80A0A0AC) {
+
+    // Mo stack saving needed
+    nofralloc
+
+    // Get settings
+    lwz r4, 0x4(r3)
+
+    // Get nybble 7 multiplied by 4
+    rlwinm r4, r4, 14, 26, 29
+
+    // Add it to the index
+    add r5, r5, r4
+
+    // Original instruction
+    xoris r5, r5, 0x8000
     blr
 }
