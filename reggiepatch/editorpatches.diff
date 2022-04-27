@@ -274,7 +274,32 @@ diff -ur Reggie-Next-master/misc.py Reggie-Next/misc.py
              bit_length += b - a + 1
 diff -ur Reggie-Next-master/reggie.py Reggie-Next/reggie.py
 --- Reggie-Next-master/reggie.py	2022-04-22 12:13:29.000000000 +0200
-+++ Reggie-Next/reggie.py	2022-04-27 16:12:04.730985861 +0200
++++ Reggie-Next/reggie.py	2022-04-27 22:09:07.029452296 +0200
+@@ -1773,8 +1773,8 @@
+         # get sprites
+         for item in clipboard_s:
+             data = item.spritedata
+-            convclip.append('1:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d' % (
+-            item.type, item.objx, item.objy, data[0], data[1], data[2], data[3], data[4], data[5], data[7]))
++            convclip.append('1:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d' % (
++            item.type, item.objx, item.objy, data[0], data[1], data[2], data[3], data[4], data[5], data[7], data[8], data[9]))
+ 
+         convclip.append('%')
+         return '|'.join(convclip)
+@@ -1913,11 +1913,11 @@
+ 
+                 elif split[0] == '1':
+                     # sprite
+-                    if len(split) != 11: continue
++                    if len(split) != 13: continue
+ 
+                     objx = int(split[2])
+                     objy = int(split[3])
+-                    data = bytes(map(int, [split[4], split[5], split[6], split[7], split[8], split[9], '0', split[10]]))
++                    data = bytes(map(int, [split[4], split[5], split[6], split[7], split[8], split[9], '0', split[10], split[11], split[12]]))
+ 
+                     newitem = self.CreateSprite(objx, objy, int(split[1]), data)
+                     sprites.append(newitem)
 @@ -2133,7 +2133,7 @@
              print("ReggieWindow#CreateEntrance: Given entrance id (%d) already in use" % id_)
              return None
