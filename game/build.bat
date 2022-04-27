@@ -18,7 +18,7 @@ SET ASMFILES=""
 :: CPP compilation settings
 SET CC="..\cw\mwcceppc.exe"
 SET CFLAGS="-i . -I- -i ../include -nostdinc -Cpp_exceptions off -enum int -RTTI off -once -O4,s -use_lmw_stmw on -fp fmadd -rostr -sdata 0 -sdata2 0"
-SET CPPFILES="audio effectspawner flagpole levelwarp powerup profile rotcontroller savefile system tilegod tileset\anim tileset\grass tileset\profoverride tileset\rand tileset\common zone"
+SET CPPFILES="actorspawner audio effectspawner flagpole levelwarp powerup profile rotcontroller savefile system tilegod tileset\anim tileset\grass tileset\profoverride tileset\rand tileset\common zone"
 
 :: Destination (change as necessary)
 SET DEST="%USERPROFILE%\Documents\Dolphin Emulator\Load\Riivolution\NSMASR\code"

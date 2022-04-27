@@ -176,5 +176,27 @@
       </list>
       <value nybble="9" title="Loop Delay" comment="This determines the number of seconds between activations of the sound or graphic effect." comment2="The effect will only activate once if the delay is left at 0."/>
   </sprite> <!-- #483: Effect/Sound Spawner -->
+
+  <sprite id="484" name="Actor Spawner" notes="Spawns a given sprite with the given settings, if the given event ID is triggered.">
+    <value nybble="1" title="Nybble 1" />
+    <value nybble="2" title="Nybble 2" />
+    <value nybble="3" title="Nybble 3" />
+    <value nybble="4" title="Nybble 4" />
+    <value nybble="5" title="Nybble 5" />
+    <value nybble="6" title="Nybble 6" />
+    <value nybble="7" title="Nybble 7" />
+    <value nybble="8" title="Nybble 8" />
+    <value nybble="9" title="Nybble 9" />
+    <value nybble="10" title="Nybble 10" />
+    <value nybble="11" title="Nybble 11" />
+    <value nybble="12" title="Nybble 12" />
+    <list nybble="16" title="Target Layer" comment="This determines which layer the sprite is spawned on.">
+      <entry value="2">Layer 0</entry>
+      <entry value="0">Layer 1</entry>
+      <entry value="1">Layer 2</entry>
+    </list>
+    <value nybble="17.1-18.2" title="Triggering Event ID"  comment="This event will spawn the sprite if triggered. Subtract 1 from the event ID you want to use!"/>
+    <value nybble="18.3-20.4" title="Sprite Number"  comment="The sprite will be spawned in place of this one."/>
+  </sprite> <!-- #484: Actor Spawner -->
 </sprites>
 <!-- Thank you so much for a-playing my game! -->
