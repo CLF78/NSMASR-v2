@@ -28,6 +28,7 @@ kmCallDefAsm(0x80A09B80) {
     blr
 }
 
+// Custom style option
 kmCallDefAsm(0x80A0A0AC) {
 
     // Mo stack saving needed
@@ -44,5 +45,21 @@ kmCallDefAsm(0x80A0A0AC) {
 
     // Original instruction
     xoris r5, r5, 0x8000
+    blr
+}
+
+// A fix because BrawlBox/Crate corrupt VIS0 animations
+kmCallDefAsm(0x80A0A2EC) {
+
+    // Original instruction
+    fmr f1, f31
+
+    // Load 0.25 using an unused part of the stack
+    lis r3, 0x3E80
+    stw r3, 0x20(r1)
+    lfs f2, 0x20(r1)
+
+    // Multiply
+    fmuls f1, f1, f2
     blr
 }
