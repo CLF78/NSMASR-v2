@@ -6,3 +6,4 @@ cw/
 *.bin
 game/build/
 loader/build
+/assets/game/Stages/Texture

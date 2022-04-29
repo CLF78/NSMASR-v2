@@ -11,6 +11,7 @@
 	</options>
 	<patch id="nsmasr">
 		<folder external="Code" disc="/" create="true"/>
+		<folder external="Objects" disc="/Object" create="true"/>
 		<folder external="Stages" disc="/Stage" create="true"/>
 		<folder external="Tilesets" disc="/Stage/Texture" create="true"/>
 		<memory offset="0x800046E4" valuefile="Loader.bin"/>
