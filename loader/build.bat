@@ -27,6 +27,6 @@ FOR %%H IN (%CPPFILES%) DO (
 
 :: Link
 echo Linking...
-Kamek %OBJECTS% -externals=externals-nsmbw.txt -static=0x800046E4 -output-code=build\Loader.bin -output-riiv=build\Loader.xml
+Kamek %OBJECTS% -externals=externals-nsmbw.txt -static=0x800046E4 -output-code=..\assets\game\Loader.bin -output-riiv=build\Loader.xml
 
 ENDLOCAL

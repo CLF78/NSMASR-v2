@@ -21,7 +21,7 @@ SET CFLAGS="-i . -I- -i ../include -nostdinc -Cpp_exceptions off -enum int -RTTI
 SET CPPFILES="actorspawner audio effectspawner flagpole levelwarp powerup profile rotcontroller savefile system tilegod tileset\anim tileset\grass tileset\profoverride tileset\rand tileset\common zone"
 
 :: Destination (change as necessary)
-SET DEST="%USERPROFILE%\Documents\Dolphin Emulator\Load\Riivolution\NSMASR\code"
+SET DEST="..\assets\game\Code"
 
 :: Set regions from input arguments or fallback to default
 IF "%1" == "" (

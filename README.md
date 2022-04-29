@@ -2,7 +2,7 @@
 
 Newer Super Mario All-Stars Revived is a New Super Mario Bros. Wii mod which aims to be a Super Mario All-Stars remaster, featuring a modern take on gameplay and extra additions to the game.
 
-## Building
+## Building Source Code
 
 ### Premises
 

@@ -1,0 +1,19 @@
+<wiidisc version="1" shiftfiles="true" root="/NSMASR">
+	<id game="SMN"/>
+	<options>
+		<section name="Newer All-Stars">
+			<option name="Newer All-Stars">
+				<choice name="Enabled">
+					<patch id="nsmasr"/>
+				</choice>
+			</option>
+		</section>
+	</options>
+	<patch id="nsmasr">
+		<folder external="Code" disc="/" create="true"/>
+		<folder external="Stages" disc="/Stage" create="true"/>
+		<folder external="Tilesets" disc="/Stage/Texture" create="true"/>
+		<memory offset="0x800046E4" valuefile="Loader.bin"/>
+		<memory offset="0x80004320" value="48000C9C"/>
+	</patch>
+</wiidisc>

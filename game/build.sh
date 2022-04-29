@@ -20,7 +20,7 @@ CFLAGS='-i . -I- -i ../include -nostdinc -Cpp_exceptions off -enum int -RTTI off
 CPPFILES='actorspawner audio effectspawner flagpole levelwarp powerup profile rotcontroller savefile system tilegod tileset/anim tileset/grass tileset/profoverride tileset/rand tileset/common zone'
 
 # Destination
-DEST=~/.local/share/dolphin-emu/Load/Riivolution/NSMASR/Code
+DEST='../assets/game/Code'
 
 # Set regions from input arguments or fallback to default
 REGIONS=''
