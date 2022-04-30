@@ -1,5 +1,7 @@
 #include <kamek.h>
 
+extern double MagicNumber;
+
 // Fix unnecessary physics reinitialization
 kmWrite32(0x80A09C90, 0x48000010);
 kmWrite32(0x80A09CD4, 0x48000048);
@@ -48,18 +50,20 @@ kmCallDefAsm(0x80A0A0AC) {
     blr
 }
 
-// A fix because BrawlBox/Crate corrupt VIS0 animations
+// A fix because both BrawlBox/Crate and WSZST corrupt VIS0 animations
 kmCallDefAsm(0x80A0A2EC) {
 
-    // Original instruction
-    fmr f1, f31
+    // Reload settings from the stack
+    lwz r3, 0x64(r1)
 
-    // Load 0.25 using an unused part of the stack
-    lis r3, 0x3E80
-    stw r3, 0x20(r1)
-    lfs f2, 0x20(r1)
+    // Divide by 4 and keep MSB set
+    rlwinm r3, r3, 0, 30, 0
 
-    // Multiply
-    fmuls f1, f1, f2
+    // Convert to float
+    stw r3, 0x64(r1)
+    lfd f1, 0x60(r1)
+    lis r3, MagicNumber@ha
+    lfd f2, MagicNumber@l(r3)
+    fsubs f1, f1, f2
     blr
 }

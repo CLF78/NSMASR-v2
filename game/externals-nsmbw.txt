@@ -121,3 +121,5 @@ startSound__9SndPlayerFUlP4VEC2Ul=0x80198D70
 instance__9SndPlayer=0x8042A040
 
 m_Pause__14PauseManager_c=0x8042A2C0
+
+MagicNumber=0x80AD0288
