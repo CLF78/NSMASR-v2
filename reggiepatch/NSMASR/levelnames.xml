@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<levels>
+	<category name="SMB1">
+		<category name="World 1">
+			<level file="01-01" name="World 1-1" />
+		</category>
+	</category>
+</levels>

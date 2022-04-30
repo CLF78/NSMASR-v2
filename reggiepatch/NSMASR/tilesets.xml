@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<tilesets>
+	<slot num="1">
+		<category name="Overworld">
+			<tileset filename="Pa1_nohara_smb" name="Grassland (SMB)" />
+		</category>
+	</slot>
+</tilesets>

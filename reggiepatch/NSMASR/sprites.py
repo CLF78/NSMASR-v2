@@ -43,6 +43,20 @@ class SpriteImage_TileEventNSMASR(common.SpriteImage_TileEvent):  # 191
 
         return None
 
+class SpriteImage_ActorSpawner(SLib.SpriteImage_Static):  # 484
+    def __init__(self, parent):
+        super().__init__(
+            parent,
+            1.5,
+            ImageCache['ActorSpawner'],
+            (8, 0),
+        )
+
+    @staticmethod
+    def loadImages():
+        SLib.loadIfNotInImageCache('ActorSpawner', 'ActorSpawner.png')
+
 ImageClasses = {
     191: SpriteImage_TileEventNSMASR,
+    484: SpriteImage_ActorSpawner,
 }
