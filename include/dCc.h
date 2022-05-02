@@ -9,66 +9,74 @@ class dActor_c;
 // For a collision between A and B to occur, both these conditions must be true:
 // A.categoryBitfield & (1 << B.category) != 0
 // B.categoryBitfield & (1 << A.category) != 0
-enum ccCategory {
-    PLAYER, // dAcPy_c, dJrClownA_c
-    PLAYER_ATK, // dAcPy_c, daYoshi_c
-    YOSHI, // daYoshi_c
-    ENTITY, // most actors
-    BALLOON, // daEnHatenaBalloon_c
-    POWERUP, // powerups and collectables like coins and keys
-    PROJECTILE, // both player and enemy/boss ones
-    BULLET_BILL, // EN_CANNON_BULLET, EN_SEARCH_MAGNUM_KILLER
-    GOAL_POLE, // daEnGlPole_c
+struct ccCategory {
+    enum Value {
+        Player, // dAcPy_c, dJrClownA_c
+        PlayerAtk, // dAcPy_c, daYoshi_c
+        Yoshi, // daYoshi_c
+        Entity, // most actors
+        Balloon, // daEnHatenaBalloon_c
+        Powerup, // powerups and collectables like coins and keys
+        Projectile, // both player and enemy/boss ones
+        BulletBill, // EN_CANNON_BULLET, EN_SEARCH_MAGNUM_KILLER
+        GoalPole, // daEnGlPole_c
+    };
 };
 
 // Documentation by Ninji and me
 // Attacks determine which attack an actor is giving, in order for the opposing actor to pick the proper response
 // If an actor is of Category 1, then its attack value is checked against the opposing actor's bitfield, and if they don't match no collision happens
 // NOTE: For other categories, this is still checked depending on the sprite!
-enum ccAttack {
-    NONE,
-    FIREBALL,
-    ICEBALL,
-    STAR,
-    BREAK_ICE, // Breaks ice on contact, set for all Spike Pillars
-    SLIDE,
-    KOOPA_FIRE, // Includes all Koopaling magic, Kamek magic and Bowser Jr/Bowser fire
-    GROUND_POUND,
-    FENCE_PUNCH,
-    ENTITY, // Kills other enemies, used by Shells/Barrels and similar
-    PENGUIN_SLIDE,
-    SPIN_JUMP,
-    UNK_12,
-    PROPELLER_DRILL,
-    EXPLOSION, // Bob-ombs and similar
-    YOSHI,
-    YOSHI_TONGUE,
-    PIPE_CANNON,
-    PROPELLER_CARRY, // Player carrying another while it's using the Propeller
-    YOSHI_PROJECTILE, // Hammers/Boomerangs
-    YOSHI_FIRE,
-    YOSHI_ICE,
-    SAND_PILLAR,
+struct ccAttack {
+    enum Value {
+        None,
+        Fireball,
+        Iceball,
+        Star,
+        BreakIce, // Breaks ice on contact, set for all Spike Pillars
+        Slide,
+        KoopaFire, // Includes all Koopaling magic, Kamek magic and Bowser Jr/Bowser fire
+        GroundPound,
+        FencePunch,
+        Entity, // Kills other enemies, used by Shells/Barrels and similar
+        Penguin_Slide,
+        SpinJump,
+        Unk_12,
+        PropellerDrill,
+        Explosion, // Bob-ombs and similar
+        Yoshi,
+        YoshiTongue,
+        PipeCannon,
+        PropellerCarry, // Player carrying another while it's using the Propeller
+        YoshiProjectile, // Hammers/Boomerangs
+        YoshiFire,
+        YoshiIce,
+        SandPillar,
+    };
 };
 
-enum ccMiscFlags {
-    UNK_1 = 1, // Set for players, has something to do with the flagpole
-    UNK_2 = 2, // Set for Piranha Plants, Wigglers, Fuzzies and Jellybeams, unknown meaning
-    IGNORE_COLLISION = 4, // Set for bubbled players, ignores collision
-    KILL_ICE = 0x100, // Set for Thwomps, Kamek, Mega Urchins and Bramballs, ice will not cause any damage if it touches this collision
-    KILL_BOMBS = 0x200, // Set for Flamethrowers, explodes Bob-ombs (and destroys ice) if they touch the collision
+struct ccMiscFlags {
+    enum Value {
+        Unk_1 = 1, // Set for players, has something to do with the flagpole
+        Unk_2 = 2, // Set for Piranha Plants, Wigglers, Fuzzies and Jellybeams, unknown meaning
+        IgnoreCollision = 4, // Set for bubbled players, ignores collision
+        KillIce = 0x100, // Set for Thwomps, Kamek, Mega Urchins and Bramballs, ice will not cause any damage if it touches this collision
+        KillBombs = 0x200, // Set for Flamethrowers, explodes Bob-ombs (and destroys ice) if they touch the collision
+    };
 };
 
-enum ccCollType {
-    NORMAL,
-    CIRCLE,
-    TRAPEZOID_UD,
-    TRAPEZOID_LR,
+struct ccCollType {
+    enum Value {
+        Normal,
+        Circle,
+        TrapezoidUD,
+        TrapezoidLR,
+    };
 };
 
 class dCc_c {
     public:
-        typedef void (*CollisionCallback)(dCc_c *self, dCc_c *other);
+        typedef void (*CollisionCallback)(dCc_c* self, dCc_c* other);
 
         struct CollisionInfo {
             float xDistToCenter;
@@ -89,7 +97,7 @@ class dCc_c {
         dActor_c* ignoreActor; // collisions with this actor are ignored in dCc_c::checkCollision
         u32 _C;
 
-        dCc_c* prev
+        dCc_c* prev;
         dCc_c* next;
 
         u32 canBounce; // set to 1 on Giant Wiggler body parts, if 0 Mario/Yoshi will not bounce and get hit instead

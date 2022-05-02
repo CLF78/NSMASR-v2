@@ -8,7 +8,7 @@ struct BgData {
 	s16 yOffset;
 	s16 xOffset;
 	u16 fileIds[3];
-	u16 staticBGFileId; // custom field
+	u16 fixedBgFileId; // custom field
 	u16 scale;
 	u32 padding;
 };
