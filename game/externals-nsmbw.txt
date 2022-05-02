@@ -123,3 +123,5 @@ instance__9SndPlayer=0x8042A040
 m_Pause__14PauseManager_c=0x8042A2C0
 
 MagicNumber=0x80AD0288
+
+GetMyBgDataP__9daFarBG_cFv=0x80118EC0
