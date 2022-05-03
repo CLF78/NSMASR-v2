@@ -1,19 +1,21 @@
 diff -ur Reggie-Next-master/background.py Reggie-Next/background.py
 --- Reggie-Next-master/background.py	2022-04-22 12:13:29.000000000 +0200
-+++ Reggie-Next/background.py	2022-05-02 15:19:16.887189477 +0200
-@@ -49,11 +49,25 @@
++++ Reggie-Next/background.py	2022-05-03 10:55:15.353828574 +0200
+@@ -49,11 +49,27 @@
          self.createBGSettings(z)
          self.createBGViewers(z)
  
-+        self.fixedBgALabel = QtWidgets.QLabel('Fixed bgA ID:')
++        self.fixedBgALabel = QtWidgets.QLabel('Fixed BGA ID:')
 +        self.fixedBgASetting = HexSpinBox()
 +        self.fixedBgASetting.setRange(0, 0xFFFF)
 +        self.fixedBgASetting.setValue(z.bg4A)
++        self.fixedBgASetting.setToolTip('Sets a fixed background that will appear at the start of the zone and not loop.')
 +
-+        self.fixedBgBLabel = QtWidgets.QLabel('Fixed bgB ID:')
++        self.fixedBgBLabel = QtWidgets.QLabel('Fixed BGB ID:')
 +        self.fixedBgBSetting = HexSpinBox()
 +        self.fixedBgBSetting.setRange(0, 0xFFFF)
 +        self.fixedBgBSetting.setValue(z.bg4B)
++        self.fixedBgBSetting.setToolTip('Sets a fixed background that will appear at the start of the zone and not loop.')
 +
          mainLayout = QtWidgets.QGridLayout()
          mainLayout.addWidget(self.BGASettings, 0, 0)
