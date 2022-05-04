@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <tilesets>
-    <group names="Pa1_nohara_smb">
+    <group names="Pa1_nohara_smb, Pa1_chika_u">
         <random name="regular-terrain" />
     </group>
 </tilesets>

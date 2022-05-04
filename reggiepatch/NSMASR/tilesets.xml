@@ -4,5 +4,8 @@
 		<category name="Overworld">
 			<tileset filename="Pa1_nohara_smb" name="Grassland (SMB)" />
 		</category>
+		<category name="Underground">
+			<tileset filename="Pa1_chika_u" name="Underground (NSMBU)" />
+		</category>
 	</slot>
 </tilesets>
