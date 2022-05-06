@@ -33,12 +33,12 @@ dRandTileMng_c::dRandTileMng_c(int area) {
         char* tilesetName = dBgGlobal_c::instance->getEnvironment(area, slot);
 
         // If tileset name is valid, get data
-        if (tilesetName[0] != '\0') {
+        RandTileBin* data = NULL;
+        if (tilesetName[0] != '\0')
+            data = (RandTileBin*)dResMng_c::instance->res.getRes(tilesetName, RANDDATA);
 
-            // Get the data and set it
-            RandTileBin* data = (RandTileBin*)dResMng_c::instance->res.getRes(tilesetName, RANDDATA);
-            this->randData[slot] = data;
-        }
+        // Set it
+        this->randData[slot] = data;
     }
 
     // Set static instance
