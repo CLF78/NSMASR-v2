@@ -471,3 +471,25 @@ diff -ur Reggie-Next-master/spriteeditor.py Reggie-Next/spriteeditor.py
              try:
                  data = bytes.fromhex(text)
                  valid = True
+diff -ur Reggie-Next-master/translation.py Reggie-Next/translation.py
+--- Reggie-Next-master/translation.py	2022-04-22 12:13:29.000000000 +0200
++++ Reggie-Next/translation.py	2022-05-06 20:36:58.691891154 +0200
+@@ -163,6 +163,18 @@
+                     '125%',
+                     '150%',
+                     '200%',
++                    '10%',
++                    '15%',
++                    '25%',
++                    '37.5%',
++                    '50%',
++                    '62.5%',
++                    '75%',
++                    '90%',
++                    '112.5%',
++                    '175%',
++                    '225%',
++                    '250%',
+                 ),
+                 16: 'Preview',
+                 17: '[name] ([hex])',

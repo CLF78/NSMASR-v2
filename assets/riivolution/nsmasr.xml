@@ -10,6 +10,7 @@
 		</section>
 	</options>
 	<patch id="nsmasr">
+		<folder external="Backgrounds" disc="/Object" create="true"/>
 		<folder external="Code" disc="/" create="true"/>
 		<folder external="Objects" disc="/Object" create="true"/>
 		<folder external="Stages" disc="/Stage" create="true"/>
