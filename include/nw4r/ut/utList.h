@@ -16,6 +16,11 @@ typedef struct {
     u16 offset;
 } List;
 
+typedef struct {
+    u32 count;
+    Link node;
+} LinkListImpl;
+
 void* List_GetNext(const List* list, const void* object);
 
 } // namespace ut
