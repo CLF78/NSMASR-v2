@@ -1,12 +1,16 @@
 #pragma once
 #include <kamek.h>
 #include <nw4r/snd/DisposeCallbackManager.h>
+#include <nw4r/snd/MmlParser.h>
+#include <nw4r/snd/MmlSeqTrackAllocator.h>
 #include <nw4r/snd/NoteOnCallback.h>
 #include <nw4r/snd/SeqPlayer.h>
 #include <nw4r/snd/SeqTrackAllocator.h>
 #include <nw4r/snd/SoundArchive.h>
+#include <nw4r/snd/SoundInstanceManager.h>
 #include <nw4r/snd/SoundPlayer.h>
 #include <nw4r/snd/SoundStartable.h>
+#include <nw4r/snd/StrmChannel.h>
 #include <nw4r/snd/WsdPlayer.h>
 
 namespace nw4r {
@@ -43,36 +47,34 @@ class SoundArchivePlayer : public detail::DisposeCallback, public SoundStartable
 
         const SoundArchive* soundArchive;
         detail::Util::Table<GroupAddress>* groupTable;
-        detail::Util::Table<FileAddress>* mFileTable;
-        detail::SoundArchivePlayer_FileManager* mFileManager;
+        detail::Util::Table<FileAddress>* fileTable;
+        detail::SoundArchivePlayer_FileManager* fileManager;
 
         // Callback
-        SeqNoteOnCallback mSeqCallback;
-        WsdCallback mWsdCallback;
-        detail::SeqTrackAllocator* mSeqTrackAllocator;
-        SeqUserprocCallback mSeqUserprocCallback;
-        void* mSeqUserprocCallbackArg;
+        SeqNoteOnCallback seqCallback;
+        WsdCallback wsdCallback;
+        detail::SeqTrackAllocator* seqTrackAllocator;
+        SeqUserprocCallback seqUserprocCallback;
+        void* seqUserprocCallbackArg;
 
         // Sound Player
-        ulong mSoundPlayerCount;
-        SoundPlayer* mSoundPlayers;
+        ulong soundPlayerCount;
+        SoundPlayer* soundPlayers;
 
-		// TODO: Fill these out
         // Manager/allocator
-        detail::SeqSoundInstanceManager mSeqSoundInstanceManager;
-        detail::StrmSoundInstanceManager mStrmSoundInstanceManager;
-        detail::WaveSoundInstanceManager mWaveSoundInstanceManager;
-        detail::MmlSeqTrackAllocator mMmlSeqTrackAllocator; // default sequence track allocator
-        detail::StrmBufferPool mStrmBufferPool;
+        detail::SoundInstanceManager seqSoundInstanceManager;
+        detail::SoundInstanceManager strmSoundInstanceManager;
+        detail::SoundInstanceManager waveSoundInstanceManager;
+        detail::MmlSeqTrackAllocator mmlSeqTrackAllocator; // default sequence track allocator
+        detail::StrmBufferPool strmBufferPool;
 
         // Default sequence spacer
-        detail::MmlParser mMmlParser;
+        detail::MmlParser mmlParser;
 
         // Record the buffer information
-        void* mSetupBufferAddress;
-        unsigned long mSetupBufferSize;
+        void* setupBufferAddress;
+        ulong setupBufferSize;
 };
 
-} // namespace detail
 } // namespace snd
 } // namespace nw4r
