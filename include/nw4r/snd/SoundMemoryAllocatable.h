@@ -5,7 +5,8 @@ namespace snd {
 
 class SoundMemoryAllocatable {
     public:
-        void* vtable;
+        virtual ~SoundMemoryAllocatable();
+        virtual void* Alloc(size_t size);
 };
 
 } // namespace snd

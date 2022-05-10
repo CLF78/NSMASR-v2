@@ -14,6 +14,9 @@ struct OSMutex {
     OSMutexLink link;
 };
 
+void OSLockMutex (OSMutex* mutex);
+void OSUnlockMutex (OSMutex* mutex);
+
 #ifdef __cplusplus
 }
 #endif

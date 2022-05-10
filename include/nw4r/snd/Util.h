@@ -17,7 +17,7 @@ class Util {
         template<typename T>
         struct Table {
             u32 count;
-            T item[1]; // actually multiple
+            T items[1]; // actually multiple
         };
 };
 

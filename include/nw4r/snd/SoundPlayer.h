@@ -6,9 +6,9 @@ namespace snd {
 
 class SoundPlayer {
     public:
-        LinkListImpl soundList;
-        LinkListImpl priorityList;
-        LinkListImpl heapList;
+        ut::LinkListImpl soundList;
+        ut::LinkListImpl priorityList;
+        ut::LinkListImpl heapList;
 
         int playableCount;
         int playableLimit;

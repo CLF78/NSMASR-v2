@@ -9,7 +9,7 @@ namespace snd {
 class SoundArchive {
     public:
         struct FilePos {
-            u32 groupId;
+            ulong groupId;
             u32 index;
         };
 
@@ -21,7 +21,7 @@ class SoundArchive {
         };
 
         struct GroupItemInfo {
-            u32 fileId;
+            ulong fileId;
             u32 offset;
             u32 size;
             u32 waveDataOffset;
@@ -38,20 +38,20 @@ class SoundArchive {
         };
 
         virtual ~SoundArchive();
-        virtual const void* detail_GetFileAddress(u32 fileId);
-        virtual const void* detail_GetWaveDataFileAddress(u32 fileId);
+        virtual const void* detail_GetFileAddress(ulong fileId);
+        virtual const void* detail_GetWaveDataFileAddress(ulong fileId);
         virtual int detail_GetRequiredStreamBufferSize();
         virtual ut::FileStream* OpenStream(void* buffer, int size, u32 begin, u32 length);
         virtual ut::FileStream* OpenExtStream(void* buffer, int size, const char* extFilePath, u32 begin, u32 length);
-        ut::FileStream* detail_OpenFileStream(u32 fileId, void* buffer, int size ) const;
+        ut::FileStream* detail_OpenFileStream(ulong fileId, void* buffer, int size) const;
 
         ulong GetGroupCount() const;
         ulong detail_GetFileCount() const;
 
-        bool detail_ReadGroupInfo(u32 groupId, GroupInfo* info) const;
-        bool detail_ReadGroupItemInfo(u32 groupId, ulong index, GroupItemInfo* info ) const;
-        bool detail_ReadFileInfo(u32 fileId, FileInfo* info ) const;
-        bool detail_ReadFilePos(u32 fileId, ulong index, FilePos* filePos ) const;
+        bool detail_ReadGroupInfo(ulong groupId, GroupInfo* info) const;
+        bool detail_ReadGroupItemInfo(ulong groupId, ulong index, GroupItemInfo* info) const;
+        bool detail_ReadFileInfo(ulong fileId, FileInfo* info) const;
+        bool detail_ReadFilePos(ulong fileId, ulong index, FilePos* filePos) const;
 
         // vtable 0x0
         detail::SoundArchiveFileReader* fileReader;

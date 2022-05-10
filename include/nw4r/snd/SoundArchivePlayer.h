@@ -8,6 +8,7 @@
 #include <nw4r/snd/SeqTrackAllocator.h>
 #include <nw4r/snd/SoundArchive.h>
 #include <nw4r/snd/SoundInstanceManager.h>
+#include <nw4r/snd/SoundMemoryAllocatable.h>
 #include <nw4r/snd/SoundPlayer.h>
 #include <nw4r/snd/SoundStartable.h>
 #include <nw4r/snd/StrmChannel.h>
@@ -45,8 +46,16 @@ class SoundArchivePlayer : public detail::DisposeCallback, public SoundStartable
             const void* waveDataAddress;
         };
 
+        bool IsAvailable() const;
+
+        bool LoadGroup(ulong groupId, SoundMemoryAllocatable* allocater, ulong loadBlockSize = 0);
+        bool LoadFile(detail::SoundArchiveLoader* loader, ulong fileId, SoundMemoryAllocatable* allocater); // custom function
+
+        const void* detail_GetFileAddress(u32 fileId) const;
+        const void* detail_GetFileWaveDataAddress(u32 fileId) const;
+
         const SoundArchive* soundArchive;
-        detail::Util::Table<GroupAddress>* groupTable;
+        detail::Util::Table<FileAddress>* modifiedFileTable; // custom field (originally a GroupAddress table)
         detail::Util::Table<FileAddress>* fileTable;
         detail::SoundArchivePlayer_FileManager* fileManager;
 
