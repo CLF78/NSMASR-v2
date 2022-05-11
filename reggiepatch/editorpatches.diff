@@ -256,8 +256,8 @@ diff -ur Reggie-Next-master/levelitems.py Reggie-Next/levelitems.py
          self.destentrance = destentrance
          self.enttype = type
 diff -ur Reggie-Next-master/level.py Reggie-Next/level.py
---- Reggie-Next-master/level.py	2022-05-07 22:55:36.000000000 +0200
-+++ Reggie-Next/level.py	2022-05-08 00:12:11.020656812 +0200
+--- Reggie-Next-master/level.py	2022-05-11 18:25:57.339494840 +0200
++++ Reggie-Next/level.py	2022-05-11 18:27:45.487927341 +0200
 @@ -529,7 +529,7 @@
          Loads block 7, the entrances
          """
@@ -294,7 +294,7 @@ diff -ur Reggie-Next-master/level.py Reggie-Next/level.py
          bgB = []
  
          for offset in range(0, len(bgBdata), 24):
-@@ -826,7 +826,7 @@
+@@ -828,7 +828,7 @@
          Saves the entrances back to block 7
          """
          offset = 0
@@ -303,7 +303,7 @@ diff -ur Reggie-Next-master/level.py Reggie-Next/level.py
          buffer = bytearray(len(self.entrances) * 20)
          f_MapPositionToZoneID = SLib.MapPositionToZoneID
          zonelist = self.zones
-@@ -841,6 +841,7 @@
+@@ -843,6 +843,7 @@
                  zoneID = 0
  
              entstruct.pack_into(buffer, offset, int(entrance.objx), int(entrance.objy),
@@ -311,7 +311,7 @@ diff -ur Reggie-Next-master/level.py Reggie-Next/level.py
                                  int(entrance.entid), int(entrance.destarea), int(entrance.destentrance),
                                  int(entrance.enttype), zoneID, int(entrance.entlayer), int(entrance.entpath),
                                  int(entrance.entsettings), int(entrance.leave_level), int(entrance.cpdirection))
-@@ -889,7 +890,7 @@
+@@ -891,7 +892,7 @@
          Saves the sprites back to block 8
          """
          offset = 0
@@ -320,7 +320,7 @@ diff -ur Reggie-Next-master/level.py Reggie-Next/level.py
          buffer = bytearray((len(self.sprites) * 16) + 4)
          f_int = int
          for sprite in self.sprites:
-@@ -903,7 +904,7 @@
+@@ -905,7 +906,7 @@
  
              try:
                  sprstruct.pack_into(buffer, offset, f_int(sprite.type) % 0xFFFF, f_int(sprite.objx), f_int(sprite.objy),
@@ -329,7 +329,7 @@ diff -ur Reggie-Next-master/level.py Reggie-Next/level.py
              except:
                  # Hopefully this will solve the mysterious bug, and will
                  # soon no longer be necessary.
-@@ -943,8 +944,8 @@
+@@ -945,8 +946,8 @@
          Saves blocks 10, 3, 5 and 6, the zone data, boundings, bgA and bgB data respectively
          """
          bdngstruct = struct.Struct('>4lHHhh')
@@ -340,7 +340,7 @@ diff -ur Reggie-Next-master/level.py Reggie-Next/level.py
          zonestruct = struct.Struct('>HHHHHHBBBBxBBBBxBB')
  
          zcount = len(self.zones)
-@@ -971,12 +972,12 @@
+@@ -973,12 +974,12 @@
  
              bgAstruct.pack_into(buffer4, offset,
                  new_bga_id, z.XscrollA, z.YscrollA, z.YpositionA,
