@@ -17,9 +17,6 @@ class SoundArchiveLoader {
         ut::FileStream* stream;
 
         SoundArchiveLoader(const SoundArchive& arc);
-
-        void* LoadFile(ulong fileId, SoundMemoryAllocatable* allocater);
-        s32 ReadFile(ulong fileId, void* buffer, s32 size, s32 offset);
 };
 
 } // namespace detail

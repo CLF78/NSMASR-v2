@@ -1,5 +1,6 @@
 #pragma once
 #include <kamek.h>
+#include <nw4r/ut/RuntimeTypeInfo.h>
 
 namespace nw4r {
 namespace ut {
@@ -8,6 +9,7 @@ class IOStream {
     public:
         typedef void (*IOStreamCallback)(s32 result, IOStream* stream, void* arg);
 
+        virtual const detail::RuntimeTypeInfo* GetRuntimeTypeInfo() const;
         virtual ~IOStream();
         virtual void Close();
         virtual s32 Read(void* buf, u32 length);
