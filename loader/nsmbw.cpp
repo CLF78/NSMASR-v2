@@ -167,6 +167,10 @@ void firstStage() {
     regionData data = regionDetect();
     const loaderFunctionsEx *funcs = &functions[data.region];
 
+    // Reset the DSP to fix libogc clownery
+    vu32* aiControl = (u32*)0xCD006C00;
+    *aiControl = 0;
+
     // Patch out the BCA check by nopping the call in the main function
     *funcs->bcaCheck = 0x60000000;
     cacheInvalidateAddress(funcs->bcaCheck);
