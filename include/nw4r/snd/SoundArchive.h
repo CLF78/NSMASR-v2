@@ -1,5 +1,6 @@
 #pragma once
 #include <kamek.h>
+#include <nw4r/snd/global.h>
 #include <nw4r/snd/SoundArchiveFile.h>
 #include <nw4r/ut/FileStream.h>
 
@@ -8,6 +9,17 @@ namespace snd {
 
 class SoundArchive {
     public:
+        struct SoundInfo {
+            ulong fileId;
+            ulong playerId;
+            int actorPlayerId;
+            int playerPriority;
+            int volume;
+            int remoteFilter;
+            PanMode panMode;
+            PanCurve panCurve;
+        };
+
         struct FilePos {
             ulong groupId;
             u32 index;
@@ -38,6 +50,9 @@ class SoundArchive {
         };
 
         virtual ~SoundArchive();
+
+        bool ReadSoundInfo(ulong soundId, SoundInfo* info) const;
+
         virtual const void* detail_GetFileAddress(ulong fileId);
         virtual const void* detail_GetWaveDataFileAddress(ulong fileId);
         virtual int detail_GetRequiredStreamBufferSize();

@@ -6,7 +6,9 @@
 #include <nw4r/snd/NoteOnCallback.h>
 #include <nw4r/snd/SeqPlayer.h>
 #include <nw4r/snd/SeqTrackAllocator.h>
+#include <nw4r/snd/SoundActor.h>
 #include <nw4r/snd/SoundArchive.h>
+#include <nw4r/snd/SoundHandle.h>
 #include <nw4r/snd/SoundInstanceManager.h>
 #include <nw4r/snd/SoundMemoryAllocatable.h>
 #include <nw4r/snd/SoundPlayer.h>
@@ -47,6 +49,8 @@ class SoundArchivePlayer : public detail::DisposeCallback, public SoundStartable
         };
 
         bool IsAvailable() const;
+
+        StartResult detail_SetupSoundImpl(SoundHandle* handle, ulong soundId, detail::BasicSound::AmbientInfo* ambientArgInfo, SoundActor* actor, bool holdFlag, const StartInfo* startInfo);
 
         bool LoadGroup(ulong groupId, SoundMemoryAllocatable* allocater, ulong loadBlockSize = 0);
 

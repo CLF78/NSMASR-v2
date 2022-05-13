@@ -47,6 +47,8 @@ struct DVDFileInfo {
     DVDCallback callback;
 };
 
+s32 DVDConvertPathToEntrynum(const char* path);
+
 #ifdef __cplusplus
 }
 #endif
