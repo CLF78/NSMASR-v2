@@ -14,10 +14,11 @@
 extern "C" {
     nw4r::ut::FileStream* MyOpenFileStream(nw4r::snd::SoundArchive* self, ulong fileId, void* buffer, int size, ulong soundId);
     const char* GetCustomPath(const char* originalPath, ulong soundId);
+    void SetMusicVolume(float* out, u8 volume);
 }
 
 // Temporary id storage
-static ulong currentSoundId = 117;
+static ulong currentSoundId = STRM_BGM_DUMMY;
 
 // Array of new sounds
 const CustomSoundEntry customEntries[] = {
@@ -30,7 +31,7 @@ nw4r::snd::SoundStartable::StartResult mySetupSoundImpl(nw4r::snd::SoundArchiveP
     currentSoundId = soundId;
 
     // Skip actual BRSTMs and control tracks
-    if ((soundId < 1847 || soundId > 1967) && soundId != 117) {
+    if ((soundId < STRM_BGM_CHIKA_FAST || soundId > SEQ_BGM_TORIDE_FAST_V) && soundId != STRM_BGM_DUMMY) {
 
         // Find the corresponding filename
         for (int i = 0; i < sizeof(customEntries) / sizeof(CustomSoundEntry); i++) {
@@ -42,7 +43,7 @@ nw4r::snd::SoundStartable::StartResult mySetupSoundImpl(nw4r::snd::SoundArchiveP
 
                 // Check if file exists, and if so override the soundId
                 if (DVDConvertPathToEntrynum(path) != -1)
-                    soundId = 117;
+                    soundId = STRM_BGM_DUMMY;
 
                 // Exit the loop anyway
                 break;
@@ -80,6 +81,13 @@ const char* GetCustomPath(const char* originalPath, ulong soundId) {
     return originalPath;
 }
 
+void SetMusicVolume(float* out, u8 volume) {
+
+    // If the volume is valid, convert it, divide it and store it
+    if (volume & 0x7F)
+        *out = (float)volume / 127.0f;
+}
+
 // Patch BRSTM length automatically (original code by Elias)
 kmCallDefAsm(0x80269474) {
 
@@ -109,8 +117,8 @@ kmCallDefCpp(0x80278C8C, bool, nw4r::snd::SoundArchive* self, ulong soundId, nw4
         soundId = currentSoundId;
 
     // If the currentSoundId doesn't exist in the BRSAR, replace it with the normal grassland music or it will fail
-    if (soundId > 1977)
-        soundId = 1850;
+    if (soundId > SE_MAX)
+        soundId = STRM_BGM_CHIJOU;
 
     // Call original function
     return self->ReadSoundInfo(soundId, soundInfo);
@@ -140,5 +148,22 @@ kmBranchDefAsm(0x802759F0, 0x802759F4) {
 
     // Move resulting path to r26 and return
     mr r26, r3
+    blr
+}
+
+// BRSTM volume override (by MrBean35000vr, edited by Melg)
+kmBranchDefAsm(0x8027C430, 0x8027C434) {
+
+    // No stack saving needed
+    nofralloc
+
+    // Call CPP function
+    lwz r3, 0x74(r1)
+    subi r3, r3, 0x5C
+    lbz r4, 0x3F(r29)
+    bl SetMusicVolume
+
+    // Original instruction
+    lwz r3, 0(r30)
     blr
 }
