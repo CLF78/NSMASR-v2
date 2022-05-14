@@ -22,7 +22,7 @@ if EXCLUDE_LIST.is_file():
     with EXCLUDE_LIST.open() as f:
         ex = f.read().splitlines()
     for file in CPP_FILES[:]:
-        if file.name in ex:
+        if str(file.relative_to(SRC_DIR)) in ex:
             CPP_FILES.remove(file)
 
 # Add wine if not on Windows

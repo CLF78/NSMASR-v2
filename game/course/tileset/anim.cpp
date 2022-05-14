@@ -4,7 +4,7 @@
 #include <dRes.h>
 #include <fBase/dBase/dScene/dScStage.h>
 #include <stdlib/stdio.h>
-#include "tileset/anim.h"
+#include "course/tileset/anim.h"
 
 // Process animation data
 void ProcessAnimsBin(dBgTexMng_c* mng, AnimsBin* animData, int slot, char* tileName) {

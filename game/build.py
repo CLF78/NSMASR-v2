@@ -32,6 +32,7 @@ ROOT_DIR = SRC_DIR.parent
 CODEWARRIOR = Path(ROOT_DIR, 'cw', 'mwcceppc.exe')
 INCLUDE_DIR = Path(ROOT_DIR, 'include')
 OUTPUT_BIN_DIR = Path(ROOT_DIR, 'assets', 'game', 'Code')
+OUTPUT_BIN_DIR.mkdir(exist_ok=True)
 
 # Look for source files
 CPP_FILES = list(SRC_DIR.glob('**/*.cpp'))
@@ -41,7 +42,7 @@ if EXCLUDE_LIST.is_file():
     with EXCLUDE_LIST.open() as f:
         ex = f.read().splitlines()
     for file in CPP_FILES[:]:
-        if file.name in ex:
+        if str(file.relative_to(SRC_DIR)) in ex:
             CPP_FILES.remove(file)
 
 # Add wine if not on Windows

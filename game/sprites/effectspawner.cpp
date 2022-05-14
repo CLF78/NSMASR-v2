@@ -9,7 +9,7 @@
 #include <dAudio.h>
 #include <dSwitchFlagMng.h>
 #include <PauseManager.h>
-#include "effectspawner.h"
+#include "sprites/effectspawner.h"
 
 // A nw4r function to help myself stay sane
 u16 breffNumEmitter(nw4r::ef::EffectProject* project) {

@@ -8,7 +8,7 @@
 #include <rvl/dvd/dvd.h>
 #include <sound/sndlist.h>
 #include <stdlib/stdio.h>
-#include "audio.h"
+#include "sound/brsar.h"
 
 // Extern for ASM calls
 extern "C" {

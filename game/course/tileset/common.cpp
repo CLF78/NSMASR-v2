@@ -4,8 +4,8 @@
 #include <dBgGlobal.h>
 #include <dBgUnit.h>
 #include <dRes.h>
-#include "tileset/grass.h"
-#include "tileset/rand.h"
+#include "course/tileset/grass.h"
+#include "course/tileset/rand.h"
 
 // Defines to turn off individual SPEC parts, turn off as necessary
 #define ANIMCPP

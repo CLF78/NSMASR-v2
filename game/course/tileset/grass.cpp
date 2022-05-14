@@ -6,7 +6,7 @@
 #include <stdlib/stdio.h>
 #include <dBgGlobal.h>
 #include <dRes.h>
-#include "tileset/grass.h"
+#include "course/tileset/grass.h"
 
 // External filenames
 extern char objHana, objHanaBrres;

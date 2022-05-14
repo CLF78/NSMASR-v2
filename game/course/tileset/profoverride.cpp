@@ -7,7 +7,7 @@
 #include <dBgActorManager.h>
 #include <dBgGlobal.h>
 #include <dRes.h>
-#include "tileset/profoverride.h"
+#include "course/tileset/profoverride.h"
 
 // Externs for ASM call
 extern "C" {
