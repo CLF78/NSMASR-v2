@@ -117,7 +117,7 @@ kmCallDefCpp(0x80278C8C, bool, nw4r::snd::SoundArchive* self, ulong soundId, nw4
         soundId = currentSoundId;
 
     // If the currentSoundId doesn't exist in the BRSAR, replace it with the normal grassland music or it will fail
-    if (soundId > SE_MAX)
+    if (soundId > SE_GAKKI_L_2_ON)
         soundId = STRM_BGM_CHIJOU;
 
     // Call original function
