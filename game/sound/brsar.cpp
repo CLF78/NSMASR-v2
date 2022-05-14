@@ -22,7 +22,8 @@ static ulong currentSoundId = STRM_BGM_DUMMY;
 
 // Array of new sounds
 const CustomSoundEntry customEntries[] = {
-    {1978, "sfx/SE_CUSTOM.brstm"}, // dummy entry for compilation to work
+    {SMB_GRASS, "stream/SMB_GRASS.brstm"},
+    {SMB_GRASS_F, "stream/SMB_GRASS_F.brstm"},
 };
 
 nw4r::snd::SoundStartable::StartResult mySetupSoundImpl(nw4r::snd::SoundArchivePlayer* self, nw4r::snd::SoundHandle* handle, ulong soundId, nw4r::snd::detail::BasicSound::AmbientInfo* ambientArgInfo, nw4r::snd::SoundActor* actor, bool holdFlag, const nw4r::snd::SoundStartable::StartInfo* startInfo) {

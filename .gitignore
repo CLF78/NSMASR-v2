@@ -4,6 +4,11 @@ cw/
 # Kamek build files/directories
 *.o
 *.bin
-game/build/
+game/build
 loader/build
+
+# Tileset symlink for reggie
 /assets/game/Stages/Texture
+
+# Ignore music because it's too big
+/assets/game/Sound/stream

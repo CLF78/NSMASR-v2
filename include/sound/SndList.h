@@ -1983,5 +1983,6 @@ enum Sound {
     SE_GAKKI_L_2_ON = 1977,
 
 	// Custom entries begin here
-    SE_MAX = 1988,
+    SMB_GRASS = 1978,
+    SMB_GRASS_F = 1979,
 };

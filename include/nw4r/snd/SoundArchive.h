@@ -9,6 +9,13 @@ namespace snd {
 
 class SoundArchive {
     public:
+        enum SoundType {
+            SOUND_TYPE_INVALID,
+            SOUND_TYPE_SEQ,
+            SOUND_TYPE_STRM,
+            SOUND_TYPE_WAVE,
+        };
+
         struct SoundInfo {
             ulong fileId;
             ulong playerId;
@@ -63,6 +70,8 @@ class SoundArchive {
         ulong GetGroupCount() const;
         ulong detail_GetFileCount() const;
 
+        ulong GetSoundUserParam(ulong soundId) const;
+        SoundType GetSoundType(ulong soundId) const;
         bool detail_ReadGroupInfo(ulong groupId, GroupInfo* info) const;
         bool detail_ReadGroupItemInfo(ulong groupId, ulong index, GroupItemInfo* info) const;
         bool detail_ReadFileInfo(ulong fileId, FileInfo* info) const;
