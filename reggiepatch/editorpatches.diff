@@ -31,7 +31,7 @@ diff -ur Reggie-Next-master/background.py Reggie-Next/background.py
          self.updatePreviews()
 diff -ur Reggie-Next-master/editors.py Reggie-Next/editors.py
 --- Reggie-Next-master/editors.py	2022-05-07 22:55:36.000000000 +0200
-+++ Reggie-Next/editors.py	2022-04-24 14:59:48.858061758 +0200
++++ Reggie-Next/editors.py	2022-05-14 18:50:09.737003934 +0200
 @@ -87,6 +87,27 @@
          self.cpDirection.setToolTip(globals_.trans.string('EntranceDataEditor', 26))
          self.cpDirection.activated.connect(self.HandleCpDirectionChanged)
@@ -95,11 +95,10 @@ diff -ur Reggie-Next-master/editors.py Reggie-Next/editors.py
  
          self.ent = None
          self.UpdateFlag = False
-@@ -178,7 +213,22 @@
-         self.cpDirectionLabel.setVisible(ent.enttype in self.CanUseFlag8 and ((ent.entsettings & 8) != 0))
+@@ -179,6 +214,22 @@
          self.cpHorzLine.setVisible(ent.enttype in self.CanUseFlag8 and ((ent.entsettings & 8) != 0))
  
--        self.activeLayer.setCurrentIndex(ent.entlayer)
+         self.activeLayer.setCurrentIndex(ent.entlayer)
 +        self.exit_level_checkbox.setChecked(ent.leave_level)
 +
 +        self.warpHorzLine.setVisible(ent.leave_level)
@@ -119,7 +118,7 @@ diff -ur Reggie-Next-master/editors.py Reggie-Next/editors.py
  
          self.UpdateFlag = False
  
-@@ -220,6 +270,15 @@
+@@ -220,6 +271,15 @@
          self.cpDirectionLabel.setVisible(self.ent.enttype in self.CanUseFlag8 and ((self.ent.entsettings & 8) != 0))
          self.cpHorzLine.setVisible(self.ent.enttype in self.CanUseFlag8 and ((self.ent.entsettings & 8) != 0))
          self.forwardPipeCheckbox.setVisible(i in self.CanUseFlag4)
@@ -135,7 +134,7 @@ diff -ur Reggie-Next-master/editors.py Reggie-Next/editors.py
          if self.UpdateFlag: return
          SetDirty()
          self.ent.enttype = i
-@@ -277,6 +336,15 @@
+@@ -277,6 +337,15 @@
          """
          Handle the Send to World Map checkbox being clicked
          """
@@ -151,7 +150,7 @@ diff -ur Reggie-Next-master/editors.py Reggie-Next/editors.py
          if self.UpdateFlag or self.ent.leave_level == checked: return
          SetDirty()
          self.ent.leave_level = checked
-@@ -346,6 +414,51 @@
+@@ -346,6 +415,51 @@
          SetDirty()
          self.ent.cpdirection = i
  
@@ -205,14 +204,14 @@ diff -ur Reggie-Next-master/editors.py Reggie-Next/editors.py
      """
 diff -ur Reggie-Next-master/levelitems.py Reggie-Next/levelitems.py
 --- Reggie-Next-master/levelitems.py	2022-05-07 22:55:36.000000000 +0200
-+++ Reggie-Next/levelitems.py	2022-05-02 15:05:09.840807567 +0200
++++ Reggie-Next/levelitems.py	2022-05-14 18:46:04.111705109 +0200
 @@ -183,6 +183,9 @@
      Definition of an instance of EntranceItem
      """
      fieldNames = (
-+    	'destmapnode',
-+    	'destworld',
-+    	'destlevel',
++        'destmapnode',
++        'destworld',
++        'destlevel',
          'entid',
          'destarea',
          'destentrance',
@@ -369,7 +368,7 @@ diff -ur Reggie-Next-master/misc.py Reggie-Next/misc.py
              bit_length += b - a + 1
 diff -ur Reggie-Next-master/reggie.py Reggie-Next/reggie.py
 --- Reggie-Next-master/reggie.py	2022-05-07 22:55:36.000000000 +0200
-+++ Reggie-Next/reggie.py	2022-05-08 00:15:48.132863077 +0200
++++ Reggie-Next/reggie.py	2022-05-14 18:27:32.792812348 +0200
 @@ -1773,8 +1773,8 @@
          # get sprites
          for item in clipboard_s:
@@ -403,6 +402,17 @@ diff -ur Reggie-Next-master/reggie.py Reggie-Next/reggie.py
 +        ent = EntranceItem(x, y, 0, 0, 0, id_, 0, 0, 0, 0, 0, 0, 0x80, 0, 0)
          ent.positionChanged = self.HandleEntPosChange
          ent.listitem = ListWidgetItem_SortsByOther(ent)
+ 
+@@ -2221,8 +2221,8 @@
+             id_ = len(globals_.Area.zones) + 1
+ 
+         default_bounding = [[0, 0, 0, 0, 0, 15, 0, 0]]
+-        default_bga = [[0, 2, 2, 0, 0, 10, 10, 10, 0]]
+-        default_bgb = [[0, 1, 1, 0, 0, 10, 10, 10, 0]]
++        default_bga = [[0, 2, 2, 0, 0, 10, 10, 10, 0, 0]]
++        default_bgb = [[0, 1, 1, 0, 0, 10, 10, 10, 0, 0]]
+ 
+         zone = ZoneItem(x, y, width, height, 0, 0, id_ - 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, default_bounding, default_bga, default_bgb)
  
 @@ -4208,10 +4208,12 @@
              z.bg1A = tab.hex_boxes[0][0].value()
