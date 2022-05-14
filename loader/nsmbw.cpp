@@ -155,7 +155,7 @@ int secondStage() {
         funcs->base.sprintf(path, "/code%c.bin", funcs->identifier);
     else
         funcs->base.sprintf(path, "/code%c%d.bin", funcs->identifier, data.version);
-    loadKamekBinaryFromDisc((const loaderFunctions*)funcs, path);
+    loadKamekBinaryFromDisc(&funcs->base, path);
 
     return 1;
 }

@@ -5,7 +5,7 @@
 #include <m/mEf/effect.h>
 #include <nw4r/ef/resource.h>
 #include <nw4r/ut/utList.h>
-#include <sound/sndplayer.h>
+#include <sound/SndPlayer.h>
 #include <dAudio.h>
 #include <dSwitchFlagMng.h>
 #include <PauseManager.h>

@@ -16,6 +16,6 @@
 		<folder external="Stages" disc="/Stage" create="true"/>
 		<folder external="Tilesets" disc="/Stage/Texture" create="true"/>
 		<memory offset="0x800046E4" valuefile="Loader.bin"/>
-		<memory offset="0x80004320" value="48000C9C"/>
+		<memory offset="0x80004320" value="480005F4"/>
 	</patch>
 </wiidisc>

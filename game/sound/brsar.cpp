@@ -6,7 +6,7 @@
 #include <nw4r/snd/SoundStartable.h>
 #include <nw4r/ut/FileStream.h>
 #include <rvl/dvd/dvd.h>
-#include <sound/sndlist.h>
+#include <sound/SndList.h>
 #include <stdlib/stdio.h>
 #include "sound/brsar.h"
 
