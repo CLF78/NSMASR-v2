@@ -26,10 +26,6 @@ dEffectSpawner_c* dEffectSpawner_c::build() {
 
 int dEffectSpawner_c::create() {
 
-    // Setup eventFlag (nybbles 5-6)
-    u8 eventNum = (this->settings >> 24) & 0xFF;
-    this->eventFlag = (u64)1 << (eventNum - 1);
-
     // Setup scale (nybble 7)
     u16 scale = (this->settings >> 20) & 0xF;
     if (scale == 0)
@@ -54,7 +50,7 @@ int dEffectSpawner_c::create() {
 int dEffectSpawner_c::execute() {
 
     // If event is triggered and the game isn't paused, act!
-    if ((dSwitchFlagMng_c::m_instance->flags & this->eventFlag) && (!PauseManager_c::m_Pause)) {
+    if ((dSwitchFlagMng_c::m_instance->flags & this->eventMask) && (!PauseManager_c::m_Pause)) {
 
         // If the loop delay matches the timer, play the effect
         if (this->timer == this->delay) {
