@@ -3,6 +3,7 @@
 	<category name="SMB1">
 		<category name="World 1">
 			<level file="01-01" name="World 1-1" />
+			<level file="01-02" name="World 1-2" />
 		</category>
 	</category>
 </levels>
