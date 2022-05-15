@@ -1,6 +1,7 @@
 #pragma once
 #include <kamek.h>
 #include <fBase/dBase/dBaseActor/dBaseActor.h>
+#include <m/mTypes.h>
 #include <dBc.h>
 #include <dCc.h>
 #include <dPropelParts.h>
@@ -76,4 +77,61 @@ class dActor_c : public dBaseActor_c {
         bool deleteForever;
         bool appearsOnBackfence;
         u8 _392[2];
+
+        dActor_c();
+
+        virtual int preCreate();
+        virtual void postCreate(fBase_c::MAIN_STATE_e status);
+
+        virtual int preDelete();
+        virtual void postDelete(fBase_c::MAIN_STATE_e status);
+
+        virtual int preExecute();
+        virtual void postExecute(fBase_c::MAIN_STATE_e status);
+
+        virtual int preDraw();
+        virtual void postDraw(fBase_c::MAIN_STATE_e status);
+
+        virtual ~dActor_c();
+
+        virtual char* getKindString() const;
+
+        virtual bool ActorDrawCullCheck();
+
+        virtual void kill(); // unofficial name
+        virtual void vf68(); // unknown
+
+        virtual s8* getPlrNo();
+        virtual VEC2 getLookatPos() const;
+        virtual bool isSpinLiftUpEnable();
+
+        virtual void setSpinLiftUpActor(dActor_c* carryingActor);
+        virtual void setCarryFall(dActor_c* carryingActor, int unk);
+
+        virtual void setEatTongue(dActor_c* eaterActor);
+        virtual void setEatTongueOff(dActor_c* eaterActor);
+        virtual void setEatMouth(dActor_c* eatenActor);
+        virtual void setEatSpitOut(dActor_c* eatenActor);
+        virtual bool setEatScore(dActor_c* eaterActor); // unofficial name
+        virtual void eatMove(dActor_c* eaterActor);
+
+        virtual void removeCc();
+        virtual void reviveCc();
+        virtual void restoreScale(); // unofficial name
+
+        virtual void calcSpitOutPos(dActor_c* eaterActor);
+        virtual float calcEatScaleRate(dActor_c* eaterActor);
+        virtual void calcEatInScale(dActor_c* eaterActor);
+
+        virtual void endOfLevelClear(); // unofficial name
+
+        virtual void vfB4(); // unknown
+        virtual void vfB8(); // unknown
+        virtual void vfBC(); // unknown
+        virtual void vfC0(); // unknown
+        virtual void vfC4(); // unknown
+
+        virtual void waterSplashEffect(const mVec3_c& pos, float scale);
+        virtual void yoganSplashEffect(const mVec3_c& pos, float scale);
+        virtual void poisonSplashEffect(const mVec3_c& pos, float scale);
 };
