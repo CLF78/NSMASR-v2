@@ -25,7 +25,7 @@ u16 GetTileForTileGod(u32 settings, u32 blockType) {
 void SpawnTileGodEffect(const char* name, ulong owner, mVec3_c* position, const mAng3_c* rotation, const mVec3_c* scale, u32 settings) {
 
     // Get shard flag
-    u32 shardType = settings >> 9 & 8;
+    u32 shardType = settings >> 9 & 7;
 
     // If not zero, spawn shard
     if (shardType) {
@@ -76,6 +76,9 @@ kmCallDefAsm(0x807E1748) {
     nofralloc
 
     // Call CPP function
-    lwz r8, 0x4(r19)
+    lwz r8, 0x4(r18)
     b SpawnTileGodEffect
 }
+
+// Fix tile spawn effect Y Offset
+kmWrite32(0x807E17A0, 0xEC00F028);
