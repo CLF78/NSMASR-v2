@@ -7,7 +7,7 @@
 
 // Actual class
 template <TOwner, TStateMethod, TStateMethod2>
-class sStateStateMgr_c<TOwner, TStateMethod, TStateMethod2> {
+class sFStateStateMgr_c<TOwner, TStateMethod, TStateMethod2> {
     public:
         virtual ~sStateStateMgr_c<TOwner, TStateMethod, TStateMethod2>();
 
