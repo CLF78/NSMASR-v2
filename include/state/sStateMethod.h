@@ -1,8 +1,11 @@
 #pragma once
+#include <state/sStateFct.h>
+#include <state/sStateID.h>
+#include <state/sStateIDChk.h>
 
 class sStateMethod_c {
     public:
-        sStateMethod_c(sStateIdChkIf_c& chkIf, sStateFctIf_c& executor, const sStateIDIf_c& initialState);
+        sStateMethod_c(sStateIDChkIf_c& check, sStateFctIf_c& executor, const sStateIDIf_c& initialState);
         virtual ~sStateMethod_c();
 
         virtual void initializeStateMethod();
@@ -19,9 +22,9 @@ class sStateMethod_c {
         virtual int initializeStateLocalMethod() = 0;
         virtual void executeStateLocalMethod() = 0;
         virtual void finalizeStateLocalMethod() = 0;
-        virtual void changeStateLocalMethod(const sStateIDIf_c&) = 0;
+        virtual void changeStateLocalMethod(const sStateIDIf_c& state) = 0;
 
-        sStateIdChkIf_c& chkIf;
+        sStateIdChkIf_c& check;
         sStateFctIf_c& executor;
 
         bool initializeOrFinalize;
@@ -35,5 +38,16 @@ class sStateMethod_c {
         sStateIDIf_c& prevState;
         sStateIDIf_c& currState;
 
-        sStateFctIf_c& currExecutor;
+        sStateIf_c& currExecutor;
+};
+
+class sStateMethodUsr_FI_c : public sStateMethod_c {
+    public:
+        sStateMethodUsr_FI_c(sStateIDChkIf_c& check, sStateFctIf_c& executor, const sStateIDIf_c& initialState);
+        virtual ~sStateMethodUsr_FI_c();
+
+        virtual int initializeStateLocalMethod();
+        virtual void executeStateLocalMethod();
+        virtual void finalizeStateLocalMethod();
+        virtual void changeStateLocalMethod(const sStateIDIf_c& state);
 };
