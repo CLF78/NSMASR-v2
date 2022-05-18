@@ -56,4 +56,6 @@ class fBase_c {
 
         static void* operator new(size_t size);
         static void operator delete(void* ptr);
+
+        static fBase_c* createChild(u16 profileId, fBase_c* parent, ulong settings, u8 groupType);
 };
