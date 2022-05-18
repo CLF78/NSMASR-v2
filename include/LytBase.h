@@ -1,6 +1,6 @@
 #pragma once
+#include <d/d2d/Multi.h>
 #include <d/d2d/ResAccMultLoader.h>
-#include <m/m2d/Multi.h>
 
 namespace m2d {
 
@@ -9,7 +9,7 @@ class AnmGroup_c;
 
 } // namespace m2d
 
-class LytBase_c : public m2d::Multi_c {
+class LytBase_c : public d2d::Multi_c {
     public:
         d2d::ResAccMultLoader_c loader;
 

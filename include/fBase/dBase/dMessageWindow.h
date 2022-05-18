@@ -2,12 +2,13 @@
 #include <kamek.h>
 #include <fBase/dBase/dBase.h>
 #include <nw4r/lyt/Pane.h>
+#include <state/sStateMethod.h>
 #include <state/sStateMgr.h>
 #include <LytBase.h>
 
 class dMessageWindow_c : public dBase_c {
     public:
-        sFStateMgr<dMessageWindow_c, sStateMethodUsr_FI_c> stateMgr;
+        sFStateMgr_c<dMessageWindow_c, sStateMethodUsr_FI_c> stateMgr;
 
         LytBase_c lytBase;
 

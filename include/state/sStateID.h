@@ -18,7 +18,7 @@ class sStateIDIf_c {
         virtual const char* name() const = 0;
         virtual u32 number() const = 0;
 
-        char* name;
+        char* stateName;
         u32 id;
 };
 
@@ -44,7 +44,7 @@ class sStateID_c : public sStateIDIf_c {
 
 // Inherited class
 template <class TOwner>
-class sFStateID_c<TOwner> : public sStateID_c {
+class sFStateID_c : public sStateID_c {
     public:
         typedef void (TOwner::*funcPtr)();
 
@@ -52,7 +52,7 @@ class sFStateID_c<TOwner> : public sStateID_c {
         funcPtr execute;
         funcPtr end;
 
-        virtual ~sFStateID_c<TOwner>();
+        virtual ~sFStateID_c();
 
         virtual bool isSameName(const char* name) const;
 
@@ -63,9 +63,9 @@ class sFStateID_c<TOwner> : public sStateID_c {
 
 // Inherited class
 template <class TOwner>
-class sFStateVirtualID_c<TOwner> : public sFStateID_c<TOwner> {
+class sFStateVirtualID_c : public sFStateID_c<TOwner> {
     public:
-        virtual ~sFStateVirtualID_c<TOwner>();
+        virtual ~sFStateVirtualID_c();
 
         virtual bool isSameName(const char* name) const;
 

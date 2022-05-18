@@ -1,6 +1,6 @@
 #pragma once
 #include <kamek.h>
-#include <egg/eggHeap.h>
+#include <egg/core/eggHeap.h>
 #include <m/mDvd/Command.h>
 
 namespace mDvd {

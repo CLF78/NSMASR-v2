@@ -12,9 +12,9 @@ class sStateFctIf_c {
 
 // Actual class
 template <class TOwner>
-class sFStateFct_c<TOwner> : public sStateFctIf_c {
+class sFStateFct_c : public sStateFctIf_c {
     public:
-        virtual ~sFStateFct_c<TOwner>();
+        virtual ~sFStateFct_c();
 
         virtual sFState_c<TOwner>* build(const sStateIDIf_c& state);
         virtual void dispose(sStateIf_c*& state);

@@ -1,7 +1,7 @@
 #pragma once
-#include <sStateFct.h>
-#include <sStateID.h>
-#include <sStateIDChk.h>
+#include <state/sStateFct.h>
+#include <state/sStateID.h>
+#include <state/sStateIDChk.h>
 
 // All function names are unofficial
 
@@ -29,10 +29,10 @@ class sStateMgrIf_c {
 };
 
 // Actual class
-template <class TOwner, TStateMethod>
-class sFStateMgr<TOwner, TStateMethod> : public sStateMgrIf_c {
+template <class TOwner, class TStateMethod>
+class sFStateMgr_c : public sStateMgrIf_c {
     public:
-        virtual ~sFStateMgr<TOwner, TStateMethod>();
+        virtual ~sFStateMgr_c();
 
         // All these are calls to the statemethod class
         virtual void initializeStateMethod();

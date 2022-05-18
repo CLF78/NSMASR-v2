@@ -13,9 +13,9 @@ class sStateIf_c {
 
 // Actual class
 template <class TOwner>
-class sFState_c<TOwner> : public sStateIf_c {
+class sFState_c : public sStateIf_c {
     public:
-        virtual ~sFState_c<TOwner>();
+        virtual ~sFState_c();
 
         virtual void initialize();
         virtual void execute();

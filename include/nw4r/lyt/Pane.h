@@ -11,7 +11,7 @@ namespace detail {
 class PaneBase {
     public:
         void* vtable;
-        ut::LinkListNode link;
+        ut::Link link;
 };
 
 } // namespace detail

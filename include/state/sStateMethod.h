@@ -24,7 +24,7 @@ class sStateMethod_c {
         virtual void finalizeStateLocalMethod() = 0;
         virtual void changeStateLocalMethod(const sStateIDIf_c& state) = 0;
 
-        sStateIdChkIf_c& check;
+        sStateIDChkIf_c& check;
         sStateFctIf_c& executor;
 
         bool initializeOrFinalize;

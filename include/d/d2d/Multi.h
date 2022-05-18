@@ -1,4 +1,5 @@
 #pragma once
+#include <kamek.h>
 #include <m/m2d/Base.h>
 #include <m/m2d/Layout.h>
 #include <nw4r/lyt/DrawInfo.h>

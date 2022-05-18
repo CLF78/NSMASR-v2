@@ -6,10 +6,10 @@
 // Interface class missing!
 
 // Actual class
-template <TOwner, TStateMethod, TStateMethod2>
-class sFStateStateMgr_c<TOwner, TStateMethod, TStateMethod2> {
+template <class TOwner, class TStateMethod, class TStateMethod2>
+class sFStateStateMgr_c {
     public:
-        virtual ~sStateStateMgr_c<TOwner, TStateMethod, TStateMethod2>();
+        virtual ~sStateStateMgr_c();
 
         // All these functions call the current StateMgr
         virtual void initializeStateMethod();
