@@ -17,10 +17,10 @@ class dMessageWindow_c : public dBase_c {
         nw4r::lyt::Pane* N_proportion;
 
         bool filesLoaded;
-        u8 _255;
-        u8 _256;
-        u8 _257;
-        u8 _258;
+        bool display;
+        bool startAnime;
+        bool exitAnime;
+        bool isEndWait;
         // 3 bytes padding
 
         u32 msgIdIndex;
