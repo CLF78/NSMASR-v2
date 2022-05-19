@@ -20,4 +20,6 @@ class LytBase_c : public d2d::Multi_c {
         int animCount;
         int groupCount;
         int lastAnim;
+
+        void AnimePlay();
 };

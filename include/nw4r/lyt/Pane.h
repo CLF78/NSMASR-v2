@@ -49,6 +49,8 @@ class Pane : public detail::PaneBase {
         char userData[9];
         bool userAllocated;
         // 1 byte padding
+
+        Pane* FindPaneByName(const char* findName, bool recursive = true); // actually virtual but i cannot be arsed
 };
 
 } // namespace lyt

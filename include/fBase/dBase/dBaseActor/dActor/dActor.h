@@ -39,7 +39,8 @@ class dActor_c : public dBaseActor_c {
         VEC2 visibleAreaOffset;
         VEC2 _328;
         VEC2 maxBoundDistance; // from zone edge
-        VEC2 _338;
+        float destroyBoundDistanceTop;
+        float destroyBoundDistanceBottom;
         float destroyBoundDistanceLeft;
         float destroyBoundDistanceRight;
 
@@ -134,4 +135,6 @@ class dActor_c : public dBaseActor_c {
         virtual void waterSplashEffect(const mVec3_c& pos, float scale);
         virtual void yoganSplashEffect(const mVec3_c& pos, float scale);
         virtual void poisonSplashEffect(const mVec3_c& pos, float scale);
+
+        bool checkZoneBoundaries(u32 flags); // unofficial name, &2 = does not delete offscreen actors, &8 = checks ride output instead of bounds
 };

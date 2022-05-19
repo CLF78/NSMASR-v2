@@ -90,6 +90,7 @@ entryFrmHeapNonAdjust__7fBase_cFUlPQ23EGG4Heap=0x80162930
 createHeap__7fBase_cFv=0x801629F0
 __nw__7fBase_cFUl=0x80162A00
 __dl__7fBase_cFPv=0x80162A60
+createChild__7fBase_cFUsP7fBase_cUlUc=0x80162C40
 
 getKindString__7dBase_cCFv=0x8006C660
 
@@ -177,3 +178,9 @@ yoganSplashEffect__8dActor_cFRC7mVec3_cf=0x80065DC0
 poisonSplashEffect__8dActor_cFRC7mVec3_cf=0x80065EC0
 removeCc__8dActor_cFv=0x80066080
 reviveCc__8dActor_cFv=0x80066090
+
+CalcLayoutPos__8dGameComFP4VEC2=0x800B33D0
+
+FindPaneByName__Q34nw4r3lyt4PaneFPCcb=0x802ABA30
+
+AnimePlay__9LytBase_cFv=0x800C9650

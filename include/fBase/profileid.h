@@ -503,6 +503,8 @@ enum Value {
 
     // Start of custom entries
     FX_CREATE = OriginalNum + 0,
+    PROF_CREATE = OriginalNum + 1,
+    MSG_DISPLAY = OriginalNum + 2,
 
     // End of custom entries, do NOT remove
     Num,
@@ -1280,6 +1282,8 @@ enum Value {
 
     // Start of custom entries
     FX_CREATE = OriginalNum + 0,
+    PROF_CREATE = OriginalNum + 1,
+    MSG_DISPLAY = OriginalNum + 2,
 
     // End of custom entries, do NOT remove
     Num,

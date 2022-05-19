@@ -21,7 +21,9 @@ class dMessageWindow_c : public dBase_c {
         bool startAnime;
         bool exitAnime;
         bool isEndWait;
-        // 3 bytes padding
+
+        bool disableSound; // custom field
+        u16 customBmgId; // custom field
 
         u32 msgIdIndex;
 };
