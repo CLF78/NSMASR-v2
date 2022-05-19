@@ -203,6 +203,7 @@
     <value nybble="9-12" title="Message ID" comment="BMG ID of the message to spawn." />
     <checkbox nybble="8.3" title="Disable Sound" comment="Disables the jingle that plays when the message appears." />
     <checkbox nybble="8.4" title="Disable Letterbox" comment="Disables the pink box around the message, leaving only text." />
+    <checkbox nybble="8.2" title="Permanent Event" comment="Doesn't despawn the message when the event is deactivated." />
   </sprite> <!-- #485: Message Spawner -->
 </sprites>
 <!-- Thank you so much for a-playing my game! -->

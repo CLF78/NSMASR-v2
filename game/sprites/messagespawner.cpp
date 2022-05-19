@@ -49,6 +49,9 @@ int dMessageSpawner_c::create() {
     // Disable the sound if set
     this->box->disableSound = this->settings >> 17 & 1;
 
+    // Check if event is to be activated once
+    this->activateOnce = this->settings >> 18 & 1;
+
     // Check if the sprite is event triggered, and if not display it immediately
     this->eventTriggered = bool(this->eventMask);
     if (!this->eventTriggered) {
@@ -70,8 +73,8 @@ int dMessageSpawner_c::execute() {
             this->box->startAnime = true;
             this->box->display = true;
 
-        // If the event is deactivated and the box is displaying, fade it out!
-        } else if (!eventOn && this->box->display)
+        // If the event is deactivated, the box is displaying and the box can be deactivated, fade it out!
+        } else if (!eventOn && this->box->display && !this->activateOnce)
             this->box->exitAnime = true; // display will be unset automatically when the animation ends
     }
 

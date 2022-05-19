@@ -15,6 +15,7 @@ class dMessageSpawner_c : public dActor_c {
         u16 bmgId;
         bool hideLetterbox;
         bool eventTriggered;
+        bool activateOnce;
 
         static dMessageSpawner_c* build();
 };
