@@ -195,8 +195,14 @@
       <entry value="0">Layer 1</entry>
       <entry value="1">Layer 2</entry>
     </list>
-    <value nybble="17.1-18.2" title="Triggering Event ID"  comment="This event will spawn the sprite if triggered. Subtract 1 from the event ID you want to use!"/>
+    <value nybble="17.1-18.2" title="Triggering Event ID" comment="This event will spawn the sprite if triggered. Subtract 1 from the event ID you want to use!" idtype="Triggering Event" />
     <value nybble="18.3-20.4" title="Sprite Number"  comment="The sprite will be spawned in place of this one."/>
   </sprite> <!-- #484: Actor Spawner -->
+  <sprite id="485" name="Message Spawner" notes="Spawns a textbox containing the given message, if the given event ID is triggered.">
+    <value nybble="1-2" title="Triggering Event ID" comment="When this Event ID is activated, this message will appear." comment2="Set to 0 to always activate." idtype="Triggering Event" />
+    <value nybble="9-12" title="Message ID" comment="BMG ID of the message to spawn." />
+    <checkbox nybble="8.3" title="Disable Sound" comment="Disables the jingle that plays when the message appears." />
+    <checkbox nybble="8.4" title="Disable Letterbox" comment="Disables the pink box around the message, leaving only text." />
+  </sprite> <!-- #485: Message Spawner -->
 </sprites>
 <!-- Thank you so much for a-playing my game! -->
