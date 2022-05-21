@@ -223,7 +223,7 @@ class dBc_c {
         bool _E3;
         bool onGround; // ??
 
-        u8 chainlinkMode;
+        u8 chainlinkMode; // see dCc_c
         // 2 bytes padding
 
         u8* layerPtr;

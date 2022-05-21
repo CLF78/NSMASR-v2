@@ -117,7 +117,7 @@ class dCc_c {
         u16 selfAtkCheckResult;
 
         u8 collisionType;
-        u8 chainlinkMode; // 0 = normal, 1 = front side, 2 = back side, 3 = can be on both sides (?)
+        u8 chainlinkMode; // 0 = normal, 1 = front side, 2 = back side, 3 = ignores backfence
         u8 layer;
         u8 isDead; // set to 2 if actor is killed, 0 otherwise
         bool isLinked;

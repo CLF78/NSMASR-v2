@@ -24,7 +24,7 @@ class dRc_c {
         float _28;
 
         s16 rotation;
-        u8 chainlinkMode;
+        u8 chainlinkMode; // see dCc_c
         u8 rideType; // 0 = dRideRoll_c, 2 = dRide2Point_c, 4 = dRideCircle_c
         u8 flags; // &1 = ??, &2 = ??, &4 = set on player when riding Lakitu Clouds/Clown Cars
         u8 _31; // bool maybe?
