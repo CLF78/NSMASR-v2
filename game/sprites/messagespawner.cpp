@@ -35,13 +35,11 @@ int dMessageSpawner_c::create() {
     this->box->lytBase.drawOrder = 0;
 
     // Set up BMG id (and set a dummy entry in the index)
-    this->bmgId = this->settings & 0xFFFF;
-    this->box->customBmgId = this->bmgId;
+    this->box->customBmgId = this->settings & 0xFFFF;
     this->box->msgIdIndex = 21;
 
     // Hide the letterbox if necessary
-    this->hideLetterbox = this->settings >> 16 & 1;
-    if (this->hideLetterbox) {
+    if (this->settings >> 16 & 1) {
         nw4r::lyt::Pane* window = this->box->rootPane->FindPaneByName("W_message_00");
         window->alpha = 0;
     }

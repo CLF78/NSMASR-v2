@@ -12,8 +12,6 @@ class dMessageSpawner_c : public dActor_c {
         virtual int execute();
 
         dMessageWindow_c* box;
-        u16 bmgId;
-        bool hideLetterbox;
         bool eventTriggered;
         bool activateOnce;
 
