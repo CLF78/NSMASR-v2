@@ -12,4 +12,6 @@ class dActorMultiState_c : public dActor_c {
         virtual void initializeState_GegnericMulti();
         virtual void executeState_GegnericMulti();
         virtual void finalizeState_GegnericMulti();
+
+        static sFStateVirtualID_c<dActorMultiState_c> StateID_GegnericMulti;
 };

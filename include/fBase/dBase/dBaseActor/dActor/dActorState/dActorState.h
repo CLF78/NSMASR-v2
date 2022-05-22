@@ -1,5 +1,6 @@
 #pragma once
 #include <fBase/dBase/dBaseActor/dActor/dActor.h>
+#include <state/sStateID.h>
 #include <state/sStateMethod.h>
 #include <state/sStateMgr.h>
 
@@ -10,4 +11,6 @@ class dActorState_c : public dActor_c {
         virtual void initializeState_Gegneric();
         virtual void executeState_Gegneric();
         virtual void finalizeState_Gegneric();
+
+        static sFStateVirtualID_c<dActorState_c> StateID_Gegneric;
 };
