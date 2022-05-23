@@ -85,7 +85,7 @@ class dEn_c : public dActorMultiState_c {
         u8 someCounter; // completely unused
         // 3 bytes padding
 
-        uint scoreType2; // same as the dActor_c field, but controls other combos like sliding/starring/shells/etc
+        u32 scoreType2; // same as the dActor_c field, but controls other combos like sliding/starring/shells/etc
         dEnFumiCheck_c fumiCheck;
 
         // fBase overrides

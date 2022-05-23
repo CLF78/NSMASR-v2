@@ -5,9 +5,23 @@
 
 namespace m3d {
 
+struct AnmType {
+    enum Value {
+        AnmChr,
+        AnmVis,
+        AnmMatClr,
+        AnmTexPat,
+        AnmTexSrt,
+    };
+};
+
 class banm_c {
     public:
-        void* vtable;
+        virtual ~banm_c();
+        virtual AnmType::Value getType() const = 0;
+        virtual void remove();
+        virtual void play();
+
         nw4r::g3d::AnmObj* anmObj;
         EGG::FrmHeap* heap;
         mAllocator_c allocator;

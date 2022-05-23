@@ -2,6 +2,7 @@
 #pragma once
 #include <kamek.h>
 #include <nw4r/g3d/res/resdic.h>
+#include <nw4r/g3d/res/resanmpat.h>
 #include <nw4r/g3d/res/rescommon.h>
 #include <nw4r/g3d/res/restex.h>
 
@@ -33,6 +34,8 @@ struct ResFileData {
 class ResFile : public ResCommon<ResFileData> {
     public:
         ResTex GetResTex(const char* str) const;
+
+        ResAnmTexPat GetResAnmTexPat(const char* str) const;
 };
 
 } // namespace g3d

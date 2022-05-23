@@ -6,13 +6,18 @@ namespace m3d {
 
 // Values unknown, these are just guesses
 enum playMode_e {
-    Play = 1,
+    Play = 0,
+    Paused = 1,
     PlayReverse = 2,
     Unk4 = 4,
 };
 
 class fanm_c : public banm_c {
     public:
+        virtual ~fanm_c();
+        virtual AnmType::Value getType() const = 0;
+        virtual void play();
+
         float numFrames;
         float startFrame;
         float currentFrame;

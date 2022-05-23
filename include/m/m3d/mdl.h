@@ -15,10 +15,12 @@ class mdl_c : public smdl_c {
                 u32 resCount;
                 nw4r::g3d::ChrAnmResult* results;
                 mdlCallback_c* childCallback;
-                mAllocator* allocator;
+                mAllocator_c* allocator;
         };
 
         mdlCallback_c callback;
+
+        void setAnm(m3d::banm_c& anim);
 };
 
 } // namespace m3d

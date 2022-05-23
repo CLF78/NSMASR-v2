@@ -9,7 +9,7 @@
 template <class TOwner, class TStateMethod, class TStateMethod2>
 class sFStateStateMgr_c {
     public:
-        virtual ~sStateStateMgr_c();
+        virtual ~sFStateStateMgr_c();
 
         // All these functions call the current StateMgr
         virtual void initializeStateMethod();
@@ -34,7 +34,7 @@ class sFStateStateMgr_c {
         virtual bool isSecondManagerCurrentMgr();
         virtual sStateIDIf_c& getFirstManagerCurrentState();
 
-        sStateMgr_c<TOwner, TStateMethod> mgr1;
-        sStateMgr_c<TOwner, TStateMethod2> mgr2;
+        sFStateMgr_c<TOwner, TStateMethod> mgr1;
+        sFStateMgr_c<TOwner, TStateMethod2> mgr2;
         sStateMgrIf_c& currentMgr;
 };

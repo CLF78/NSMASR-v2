@@ -3,6 +3,7 @@
 #include <fBase/dBase/dBaseActor/dActor/dActor.h>
 #include <fBase/dBase/dBaseActor/dActor/dActorMultiState/dEn/dEn.h>
 #include <m/m3d/anmchr.h>
+#include <m/m3d/anmtexpat.h>
 #include <m/m3d/mdl.h>
 #include <m/mEf/levelEffect.h>
 #include <m/mEf/levelOneEffect.h>
