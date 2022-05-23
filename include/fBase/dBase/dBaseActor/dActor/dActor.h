@@ -136,5 +136,5 @@ class dActor_c : public dBaseActor_c {
         virtual void yoganSplashEffect(const mVec3_c& pos, float scale);
         virtual void poisonSplashEffect(const mVec3_c& pos, float scale);
 
-        bool checkZoneBoundaries(u32 flags); // unofficial name, &2 = does not delete offscreen actors, &8 = checks ride output instead of bounds
+        bool checkZoneBoundaries(u32 flags); // unofficial name, &2 = does not delete offscreen actors, &4 = only checks zone boundaries &8 = checks ride output instead of bounds
 };

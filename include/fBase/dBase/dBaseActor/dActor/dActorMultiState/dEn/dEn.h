@@ -218,7 +218,7 @@ class dEn_c : public dActorMultiState_c {
         // Funsui stuff
         virtual void beginFunsui();
         virtual void endFunsui();
-        virtual bool isFunsui();
+        virtual bool isFunsui() const;
         virtual bool checkComboClap(int comboCount);
 
         // Reactions to being hit by a player/mini player/yoshi: physics, score, sfx and gfx
