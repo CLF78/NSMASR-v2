@@ -74,16 +74,16 @@ class daEnKuriboBase_c : public dEn_c {
         virtual void reactFumiProc(dActor_c* killingActor);
         virtual void vf2AC(); // unknown
         virtual void reactSpinFumiProc(dActor_c* killingActor); // unofficial name
-        virtual void reactYoshiFumiProc(dActor_c* killingActor);
+        virtual void reactYoshiFumiProc(dActor_c* killingActor); // unofficial name
 
         virtual void createModel();
         virtual void loadModel(); // unofficial name
-        virtual void vf2C0(); // unknown
+        virtual void loadWingModel(); // unofficial name
         virtual void drawModel();
 
-        virtual void vf2C8(); // unknown
-        virtual void vf2CC(); // unknown
-        virtual void vf2D0(); // unknown
+        virtual void initialize();
+        virtual void setTurnState(); // unofficial name
+        virtual void vf2D0(dActor_c* collidingActor); // unknown
 
         virtual void setWalkSpeed();
         virtual void playWalkAnim(); // unofficial name
