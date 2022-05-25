@@ -12,6 +12,7 @@ struct AnmType {
         AnmMatClr,
         AnmTexPat,
         AnmTexSrt,
+        AnmScn,
     };
 };
 
