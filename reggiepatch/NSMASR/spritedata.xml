@@ -1,6 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <sprites>
+  <sprite id="20" name="Goomba" notes="Your standard Goomba. Place it in the level and it will walk towards Mario when it loads.">
+    <list nybble="7" title="Color" comment="This determines the color and style of the Goomba.">
+      <entry value="0">Normal</entry>
+      <entry value="1">Gloomba</entry>
+    </list>
+    <list nybble="12" title="Load-In Animation" comment="This determines what animation state is used by the Goomba when it is first loaded. This is useful for Goombas within range of a nearby Entrance." comment2="Jumps and 'Tumble' will result in it landing on the next platform below where it was initially placed.">
+      <entry value="0">Normal</entry>
+      <entry value="1">Tumble</entry>
+      <entry value="2">Pipe Generator</entry>
+      <entry value="3">Hesitates</entry>
+      <entry value="4">Medium Jump</entry>
+      <entry value="5">Large Jump</entry>
+    </list>
+    <checkbox nybble="8.4" title="Place Behind Other Sprites" comment="When enabled, this changes the relative Z-Order of the Goomba placing it further behind other sprites." requirednybble="12" requiredval="2" />
+    <list nybble="11" title="Pipe Exit Direction" comment="This determines which direction the pipe exit animation will play." requirednybble="12" requiredval="2">
+      <entry value="0">Up</entry>
+      <entry value="1">Down</entry>
+      <entry value="2">Left</entry>
+      <entry value="3">Right</entry>
+    </list>
+    <list nybble="6" title="Z-Order Offset" comment="This further modifies the Z-Offset for the spawned Goomba." requirednybble="12" requiredval="2">
+      <entry value="0">1500.0</entry>
+      <entry value="1">1516.0</entry>
+      <entry value="2">1532.0</entry>
+      <entry value="3">1548.0</entry>
+      <entry value="4">1564.0</entry>
+      <entry value="5">1580.0</entry>
+      <entry value="6">1596.0</entry>
+      <entry value="7">1612.0</entry>
+      <entry value="8">1628.0</entry>
+      <entry value="9">1644.0</entry>
+      <entry value="10">1660.0</entry>
+      <entry value="11">1672.0</entry>
+      <entry value="12">1688.0</entry>
+      <entry value="13">1704.0</entry>
+      <entry value="14">1720.0</entry>
+      <entry value="15">1736.0</entry>
+    </list>
+    <value nybble="6" title="Starting Speed" comment="This makes the Goomba move in different directions at spawn. Value 0-3." requirednybble="12" requiredval="4-5" />
+  </sprite> <!-- #20: Goomba -->
+  <sprite id="21" name="Paragoomba" notes="A Goomba with wings that will flutter towards Mario when it loads.">
+    <list nybble="7" title="Color" comment="This determines the color and style of the Paragoomba.">
+      <entry value="0">Normal</entry>
+      <entry value="1">Gloomba</entry>
+    </list>
+    <checkbox nybble="8.4" title="Place Behind Other Sprites" comment="When enabled, this changes the relative Z-Order of the Paragoomba placing it further behind other sprites."/>
+  </sprite> <!-- #21: Paragoomba -->
   <sprite id="113" name="Goal Pole and Fortress" notes="The invisible wall does not extend below the Goal Pole.">
     <dualbox nybble="5.4" title1="Normal Exit" title2="Secret Exit"/>
     <dualbox nybble="6.4" title1="Enable Invisible Wall" title2="Disable Invisible Wall"/>
