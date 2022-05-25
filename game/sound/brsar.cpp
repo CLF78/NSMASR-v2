@@ -22,8 +22,8 @@ static ulong currentSoundId = STRM_BGM_DUMMY;
 
 // Array of new sounds
 const CustomSoundEntry customEntries[] = {
-    {SMB_GRASS, "stream/SMB_GRASS.brstm"},
-    {SMB_GRASS_F, "stream/SMB_GRASS_F.brstm"},
+    {SMB_GRASS, "stream/SMB_GRASS.brstm", STRM_BGM_CHIJOU},
+    {SMB_GRASS_F, "stream/SMB_GRASS_F.brstm", STRM_BGM_CHIJOU},
 };
 
 nw4r::snd::SoundStartable::StartResult mySetupSoundImpl(nw4r::snd::SoundArchivePlayer* self, nw4r::snd::SoundHandle* handle, ulong soundId, nw4r::snd::detail::BasicSound::AmbientInfo* ambientArgInfo, nw4r::snd::SoundActor* actor, bool holdFlag, const nw4r::snd::SoundStartable::StartInfo* startInfo) {
@@ -114,12 +114,16 @@ kmBranch(0x80278C00, mySetupSoundImpl);
 kmCallDefCpp(0x80278C8C, bool, nw4r::snd::SoundArchive* self, ulong soundId, nw4r::snd::SoundArchive::SoundInfo* soundInfo) {
 
     // Check if the soundId has been replaced
-    if (soundId != currentSoundId)
-        soundId = currentSoundId;
+    if (soundId != currentSoundId) {
 
-    // If the currentSoundId doesn't exist in the BRSAR, replace it with the normal grassland music or it will fail
-    if (soundId > SE_GAKKI_L_2_ON)
-        soundId = STRM_BGM_CHIJOU;
+        // Get the base soundId if so
+        for (int i = 0; i < sizeof(customEntries) / sizeof(CustomSoundEntry); i++) {
+            if (customEntries[i].id == currentSoundId) {
+                soundId = customEntries[i].baseSoundId;
+                break;
+            }
+        }
+    }
 
     // Call original function
     return self->ReadSoundInfo(soundId, soundInfo);
