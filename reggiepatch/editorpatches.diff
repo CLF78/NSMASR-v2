@@ -1,5 +1,5 @@
 diff -ur Reggie-Next-master/background.py Reggie-Next/background.py
---- Reggie-Next-master/background.py	2022-05-07 22:55:36.000000000 +0200
+--- Reggie-Next-master/background.py	2022-05-20 22:45:50.000000000 +0200
 +++ Reggie-Next/background.py	2022-05-03 10:55:15.353828574 +0200
 @@ -49,11 +49,27 @@
          self.createBGSettings(z)
@@ -30,7 +30,7 @@ diff -ur Reggie-Next-master/background.py Reggie-Next/background.py
  
          self.updatePreviews()
 diff -ur Reggie-Next-master/editors.py Reggie-Next/editors.py
---- Reggie-Next-master/editors.py	2022-05-07 22:55:36.000000000 +0200
+--- Reggie-Next-master/editors.py	2022-05-20 22:45:50.000000000 +0200
 +++ Reggie-Next/editors.py	2022-05-14 18:50:09.737003934 +0200
 @@ -87,6 +87,27 @@
          self.cpDirection.setToolTip(globals_.trans.string('EntranceDataEditor', 26))
@@ -203,7 +203,7 @@ diff -ur Reggie-Next-master/editors.py Reggie-Next/editors.py
  class PathNodeEditorWidget(QtWidgets.QWidget):
      """
 diff -ur Reggie-Next-master/levelitems.py Reggie-Next/levelitems.py
---- Reggie-Next-master/levelitems.py	2022-05-07 22:55:36.000000000 +0200
+--- Reggie-Next-master/levelitems.py	2022-05-20 22:45:50.000000000 +0200
 +++ Reggie-Next/levelitems.py	2022-05-14 18:46:04.111705109 +0200
 @@ -183,6 +183,9 @@
      Definition of an instance of EntranceItem
@@ -255,7 +255,7 @@ diff -ur Reggie-Next-master/levelitems.py Reggie-Next/levelitems.py
          self.destentrance = destentrance
          self.enttype = type
 diff -ur Reggie-Next-master/level.py Reggie-Next/level.py
---- Reggie-Next-master/level.py	2022-05-11 18:25:57.339494840 +0200
+--- Reggie-Next-master/level.py	2022-05-20 22:45:50.000000000 +0200
 +++ Reggie-Next/level.py	2022-05-11 18:27:45.487927341 +0200
 @@ -529,7 +529,7 @@
          Loads block 7, the entrances
@@ -355,7 +355,7 @@ diff -ur Reggie-Next-master/level.py Reggie-Next/level.py
  
              zonestruct.pack_into(buffer9, offset,
 diff -ur Reggie-Next-master/misc.py Reggie-Next/misc.py
---- Reggie-Next-master/misc.py	2022-05-07 22:55:36.000000000 +0200
+--- Reggie-Next-master/misc.py	2022-05-20 22:45:50.000000000 +0200
 +++ Reggie-Next/misc.py	2022-04-26 11:19:28.722187832 +0200
 @@ -625,7 +625,7 @@
              b = 4 * (nybble - 1) + bits
@@ -367,7 +367,7 @@ diff -ur Reggie-Next-master/misc.py Reggie-Next/misc.py
  
              bit_length += b - a + 1
 diff -ur Reggie-Next-master/reggie.py Reggie-Next/reggie.py
---- Reggie-Next-master/reggie.py	2022-05-07 22:55:36.000000000 +0200
+--- Reggie-Next-master/reggie.py	2022-05-20 22:45:50.000000000 +0200
 +++ Reggie-Next/reggie.py	2022-05-14 18:27:32.792812348 +0200
 @@ -1773,8 +1773,8 @@
          # get sprites
@@ -428,8 +428,8 @@ diff -ur Reggie-Next-master/reggie.py Reggie-Next/reggie.py
      def HandleScreenshot(self):
          """
 diff -ur Reggie-Next-master/spriteeditor.py Reggie-Next/spriteeditor.py
---- Reggie-Next-master/spriteeditor.py	2022-05-07 22:55:36.000000000 +0200
-+++ Reggie-Next/spriteeditor.py	2022-04-26 13:38:18.421345855 +0200
+--- Reggie-Next-master/spriteeditor.py	2022-05-20 22:45:50.000000000 +0200
++++ Reggie-Next/spriteeditor.py	2022-05-26 16:35:33.840207147 +0200
 @@ -255,7 +255,7 @@
          self.setLayout(mainLayout)
  
@@ -481,8 +481,17 @@ diff -ur Reggie-Next-master/spriteeditor.py Reggie-Next/spriteeditor.py
              try:
                  data = bytes.fromhex(text)
                  valid = True
+@@ -1901,7 +1903,7 @@
+ 
+             x_ = mw.selObj.objx + 16
+             y_ = mw.selObj.objy
+-            globals_.mainWindow.CreateSprite(x_, y_, id_, data=bytes(8))
++            globals_.mainWindow.CreateSprite(x_, y_, id_, data=bytes(10))
+ 
+             # remove this dependency, because it is now fulfilled.
+             # get row of button
 diff -ur Reggie-Next-master/translation.py Reggie-Next/translation.py
---- Reggie-Next-master/translation.py	2022-05-07 22:55:36.000000000 +0200
+--- Reggie-Next-master/translation.py	2022-05-20 22:45:50.000000000 +0200
 +++ Reggie-Next/translation.py	2022-05-06 20:36:58.691891154 +0200
 @@ -163,6 +163,18 @@
                      '125%',
