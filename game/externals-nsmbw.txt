@@ -197,3 +197,5 @@ getAreaBgm__9dCdFile_cFUc=0x8008E5C0
 
 getCurrentBgm__9SndBgmMgrFUi=0x8019E120
 sInstance__9SndBgmMgr=0x8042A790
+
+SetId__Q44nw4r3snd6detail10BasicSoundFUl=0x802678A0

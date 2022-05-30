@@ -140,6 +140,11 @@ kmCallDefAsm(0x80279AC8) {
     b MyOpenFileStream
 }
 
+// Replace call to SetId to set the original soundId
+kmCallDefCpp(0x8027915C, void, nw4r::snd::detail::BasicSound* self, ulong originalSoundId) {
+    self->SetId(currentSoundId);
+}
+
 // Replace external file path
 kmBranchDefAsm(0x802759F0, 0x802759F4) {
 

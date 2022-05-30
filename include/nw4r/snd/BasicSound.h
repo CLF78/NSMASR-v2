@@ -36,6 +36,8 @@ class BasicSound {
             void* arg;
             size_t argSize;
         };
+
+        void SetId(ulong id);
 };
 
 } // namespace detail
