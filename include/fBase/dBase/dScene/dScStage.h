@@ -1,5 +1,6 @@
 #pragma once
 #include <kamek.h>
+#include <fBase/dBase/dMessageWindow.h>
 #include <fBase/dBase/dScene/dScene.h>
 #include <s/sPhase.h>
 #include <dActorMng.h>
@@ -45,7 +46,7 @@ class dScStage_c : public dScene_c {
         void* miniGameCannon;
         void* miniGameWire;
         void* modelPlayManager;
-        void* messageWindow;
+        dMessageWindow_c* messageWindow;
         void* modelPlayGuide;
         u8* staffCreditScore;
         void* theEnd;

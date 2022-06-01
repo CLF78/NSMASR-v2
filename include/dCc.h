@@ -60,7 +60,7 @@ struct ccMiscFlags {
         Unk_1 = 1, // Set for players, has something to do with the flagpole
         Unk_2 = 2, // Set for Piranha Plants, Wigglers, Fuzzies and Jellybeams, unknown meaning
         IgnoreCollision = 4, // Set for bubbled players, ignores collision
-        KillIce = 0x100, // Set for Thwomps, Kamek, Mega Urchins and Bramballs, ice will not cause any damage if it touches this collision
+        KillIce = 0x100, // Set for Thwomps, Kamek, Mega Urchins and Bramballs, thrown ice will not cause any damage if it touches this collision
         KillBombs = 0x200, // Set for Flamethrowers, explodes Bob-ombs (and destroys ice) if they touch the collision
     };
 };

@@ -1,1 +1,2 @@
-7800=SMB Hills (Daytime)
+7800=SMB Hills
+7801=Sea
