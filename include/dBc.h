@@ -133,7 +133,8 @@ struct lineSensor_s : sensorBase_s {
 // The actual class
 class dBc_c {
     public:
-        void* vtable;
+        dBc_c* next; // custom field, originally an unused vtable
+
         dActor_c* owner;
         sensorBase_s* belowSensor;
         sensorBase_s* aboveSensor;

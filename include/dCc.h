@@ -122,4 +122,7 @@ class dCc_c {
         u8 isDead; // set to 2 if actor is killed, 0 otherwise
         bool isLinked;
         // 1 byte padding
+
+        static dCc_c* mEntryN;
+        static dCc_c* mEntryB;
 };
