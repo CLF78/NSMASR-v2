@@ -53,6 +53,7 @@ RailScales=0x8097DE70
 __nw__FUl=0x802B9350
 __nwa__FUl=0x802B9390
 __dl__FPv=0x802B93C0
+__register_global_object=0x802DCA70
 __shl2i=0x802DD4DC
 
 bgObjNameList__17dBgActorManager_c=0x8042A0BC
@@ -199,3 +200,12 @@ getCurrentBgm__9SndBgmMgrFUi=0x8019E120
 sInstance__9SndBgmMgr=0x8042A790
 
 SetId__Q44nw4r3snd6detail10BasicSoundFUl=0x802678A0
+
+__ct__Q23m3d9scnLeaf_cFv=0x8016A150
+__dt__Q23m3d9scnLeaf_cFv=0x8016A170
+remove__Q23m3d9scnLeaf_cFv=0x8016A1D0
+entry__Q23m3d9scnLeaf_cFv=0x8016A220
+
+getType__Q23m3d6proc_cCFv=0x8000F720
+create__Q23m3d6proc_cFP12mAllocator_cPUl=0x80165110
+__vt__Q23m3d6proc_c=0xDEADBEEF

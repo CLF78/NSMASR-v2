@@ -12,6 +12,7 @@ struct LeafType {
 
 class scnLeaf_c {
     public:
+        scnLeaf_c();
         virtual ~scnLeaf_c();
         virtual LeafType::Value getType() const = 0;
         virtual void remove();
