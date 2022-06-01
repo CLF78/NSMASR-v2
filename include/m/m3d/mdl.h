@@ -18,9 +18,12 @@ class mdl_c : public smdl_c {
                 mAllocator_c* allocator;
         };
 
-        mdlCallback_c callback;
+        virtual ~mdl_c();
+        virtual void remove();
+        virtual void setAnm(m3d::banm_c& anm);
+        virtual void play();
 
-        void setAnm(m3d::banm_c& anim);
+        mdlCallback_c callback;
 };
 
 } // namespace m3d
