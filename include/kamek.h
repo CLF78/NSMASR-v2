@@ -71,6 +71,15 @@ typedef struct Layer {
     };
 };
 
+typedef struct ChainlinkMode {
+    enum Value {
+        Normal,
+        Front,
+        Back,
+        Ignore,
+    };
+};
+
 inline void __icbi(register const void* address) {
     asm {icbi 0, address;}
 }
