@@ -62,7 +62,7 @@ typedef struct {
 } GXAttrType;
 
 typedef struct {
-    enum {
+    enum Value {
         TEXCOORD0,
         TEXCOORD1,
         TEXCOORD2,
