@@ -3,6 +3,11 @@
 #include <stdlib/string.h>
 #include "nsmbw.h"
 
+extern "C" {
+u32 detect:0x800CF6CC;
+u8 detectKor:0x8000423A;
+}
+
 void *allocAdapter(u32 size, bool isForCode, const loaderFunctions *funcs) {
     const loaderFunctionsEx *funcsEx = (const loaderFunctionsEx *)funcs;
     EGG::ExpHeap** heapPtr = isForCode ? funcsEx->dylinkHeap : funcsEx->archiveHeap;
@@ -120,7 +125,7 @@ regionData regionDetect() {
     regionData data = {REGION_P, 0};
 
     // Use instruction to detect region
-    switch (*((u32*)0x800CF6CC)) {
+    switch (detect) {
         case 0x40820030: data.version = 1; break;
         case 0x40820038: data.version = 2; break;
         case 0x48000465: data.region = REGION_E; data.version = 1; break;
@@ -128,7 +133,7 @@ regionData regionDetect() {
         case 0x480000B4: data.region = REGION_J; data.version = 1; break;
         case 0x4082000C: data.region = REGION_J; data.version = 2; break;
         case 0x38A00001:
-            switch (*((u8*)0x8000423A)) {
+            switch (detectKor) {
                 case 0xC8: data.region = REGION_K; break;
                 case 0xAC: data.region = REGION_W; break;
                 default: unknownVersion();

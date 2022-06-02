@@ -52,7 +52,7 @@ struct CameraData {
 
 class Camera : public ResCommon<CameraData> {
     public:
-        void GetCameraMtx(MTX34* pMtx) const;
+        void GetCameraMtx(math::MTX34* pMtx) const;
 };
 
 } // namespace g3d

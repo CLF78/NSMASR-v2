@@ -92,6 +92,7 @@ class dCc_c {
             CollisionCallback callback;
         };
 
+        void* vtable;
         dActor_c* owner;
         dActor_c* ignoreActor; // collisions with this actor are ignored in dCc_c::checkCollision
         u32 _C;

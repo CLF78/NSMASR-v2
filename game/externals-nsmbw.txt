@@ -209,3 +209,16 @@ entry__Q23m3d9scnLeaf_cFv=0x8016A220
 getType__Q23m3d6proc_cCFv=0x8000F720
 create__Q23m3d6proc_cFP12mAllocator_cPUl=0x80165110
 __vt__Q23m3d6proc_c=0xDEADBEEF
+
+GXSetVtxDesc=0x801C3900
+GXClearVtxDesc=0x801C41B0
+GXSetVtxAttrFmt=0x801C41F0
+GXBegin=0x801C56B0
+GXSetLineWidth=0x801C58E0
+GXSetNumChans=0x801C6C00
+GXSetChanCtrl=0x801C6C30
+GXSetTevOp=0x801C8390
+GXSetNumTevStages=0x801C8A30
+GXEnd=0x802A36F0
+
+mEntryN__5dCc_c=0x8042A140
