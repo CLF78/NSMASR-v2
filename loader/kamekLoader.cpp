@@ -205,7 +205,7 @@ void loadKamekBinary(const loaderFunctions *funcs, const void *binary, u32 binar
                 funcs->OSReport("Unknown command: %d\n", cmd);
         }
 
-        cacheInvalidateAddress((void*)address);
+        cacheInvalidateAddress((const void*)address);
     }
 
     __sync();

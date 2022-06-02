@@ -38,6 +38,8 @@ CFLAGS = [
     '-Cpp_exceptions', 'off',
     '-enum', 'int',
     '-fp', 'fmadd',
+    '-gccext', 'on',
+    '-msext', 'on',
     '-nostdinc',
     '-O4',
     '-once',

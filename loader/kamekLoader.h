@@ -26,13 +26,10 @@ struct loaderFunctions {
     KamekFree_t kamekFree;
 };
 
-inline void cacheInvalidateAddress(void* address) {
-    register void* addressRegister = address;
-    asm {
-        dcbst 0, addressRegister
-        sync
-        icbi 0, addressRegister
-    }
+inline void cacheInvalidateAddress(const void* address) {
+    __dcbst(address, 0);
+    __sync();
+    __icbi(address);
 }
 
 void loadKamekBinaryFromDisc(const loaderFunctions *funcs, const char *path);
