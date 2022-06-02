@@ -1,5 +1,4 @@
 // Source: nw4r
-#pragma once
 #include <kamek.h>
 #include <nw4r/ef/emitter.h>
 #include <nw4r/ut/utList.h>

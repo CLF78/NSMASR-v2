@@ -1,4 +1,3 @@
-#pragma once
 #include <kamek.h>
 
 namespace nw4r {

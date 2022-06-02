@@ -1,4 +1,3 @@
-#pragma once
 #include <kamek.h>
 #include <rvl/gx/GXEnum.h>
 

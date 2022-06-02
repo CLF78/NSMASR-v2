@@ -1,4 +1,3 @@
-#pragma once
 #include <kamek.h>
 
 #ifdef __cplusplus

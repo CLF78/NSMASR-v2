@@ -1,4 +1,3 @@
-#pragma once
 
 struct dFader_c {
 	enum fader_type_e {

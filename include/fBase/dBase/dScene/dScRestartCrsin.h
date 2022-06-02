@@ -1,4 +1,3 @@
-#pragma once
 #include <fBase/dBase/dScene/dScene.h>
 #include <startinfo.h>
 

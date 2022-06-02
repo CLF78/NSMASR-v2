@@ -1,4 +1,3 @@
-#pragma once
 #include <d/d2d/ResAcc.h>
 #include <nw4r/lyt/ArcResourceAccessor.h>
 

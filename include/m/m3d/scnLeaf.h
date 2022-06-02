@@ -1,4 +1,3 @@
-#pragma once
 #include <nw4r/g3d/scnobj.h>
 
 namespace m3d {

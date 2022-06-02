@@ -1,4 +1,3 @@
-#pragma once
 #include <kamek.h>
 #include <fBase/dBase/dBase.h>
 #include <nw4r/lyt/Pane.h>

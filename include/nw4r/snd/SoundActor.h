@@ -1,4 +1,3 @@
-#pragma once
 #include <nw4r/snd/BasicSound.h>
 #include <nw4r/snd/ExternalSoundPlayer.h>
 #include <nw4r/snd/SoundStartable.h>

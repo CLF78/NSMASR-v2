@@ -1,5 +1,4 @@
 // Sources: Reggie, RoadRunnerWMC, B1, https://github.com/Newer-Team/NewerSMBW/blob/no-translations/Kamek/include/dCourse.h
-#pragma once
 #include <kamek.h>
 
 struct EntranceType {

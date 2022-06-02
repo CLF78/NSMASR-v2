@@ -1,4 +1,3 @@
-#pragma once
 #include <nw4r/snd/InstancePool.h>
 #include <nw4r/snd/MmlParser.h>
 #include <nw4r/snd/SeqTrackAllocator.h>

@@ -1,4 +1,3 @@
-#pragma once
 #include <kamek.h>
 #include <fBase/dBase/dBaseActor/dActor/dActorMultiState/dActorMultiState.h>
 #include <m/mTypes.h>

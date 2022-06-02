@@ -1,4 +1,3 @@
-#pragma once
 #include <kamek.h>
 #include <nw4r/ef/handle.h>
 #include <nw4r/math/types.h>

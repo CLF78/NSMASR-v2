@@ -1,5 +1,4 @@
 // Source: nw4r
-#pragma once
 #include <rvl/mem/allocator.h>
 
 namespace nw4r {

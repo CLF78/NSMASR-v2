@@ -1,4 +1,3 @@
-#pragma once
 #include <nw4r/lyt/ResourceAccessor.h>
 #include <nw4r/ut/utList.h>
 #include <rvl/arc/ARC.h>

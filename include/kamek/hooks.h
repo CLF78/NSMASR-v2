@@ -1,5 +1,3 @@
-#pragma once
-
 // allow Kamek hooks to be defined from C++ source files
 #pragma section ".kamek"
 

@@ -1,4 +1,3 @@
-#pragma once
 #include <kamek.h>
 
 class mVec3_c : public VEC3 {

@@ -1,4 +1,3 @@
-#pragma once
 #include <nw4r/lyt/Types.h>
 #include <nw4r/ut/utList.h>
 

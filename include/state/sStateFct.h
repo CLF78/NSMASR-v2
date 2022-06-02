@@ -1,4 +1,3 @@
-#pragma once
 #include <state/sState.h>
 #include <state/sStateID.h>
 

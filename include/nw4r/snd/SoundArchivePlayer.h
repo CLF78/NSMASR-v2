@@ -1,4 +1,3 @@
-#pragma once
 #include <kamek.h>
 #include <nw4r/snd/DisposeCallbackManager.h>
 #include <nw4r/snd/MmlParser.h>

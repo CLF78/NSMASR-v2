@@ -1,6 +1,4 @@
 // Source: https://github.com/Newer-Team/NewerSMBW/blob/cw/Kamek/include/sfx.h
-#pragma once
-
 enum Sound {
     SE_NULL = -1,
     SE_DEMO_OP_DUMMY_U = 0,

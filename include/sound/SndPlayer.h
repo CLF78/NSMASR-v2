@@ -1,4 +1,3 @@
-#pragma once
 #include <kamek.h>
 
 // Class name currently unknown!

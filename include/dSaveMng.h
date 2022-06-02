@@ -1,4 +1,3 @@
-#pragma once
 #include <kamek.h>
 #include <dMj2dHeader.h>
 #include <dMj2dGame.h>

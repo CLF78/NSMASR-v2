@@ -1,4 +1,3 @@
-#pragma once
 #include <m/m3d/scnLeaf.h>
 #include <m/mHeap/mAllocator.h>
 

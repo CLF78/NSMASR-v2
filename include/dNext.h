@@ -1,4 +1,3 @@
-#pragma once
 #include <kamek.h>
 #include <course/NextGoto.h>
 #include <dFader.h>

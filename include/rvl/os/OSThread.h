@@ -1,5 +1,4 @@
 // Source: RVL SDK
-#pragma once
 #include <kamek.h>
 #include <rvl/os/OSContext.h>
 

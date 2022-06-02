@@ -1,6 +1,5 @@
 // Source: https://github.com/aboood40091/NewerSMBW/blob/more-sprites/Kamek/src/profile.cpp
 // Source: https://github.com/aboood40091/NewerSMBW/blob/more-sprites/Kamek/include/profile.h
-#pragma once
 #include <kamek.h>
 
 struct SpriteData {

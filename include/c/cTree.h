@@ -1,5 +1,3 @@
-#pragma once
-
 class cTreeNd_c {
     public:
         cTreeNd_c* parent;

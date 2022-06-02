@@ -1,4 +1,3 @@
-#pragma once
 #include <fBase/dBase/dBaseActor/dActor/dActor.h>
 #include <state/sStateID.h>
 #include <state/sStateMethod.h>

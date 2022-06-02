@@ -1,4 +1,3 @@
-#pragma once
 #include <d/d2d/ResAccMult.h>
 #include <d/dDvd/Loader.h>
 

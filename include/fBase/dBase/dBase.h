@@ -1,4 +1,3 @@
-#pragma once
 #include <c/cTree.h>
 #include <fBase/fBase.h>
 

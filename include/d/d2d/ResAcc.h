@@ -1,4 +1,3 @@
-#pragma once
 #include <nw4r/lyt/ArcResourceAccessor.h>
 
 namespace d2d {

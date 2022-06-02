@@ -1,4 +1,3 @@
-#pragma once
 #include <kamek.h>
 #include <c/cList.h>
 #include <fBase/dBase/dBase.h>

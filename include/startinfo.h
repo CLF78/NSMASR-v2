@@ -1,5 +1,4 @@
 // I didn't know where to put this
-#pragma once
 #include <kamek.h>
 
 // Only used for Hint Movies

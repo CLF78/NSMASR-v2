@@ -1,4 +1,3 @@
-#pragma once
 #include <egg/core/eggDisposer.h>
 #include <nw4r/ut/utList.h>
 

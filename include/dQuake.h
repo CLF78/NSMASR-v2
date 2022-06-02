@@ -1,4 +1,3 @@
-#pragma once
 #include <kamek.h>
 
 class dQuake_c {

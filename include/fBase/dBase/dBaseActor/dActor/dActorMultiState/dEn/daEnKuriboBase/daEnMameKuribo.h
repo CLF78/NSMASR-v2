@@ -1,4 +1,3 @@
-#pragma once
 #include <kamek.h>
 #include <fBase/dBase/dBaseActor/dActor/dActorMultiState/dEn/daEnKuriboBase/daEnKuriboBase.h>
 #include <m/m3d/anmtexpat.h>

@@ -1,4 +1,3 @@
-#pragma once
 #include <fBase/dBase/dBase.h>
 #include <s/sPhase.h>
 

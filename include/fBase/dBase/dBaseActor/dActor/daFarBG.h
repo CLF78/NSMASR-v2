@@ -1,4 +1,3 @@
-#pragma once
 #include <course/BgData.h>
 #include <fBase/dBase/dBaseActor/dActor/dActor.h>
 

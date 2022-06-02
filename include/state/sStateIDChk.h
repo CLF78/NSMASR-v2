@@ -1,4 +1,3 @@
-#pragma once
 #include <state/sStateID.h>
 
 // Interface class

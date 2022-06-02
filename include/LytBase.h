@@ -1,4 +1,3 @@
-#pragma once
 #include <d/d2d/Multi.h>
 #include <d/d2d/ResAccMultLoader.h>
 

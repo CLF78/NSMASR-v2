@@ -1,4 +1,3 @@
-#pragma once
 #include <kamek.h>
 #include <m/m3d/banm.h>
 

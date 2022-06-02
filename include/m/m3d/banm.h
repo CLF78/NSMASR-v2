@@ -1,4 +1,3 @@
-#pragma once
 #include <egg/core/eggFrmHeap.h>
 #include <m/mHeap/mAllocator.h>
 #include <nw4r/g3d/anmobj.h>

@@ -1,4 +1,3 @@
-#pragma once
 #include <rvl/gx/GXEnum.h>
 
 #ifdef __cplusplus

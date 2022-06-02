@@ -1,5 +1,4 @@
 // Source: https://github.com/riidefi/mkw/blob/master/source/egg/core/eggHeap.hpp
-#pragma once
 #include <kamek.h>
 #include <egg/core/eggDisposer.h>
 #include <nw4r/ut/utList.h>

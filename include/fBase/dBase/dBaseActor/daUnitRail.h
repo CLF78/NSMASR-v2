@@ -1,4 +1,3 @@
-#pragma once
 #include <fBase/dBase/dBaseActor/dBaseActor.h>
 #include <m/m3d/smdl.h>
 #include <dHeapAllocator.h>

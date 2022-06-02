@@ -1,4 +1,3 @@
-#pragma once
 #include <kamek.h>
 #include <egg/core/eggFrmHeap.h>
 #include <dBgUnit.h>

@@ -1,4 +1,3 @@
-#pragma once
 #include <nw4r/snd/InstancePool.h>
 #include <nw4r/ut/utList.h>
 #include <rvl/os/OSMutex.h>

@@ -1,4 +1,3 @@
-#pragma once
 #include <nw4r/ut/utList.h>
 
 namespace nw4r {

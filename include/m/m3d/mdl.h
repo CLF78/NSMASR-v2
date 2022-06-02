@@ -1,4 +1,3 @@
-#pragma once
 #include <m/m3d/calcratio.h>
 #include <m/m3d/smdl.h>
 #include <m/mHeap/mAllocator.h>

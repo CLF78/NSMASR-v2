@@ -1,4 +1,3 @@
-#pragma once
 #include <kamek.h>
 #include <nw4r/snd/global.h>
 #include <nw4r/snd/SoundArchiveFile.h>

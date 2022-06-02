@@ -1,4 +1,3 @@
-#pragma once
 #include <egg/video/eggEffect.h>
 #include <m/mTypes.h>
 

@@ -1,5 +1,4 @@
 // Source: https://github.com/aboood40091/NewerSMBW/blob/more-sprites/Kamek/include/profileid.h
-#pragma once
 
 // Sprite count for ASM snippets
 #define SPRITECNT 483

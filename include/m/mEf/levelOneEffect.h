@@ -1,4 +1,3 @@
-#pragma once
 #include <m/mEf/levelEffect.h>
 #include <nw4r/ef/emitter.h>
 

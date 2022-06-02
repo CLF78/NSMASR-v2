@@ -1,5 +1,4 @@
 // Source: https://github.com/riidefi/mkw/blob/master/source/egg/core/eggDisposer.hpp
-#pragma once
 #include <nw4r/ut/utList.h>
 
 namespace EGG {

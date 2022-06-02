@@ -1,5 +1,3 @@
-#pragma once
-
 namespace m3d {
 
 class calcRatio_c {

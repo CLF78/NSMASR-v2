@@ -1,5 +1,4 @@
 // Source: RVL SDK
-#pragma once
 #include <kamek.h>
 
 #ifdef __cplusplus

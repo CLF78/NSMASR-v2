@@ -1,4 +1,3 @@
-#pragma once
 #include <egg/core/eggHeap.h>
 
 namespace EGG {

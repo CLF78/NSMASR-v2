@@ -1,4 +1,3 @@
-#pragma once
 #include <course/dCdFile.h>
 
 class dCd_c {

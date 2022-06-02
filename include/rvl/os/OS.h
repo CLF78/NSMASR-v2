@@ -1,6 +1,4 @@
 // Source: RVL SDK
-#pragma once
-
 #ifdef __cplusplus
 extern "C" {
 #endif
