@@ -173,14 +173,16 @@ void dCollisionRenderProc_c::drawXlu() {
             // Else call DrawQuad
             else {
                 float tlX, tlY, trX, trY, blX, blY, brX, brY;
+                bool addDiagonal = true;
 
                 // Use trapezoidDist for Y coordinates if collType is 2
                 // Else edge distance
                 if (collType == ccCollType::TrapezoidUD) {
-                    tlY = centreY + currCc->trapezoidDistTL;
-                    trY = centreY + currCc->trapezoidDistTR;
-                    blY = centreY + currCc->trapezoidDistBL;
-                    brY = centreY + currCc->trapezoidDistBR;
+                    tlY = centreY + currCc->trapezoidDist1;
+                    trY = centreY + currCc->trapezoidDist3;
+                    blY = centreY + currCc->trapezoidDist2;
+                    brY = centreY + currCc->trapezoidDist4;
+                    addDiagonal = false;
                 } else {
                     tlY = centreY + edgeDistY;
                     trY = centreY + edgeDistY;
@@ -191,10 +193,11 @@ void dCollisionRenderProc_c::drawXlu() {
                 // Use trapezoidDist for X coordinates if collType is 3
                 // Else edge distance
                 if (collType == ccCollType::TrapezoidLR) {
-                    tlX = centreX + currCc->trapezoidDistTL;
-                    trX = centreX + currCc->trapezoidDistTR;
-                    blX = centreX + currCc->trapezoidDistBL;
-                    brX = centreX + currCc->trapezoidDistBR;
+                    tlX = centreX + currCc->trapezoidDist1;
+                    trX = centreX + currCc->trapezoidDist2;
+                    blX = centreX + currCc->trapezoidDist3;
+                    brX = centreX + currCc->trapezoidDist4;
+                    addDiagonal = false;
                 } else {
                     tlX = centreX - edgeDistX;
                     trX = centreX + edgeDistX;
@@ -203,7 +206,7 @@ void dCollisionRenderProc_c::drawXlu() {
                 }
 
                 // Draw the quad
-                DrawQuad(tlX, tlY, trX, trY, blX, blY, brX, brY, 9000.0f, r, g, b, a, true);
+                DrawQuad(tlX, tlY, trX, trY, blX, blY, brX, brY, 9000.0f, r, g, b, a, addDiagonal);
             }
         }
 

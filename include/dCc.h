@@ -105,11 +105,11 @@ class dCc_c {
         u32 canBounce; // set to 1 on Giant Wiggler body parts, if 0 Mario/Yoshi will not bounce and get hit instead
         CollisionInfo info;
 
-        // y distance for vertical trapezoid, x distance for horizontal
-        float trapezoidDistTL;
-        float trapezoidDistTR;
-        float trapezoidDistBL;
-        float trapezoidDistBR;
+        // x dist for LR, y dist for UD
+        float trapezoidDist1; // top left for LR, top left for UD
+        float trapezoidDist2; // top right for LR, bottom left for UD
+        float trapezoidDist3; // bottom left for LR, top right for UD
+        float trapezoidDist4; // bottom right for LR, bottom right for UD
 
         float displacementX[8]; // [i] holds the horizontal displacement due to collision with category i
         float displacementY[8]; // [i] holds the vertical displacement due to collision with category i
