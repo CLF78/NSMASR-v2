@@ -1,5 +1,6 @@
 #include <kamek.h>
 #include <nw4r/g3d/res/rescommon.h>
+#include <nw4r/math/types.h>
 #include <rvl/gx/GXEnum.h>
 
 namespace nw4r {

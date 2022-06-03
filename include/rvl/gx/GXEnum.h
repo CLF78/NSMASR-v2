@@ -283,6 +283,19 @@ typedef struct {
 
 typedef struct {
     enum Value {
+        NEVER,
+        LESS,
+        EQUAL,
+        LEQUAL,
+        GREATER,
+        NEQUAL,
+        GEQUAL,
+        ALWAYS,
+    };
+} GXCompare;
+
+typedef struct {
+    enum Value {
         CLEAR,
         AND,
         REVAND,

@@ -54,6 +54,8 @@ __nw__FUl=0x802B9350
 __nwa__FUl=0x802B9390
 __dl__FPv=0x802B93C0
 __register_global_object=0x802DCA70
+_savefpr_23=0x802DCFBC
+_restfpr_23=0x802DD008
 __shl2i=0x802DD4DC
 
 bgObjNameList__17dBgActorManager_c=0x8042A0BC
@@ -221,4 +223,8 @@ GXSetTevOp=0x801C8390
 GXSetNumTevStages=0x801C8A30
 GXEnd=0x802A36F0
 
+getCenterPosY__5dCc_cFv=0x8008C510
+getCenterPosX__5dCc_cFv=0x8008C570
 mEntryN__5dCc_c=0x8042A140
+
+SinCosFIdx__Q24nw4r4mathFPfPff=0x80237DE0

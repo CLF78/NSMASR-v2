@@ -92,7 +92,9 @@ class dCc_c {
             CollisionCallback callback;
         };
 
-        void* vtable;
+        virtual ~dCc_c();
+
+        // vtable 0x0
         dActor_c* owner;
         dActor_c* ignoreActor; // collisions with this actor are ignored in dCc_c::checkCollision
         u32 _C;
@@ -103,6 +105,7 @@ class dCc_c {
         u32 canBounce; // set to 1 on Giant Wiggler body parts, if 0 Mario/Yoshi will not bounce and get hit instead
         CollisionInfo info;
 
+        // y distance for vertical trapezoid, x distance for horizontal
         float trapezoidDistTL;
         float trapezoidDistTR;
         float trapezoidDistBL;
@@ -125,4 +128,11 @@ class dCc_c {
 
         static dCc_c* mEntryN;
         static dCc_c* mEntryB;
+
+        float getCenterPosX();
+        float getCenterPosY();
+        float getLeftPos();
+        float getRightPos();
+        float getTopPos();
+        float getUnderPos();
 };

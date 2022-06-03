@@ -1,5 +1,5 @@
 #include <kamek.h>
-#include <fBase/dBase/dBaseActor/dActor/dActor.h>
+#include <nw4r/math/triangular.h>
 #include <rvl/gx/GXEnum.h>
 #include <rvl/gx/GXGeometry.h>
 #include <rvl/gx/GXLighting.h>
@@ -9,6 +9,109 @@
 #include <dBc.h>
 #include <dCc.h>
 #include "debug/collisionRender.h"
+
+// Drawing helper functions
+void DrawQuad(float tlX, float tlY, float trX, float trY, float blX, float blY, float brX, float brY, float z, u8 r, u8 g, u8 b, u8 a, bool addDiagonal) {
+
+    // Setup drawing
+    GXBegin(GXPrimitive::LINES, 0, 8 + addDiagonal * 2);
+
+    // Draw top
+    GXPosition3f32(tlX, tlY, z);
+    GXColor4u8(r,g,b,a);
+    GXPosition3f32(trX, trY, z);
+    GXColor4u8(r,g,b,a);
+
+    // Draw left
+    GXPosition3f32(tlX, tlY, z);
+    GXColor4u8(r,g,b,a);
+    GXPosition3f32(blX, blY, z);
+    GXColor4u8(r,g,b,a);
+
+    // Draw right
+    GXPosition3f32(trX, trY, z);
+    GXColor4u8(r,g,b,a);
+    GXPosition3f32(brX, brY, z);
+    GXColor4u8(r,g,b,a);
+
+    // Draw bottom
+    GXPosition3f32(blX, blY, z);
+    GXColor4u8(r,g,b,a);
+    GXPosition3f32(brX, brY, z);
+    GXColor4u8(r,g,b,a);
+
+    // Draw diagonal if enabled
+    if (addDiagonal) {
+        GXPosition3f32(trX, trY, z);
+        GXColor4u8(r,g,b,a);
+        GXPosition3f32(blX, blY, z);
+        GXColor4u8(r,g,b,a);
+    }
+
+    GXEnd();
+}
+
+// Credits to Ismy for helping me with this one
+void DrawCircle(float centreX, float centreY, float radiusX, float radiusY, float z, u8 r, u8 g, u8 b, u8 a) {
+
+    // Define a few variables
+    const int numVert = 64;
+    const float step = 256.0f/numVert;
+    float sin, cos, xDist, yDist;
+
+    // Initialize the prev variables
+    float prevSin = 0.0f;
+    float prevCos = 1.0f;
+    float prevXDist = radiusX;
+    float prevYDist = 0.0f;
+
+    // Begin drawing
+    GXBegin(GXPrimitive::LINES, 0, numVert * 2);
+
+    // Draw each line
+    for (int i = 1; i <= numVert / 4; i++) {
+
+        // Calculate sin and cos for the current angle
+        nw4r::math::SinCosFIdx(&sin, &cos, step * i);
+
+        // Calculate the distances from the center
+        xDist = radiusX * cos;
+        yDist = radiusY * sin;
+
+        // Draw on the first quadrant
+        GXPosition3f32(centreX + prevXDist, centreY + prevYDist, z);
+        GXColor4u8(r,g,b,a);
+        GXPosition3f32(centreX + xDist, centreY + yDist, z);
+        GXColor4u8(r,g,b,a);
+
+        // Draw on the second quadrant
+        GXPosition3f32(centreX - prevYDist, centreY + prevXDist, z);
+        GXColor4u8(r,g,b,a);
+        GXPosition3f32(centreX - yDist, centreY + xDist, z);
+        GXColor4u8(r,g,b,a);
+
+        // Draw on the third quadrant
+        GXPosition3f32(centreX - prevXDist, centreY - prevYDist, z);
+        GXColor4u8(r,g,b,a);
+        GXPosition3f32(centreX - xDist, centreY - yDist, z);
+        GXColor4u8(r,g,b,a);
+
+        // Draw on the fourth quadrant
+        GXPosition3f32(centreX + prevYDist, centreY - prevXDist, z);
+        GXColor4u8(r,g,b,a);
+        GXPosition3f32(centreX + yDist, centreY - xDist, z);
+        GXColor4u8(r,g,b,a);
+
+        // Override the "previous" values
+        prevSin = sin;
+        prevCos = cos;
+        prevXDist = xDist;
+        prevYDist = yDist;
+    }
+
+    // End drawing
+    GXEnd();
+}
 
 static dCollisionRenderProc_c instance;
 
@@ -48,68 +151,60 @@ void dCollisionRenderProc_c::drawXlu() {
     dCc_c* currCc = dCc_c::mEntryN;
     while (currCc) {
 
-        u32 uptr = (u32)currCc;
-        u8 r = (uptr >> 16) & 0xFF;
-        u8 g = (uptr >> 8) & 0xFF;
-        u8 b = uptr & 0xFF;
-        u8 a = 0xFF;
-
         // Make sure the actor isn't dead and that its owner exists
         if (currCc->isDead != 2 && currCc->owner != nullptr) {
 
-            GXBegin(GXPrimitive::LINES, 0, 8);
+            u32 uptr = (u32)currCc;
+            u8 r = (uptr >> 16) & 0xFF;
+            u8 g = (uptr >> 8) & 0xFF;
+            u8 b = uptr & 0xFF;
+            u8 a = 0xFF;
 
-            float centreX = currCc->owner->pos.x + currCc->info.xDistToCenter;
-            float centreY = currCc->owner->pos.y + currCc->info.yDistToCenter;
+            float centreX = currCc->getCenterPosX();
+            float centreY = currCc->getCenterPosY();
             float edgeDistX = currCc->info.xDistToEdge;
             float edgeDistY = currCc->info.yDistToEdge;
+            u8 collType = currCc->collisionType;
 
-            float tlX = centreX - edgeDistX, tlY = centreY + edgeDistY;
-            float trX = centreX + edgeDistX, trY = centreY + edgeDistY;
+            // Call DrawCircle for circles
+            if (collType == ccCollType::Circle)
+                DrawCircle(centreX, centreY, edgeDistX, edgeDistY, 9000.0f, r, g, b, a);
 
-            float blX = centreX - edgeDistX, blY = centreY - edgeDistY;
-            float brX = centreX + edgeDistX, brY = centreY - edgeDistY;
+            // Else call DrawQuad
+            else {
+                float tlX, tlY, trX, trY, blX, blY, brX, brY;
 
-            switch (currCc->collisionType) {
-                case 2: // vert trapezoid
+                // Use trapezoidDist for Y coordinates if collType is 2
+                // Else edge distance
+                if (collType == ccCollType::TrapezoidUD) {
                     tlY = centreY + currCc->trapezoidDistTL;
                     trY = centreY + currCc->trapezoidDistTR;
                     blY = centreY + currCc->trapezoidDistBL;
                     brY = centreY + currCc->trapezoidDistBR;
-                    break;
-                case 3: // horz trapezoid
+                } else {
+                    tlY = centreY + edgeDistY;
+                    trY = centreY + edgeDistY;
+                    blY = centreY - edgeDistY;
+                    brY = centreY - edgeDistY;
+                }
+
+                // Use trapezoidDist for X coordinates if collType is 3
+                // Else edge distance
+                if (collType == ccCollType::TrapezoidLR) {
                     tlX = centreX + currCc->trapezoidDistTL;
                     trX = centreX + currCc->trapezoidDistTR;
                     blX = centreX + currCc->trapezoidDistBL;
                     brX = centreX + currCc->trapezoidDistBR;
-                    break;
+                } else {
+                    tlX = centreX - edgeDistX;
+                    trX = centreX + edgeDistX;
+                    blX = centreX - edgeDistX;
+                    brX = centreX + edgeDistX;
+                }
+
+                // Draw the quad
+                DrawQuad(tlX, tlY, trX, trY, blX, blY, brX, brY, 9000.0f, r, g, b, a, true);
             }
-
-            // Top
-            GXPosition3f32(tlX, tlY, 9000.0f);
-            GXColor4u8(r,g,b,a);
-            GXPosition3f32(trX, trY, 9000.0f);
-            GXColor4u8(r,g,b,a);
-
-            // Left
-            GXPosition3f32(tlX, tlY, 9000.0f);
-            GXColor4u8(r,g,b,a);
-            GXPosition3f32(blX, blY, 9000.0f);
-            GXColor4u8(r,g,b,a);
-
-            // Right
-            GXPosition3f32(trX, trY, 9000.0f);
-            GXColor4u8(r,g,b,a);
-            GXPosition3f32(brX, brY, 9000.0f);
-            GXColor4u8(r,g,b,a);
-
-            // Bottom
-            GXPosition3f32(blX, blY, 9000.0f);
-            GXColor4u8(r,g,b,a);
-            GXPosition3f32(brX, brY, 9000.0f);
-            GXColor4u8(r,g,b,a);
-
-            GXEnd();
         }
 
         currCc = currCc->prev;
