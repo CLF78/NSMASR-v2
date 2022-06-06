@@ -199,6 +199,19 @@
     <dualbox nybble="7.4" title1="Enable Tilt" title2="Disable Tilt" comment="If disabled, the block will maintain its Z-rotation while under the effect of a controller." requirednybble="9" requiredval="0"/>
   </sprite> <!-- #256: Rotation Controlled Brick Block -->
 
+  <!-- Check if it crashes from using more than one different type of ambiance / more than one of the same type of ambiance -->
+  <sprite id="465" name="Effect - Ambiance Sound Effects" notes="This generates various ambiance effects for the Zone, such as birds and thunder.">
+    <dependency notes="If this sprite is placed more than once in the same Zone, the game will crash."/>
+    <list nybble="12" title="Type" comment="This determines the ambiance used in the Zone.">
+      <entry value="0">Lava Rumbling</entry>
+      <entry value="1">Jungle Birds</entry>
+      <entry value="2">Thunder</entry>
+      <entry value="3">Beach Waves</entry>
+      <entry value="4">Dripping</entry>
+      <entry value="5">Waterfall</entry>
+    </list>
+  </sprite> <!-- #465: Effect - Ambiance Sound Effects -->
+
   <sprite id="483" name="Sound/Graphic Effects Spawner" phonebook="Effects" notes="Enables event-driven spawning of Sound Effects and Graphic Effects.&lt;br&gt;&lt;u&gt;Limitations&lt;/u&gt;&lt;br&gt; 1) Do not use 1000 or more sounds/effects per area.&lt;br&gt; 2) A single Event ID can only trigger one sound/effect per area&lt;br&gt; 3) Only a specific number of sounds/effects can be active at the same time&lt;br&gt; 4) Only two BRSTMs can be active at the same time." advancednotes="If spawning a Sound Effect, the placement of the sprite is crucial, as the sound is emitted from that position. If the player is ~3 screens away from the sprite, then they won't hear it anymore. Placing multiple sprites with the same settings at different locations is possible.">
       <value nybble="1-2" title="Triggering Event ID" comment="When this Event ID is activated, the associated sound or affect will be played." idtype="Triggering Event"/>
       <external type="sfx" nybble="10-12" title="Sfx ID" comment="Use this external window to select your Sound Effect." requirednybble="8.4" requiredval="0"/>
