@@ -24,7 +24,7 @@ static ulong currentSoundId = STRM_BGM_DUMMY;
 const CustomSoundEntry customEntries[] = {
     {SMB_GRASS, "stream/SMB_GRASS.brstm", STRM_BGM_CHIJOU},
     {SMB_GRASS_F, "stream/SMB_GRASS_F.brstm", STRM_BGM_CHIJOU},
-    {SE_AMB_WATERFALL, "sfx/SE_AMB_WATERFALL.brstm", SE_AMB_SEWER},
+    {SE_AMB_WATERFALL, "sfx/SE_AMB_WATERFALL.brstm", SE_AMB_SEASIDE},
 };
 
 nw4r::snd::SoundStartable::StartResult mySetupSoundImpl(nw4r::snd::SoundArchivePlayer* self, nw4r::snd::SoundHandle* handle, ulong soundId, nw4r::snd::detail::BasicSound::AmbientInfo* ambientArgInfo, nw4r::snd::SoundActor* actor, bool holdFlag, const nw4r::snd::SoundStartable::StartInfo* startInfo) {
@@ -170,7 +170,7 @@ kmBranchDefAsm(0x8027C430, 0x8027C434) {
 
     // Call CPP function
     lwz r3, 0x74(r1)
-    subi r3, r3, 0x5C
+    subi r3, r3, 0x60
     lbz r4, 0x3F(r29)
     bl SetMusicVolume
 
