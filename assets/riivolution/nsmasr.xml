@@ -19,6 +19,6 @@
 		<folder external="Tilesets" disc="/Stage/Texture" create="true"/>
 		<file disc="/EU/EngEU/Message/Message.arc" external="Message/MessageENG.arc" />
 		<memory offset="0x800046E4" valuefile="Loader.bin"/>
-		<memory offset="0x80004320" value="480005F4"/>
+		<memory offset="0x80004320" value="480005B4"/>
 	</patch>
 </wiidisc>

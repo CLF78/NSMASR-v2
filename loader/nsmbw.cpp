@@ -3,19 +3,21 @@
 #include <stdlib/string.h>
 #include "nsmbw.h"
 
+// Static region-free addresses
 extern "C" {
 u32 detect:0x800CF6CC;
 u8 detectKor:0x8000423A;
+vu32 aiControl:0xCD006C00;
 }
 
-void *allocAdapter(u32 size, bool isForCode, const loaderFunctions *funcs) {
-    const loaderFunctionsEx *funcsEx = (const loaderFunctionsEx *)funcs;
+void* allocAdapter(u32 size, bool isForCode, const loaderFunctions* funcs) {
+    const loaderFunctionsEx* funcsEx = (const loaderFunctionsEx* )funcs;
     EGG::ExpHeap** heapPtr = isForCode ? funcsEx->dylinkHeap : funcsEx->archiveHeap;
     return funcsEx->eggAlloc(size, 0x20, *heapPtr);
 }
 
-void freeAdapter(void *buffer, bool isForCode, const loaderFunctions *funcs) {
-    const loaderFunctionsEx *funcsEx = (const loaderFunctionsEx *)funcs;
+void freeAdapter(void* buffer, bool isForCode, const loaderFunctions* funcs) {
+    const loaderFunctionsEx* funcsEx = (const loaderFunctionsEx* )funcs;
     EGG::ExpHeap** heapPtr = isForCode ? funcsEx->dylinkHeap : funcsEx->archiveHeap;
     funcsEx->eggFree(buffer, *heapPtr);
 }
@@ -119,47 +121,50 @@ void unknownVersion() {
 }
 
 // Region detection function
-regionData regionDetect() {
+u32 regionDetect() {
 
     // Default to PAL and 0
-    regionData data = {REGION_P, 0};
+    u16 region = REGION_P;
+    u16 version = 0;
 
     // Use instruction to detect region
     switch (detect) {
-        case 0x40820030: data.version = 1; break;
-        case 0x40820038: data.version = 2; break;
-        case 0x48000465: data.region = REGION_E; data.version = 1; break;
-        case 0x2C030000: data.region = REGION_E; data.version = 2; break;
-        case 0x480000B4: data.region = REGION_J; data.version = 1; break;
-        case 0x4082000C: data.region = REGION_J; data.version = 2; break;
+        case 0x40820030: version = 1; break;
+        case 0x40820038: version = 2; break;
+        case 0x48000465: region = REGION_E; version = 1; break;
+        case 0x2C030000: region = REGION_E; version = 2; break;
+        case 0x480000B4: region = REGION_J; version = 1; break;
+        case 0x4082000C: region = REGION_J; version = 2; break;
         case 0x38A00001:
             switch (detectKor) {
-                case 0xC8: data.region = REGION_K; break;
-                case 0xAC: data.region = REGION_W; break;
+                case 0xC8: region = REGION_K; break;
+                case 0xAC: region = REGION_W; break;
                 default: unknownVersion();
             }
             break;
         default: unknownVersion();
     }
 
-    return data;
+    return region << 16 | version;
 }
 
 // Second stage payload loader - loads Kamek binary
 int secondStage() {
 
     // Detect region
-    regionData data = regionDetect();
+    u32 data = regionDetect();
+    u16 region = data >> 16;
+    u16 version = data & 0xFFFF;
 
     // Choose functions (these are all the same in v1 and v2, thankfully)
-    const loaderFunctionsEx *funcs = &functions[data.region];
+    const loaderFunctionsEx* funcs = &functions[region];
 
     // Load file
     char path[32];
-    if (data.version == 0)
+    if (version == 0)
         funcs->base.sprintf(path, "/code%c.bin", funcs->identifier);
     else
-        funcs->base.sprintf(path, "/code%c%d.bin", funcs->identifier, data.version);
+        funcs->base.sprintf(path, "/code%c%d.bin", funcs->identifier, version);
     loadKamekBinaryFromDisc(&funcs->base, path);
 
     return 1;
@@ -169,12 +174,11 @@ int secondStage() {
 void firstStage() {
 
     // Before we can do anything, detect region
-    regionData data = regionDetect();
-    const loaderFunctionsEx *funcs = &functions[data.region];
+    u16 region = regionDetect() >> 16;
+    const loaderFunctionsEx* funcs = &functions[region];
 
-    // Reset the DSP to fix libogc clownery
-    vu32* aiControl = (u32*)0xCD006C00;
-    *aiControl = 0;
+    // Reset the DSP to fix libogc clownery;
+    aiControl = 0;
 
     // Patch out the BCA check by nopping the call in the main function
     *funcs->bcaCheck = 0x60000000;

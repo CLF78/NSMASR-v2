@@ -9,13 +9,8 @@
 #define REGION_K 3
 #define REGION_W 4
 
-typedef void *(*EGG_Heap_Alloc_t) (u32 size, s32 align, EGG::Heap* heap);
-typedef void (*EGG_Heap_Free_t) (void *buffer, EGG::Heap* heap);
-
-struct regionData {
-    u16 region;
-    u16 version;
-};
+typedef void* (*EGG_Heap_Alloc_t) (u32 size, s32 align, EGG::Heap* heap);
+typedef void (*EGG_Heap_Free_t) (void* buffer, EGG::Heap* heap);
 
 struct loaderFunctionsEx {
     loaderFunctions base;

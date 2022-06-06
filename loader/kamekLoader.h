@@ -4,15 +4,15 @@
 
 typedef struct loaderFunctions loaderFunctions;
 
-typedef void (*OSReport_t) (const char *str, ...);
-typedef void (*OSFatal_t) (u32 *fg, u32 *bg, const char *str, ...);
-typedef int (*DVDConvertPathToEntrynum_t) (const char *path);
-typedef bool (*DVDFastOpen_t) (int entrynum, DVDFileInfo *fileInfo);
-typedef int (*DVDReadPrio_t) (DVDFileInfo *fileInfo, void *buffer, int length, int offset, int prio);
-typedef bool (*DVDClose_t) (DVDFileInfo *fileInfo);
-typedef int (*sprintf_t) (char *str, const char *format, ...);
-typedef void *(*KamekAlloc_t) (u32 size, bool isForCode, const loaderFunctions *funcs);
-typedef void (*KamekFree_t) (void *buffer, bool isForCode, const loaderFunctions *funcs);
+typedef void (*OSReport_t) (const char* str, ...);
+typedef void (*OSFatal_t) (u32* fg, u32* bg, const char* str, ...);
+typedef int (*DVDConvertPathToEntrynum_t) (const char* path);
+typedef bool (*DVDFastOpen_t) (int entrynum, DVDFileInfo* fileInfo);
+typedef int (*DVDReadPrio_t) (DVDFileInfo* fileInfo, void* buffer, int length, int offset, int prio);
+typedef bool (*DVDClose_t) (DVDFileInfo* fileInfo);
+typedef int (*sprintf_t) (char* str, const char* format, ...);
+typedef void* (*KamekAlloc_t) (u32 size, bool isForCode, const loaderFunctions* funcs);
+typedef void (*KamekFree_t) (void* buffer, bool isForCode, const loaderFunctions* funcs);
 
 struct loaderFunctions {
     OSReport_t OSReport;
@@ -32,4 +32,4 @@ inline void cacheInvalidateAddress(const void* address) {
     __icbi(address);
 }
 
-void loadKamekBinaryFromDisc(const loaderFunctions *funcs, const char *path);
+void loadKamekBinaryFromDisc(const loaderFunctions* funcs, const char* path);
