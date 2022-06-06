@@ -5,8 +5,7 @@
 class dSaveMng_c {
     public:
         bool isNowSave; // set to true when accessing NAND
-        u8 pad[0x1F];
-        dMj2dHeader_c save;
+        dMj2dHeader_c save __attribute__ ((aligned (0x20))); // alignment required due to NAND r/w
 
         static dSaveMng_c* m_instance;
 
