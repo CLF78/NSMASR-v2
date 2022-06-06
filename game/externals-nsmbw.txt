@@ -215,12 +215,17 @@ __vt__Q23m3d6proc_c=0xDEADBEEF
 GXSetVtxDesc=0x801C3900
 GXClearVtxDesc=0x801C41B0
 GXSetVtxAttrFmt=0x801C41F0
+GXSetNumTexGens=0x801C4B60
 GXBegin=0x801C56B0
 GXSetLineWidth=0x801C58E0
+GXSetCullMode=0x801C59A0
 GXSetNumChans=0x801C6C00
 GXSetChanCtrl=0x801C6C30
 GXSetTevOp=0x801C8390
+GXSetTevOrder=0x801C88D0
 GXSetNumTevStages=0x801C8A30
+GXSetBlendMode=0x801C8F00
+GXLoadPosMtxImm=0x801C9A80
 GXEnd=0x802A36F0
 
 getCenterPosY__5dCc_cFv=0x8008C510
@@ -228,3 +233,7 @@ getCenterPosX__5dCc_cFv=0x8008C570
 mEntryN__5dCc_c=0x8042A140
 
 SinCosFIdx__Q24nw4r4mathFPfPff=0x80237DE0
+
+getCurrentCamera__3m3dFv=0x80164C70
+
+GetCameraMtx__Q34nw4r3g3d6CameraCFPQ34nw4r4math5MTX34=0x802541F0

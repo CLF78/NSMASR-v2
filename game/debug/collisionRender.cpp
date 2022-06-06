@@ -1,10 +1,15 @@
 #include <kamek.h>
+#include <m/m3d/camera.h>
+#include <nw4r/g3d/camera.h>
 #include <nw4r/math/triangular.h>
+#include <rvl/gx/GXCull.h>
 #include <rvl/gx/GXEnum.h>
 #include <rvl/gx/GXGeometry.h>
 #include <rvl/gx/GXLighting.h>
+#include <rvl/gx/GXPixel.h>
 #include <rvl/gx/GXStruct.h>
 #include <rvl/gx/GXTev.h>
+#include <rvl/gx/GXTransform.h>
 #include <rvl/gx/GXVert.h>
 #include <dBc.h>
 #include <dCc.h>
@@ -126,6 +131,8 @@ void dCollisionRenderProc_c::drawOpa() {
 // Actual drawing
 void dCollisionRenderProc_c::drawXlu() {
 
+    // Set up copied from 0x801717C0
+
     // Set current vertex descriptor to enable position and color0, both provided directly
     GXClearVtxDesc();
     GXSetVtxDesc(GXAttr::POS, GXAttrType::DIRECT);
@@ -137,13 +144,26 @@ void dCollisionRenderProc_c::drawXlu() {
     // Color 0 has 4 components (r, g, b, a), each of type u8
     GXSetVtxAttrFmt(0, GXAttr::CLR0, GXCompCnt::CLR_RGBA, GXCompType::RGBA8, 0);
 
+    // Disable culling
+    GXSetCullMode(GXCullMode::NONE);
+
     // Enable color channel 0 and set vertex color as source
     GXSetNumChans(1);
     GXSetChanCtrl(GXChannelID::COLOR0A0, false, GXColorSrc::VTX, GXColorSrc::VTX, GXLightID::NONE, GXDiffuseFn::OFF, GXAttnFn::NONE);
+    GXSetNumTexGens(0);
 
     // Enable one TEV stage
     GXSetNumTevStages(1);
     GXSetTevOp(0, GXTevMode::PASSCLR);
+    GXSetTevOrder(0, GXTexCoordID::NONE, GXTexMapID::NONE, GXChannelID::COLOR0A0);
+
+    // Set blend mode
+    GXSetBlendMode(GXBlendMode::NONE, GXBlendFactor::ZERO, GXBlendFactor::ZERO, GXLogicOp::NOOP);
+
+    // Load camera matrix
+    nw4r::math::MTX34 mtx;
+    m3d::getCurrentCamera().GetCameraMtx(&mtx);
+    GXLoadPosMtxImm((MTX34*)&mtx, 0);
 
     // Set line width to 3 pixels
     GXSetLineWidth(18, GXTexOffset::TO_ZERO);
