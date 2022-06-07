@@ -1,5 +1,5 @@
 #include <kamek.h>
-#include <dBg.h>
+#include <dBc.h>
 #include <m/mTypes.h>
 
 class dBg_ctr_c {
@@ -43,11 +43,11 @@ class dBg_ctr_c {
         float offsetRight;
         float offsetBottom;
 
-        float diameter; // only used for circles
+        float radius; // only used for circles
 
         mVec3_c ownerPos;
-        mVec2_c distanceFromOwner; // ??
-        mVec2_c prevDistanceFromOwner; // ??
+        mVec2_c diagonalSize; // ??
+        mVec2_c prevDiagonalSize; // ??
         mVec3_c displacement; // ??
 
         s16* rotationPtr;

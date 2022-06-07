@@ -12,6 +12,7 @@
 #include <rvl/gx/GXTransform.h>
 #include <rvl/gx/GXVert.h>
 #include <dBc.h>
+#include <dBg_ctr.h>
 #include <dCc.h>
 #include "debug/collisionRender.h"
 
@@ -168,6 +169,7 @@ void dCollisionRenderProc_c::drawXlu() {
     // Set line width to 3 pixels
     GXSetLineWidth(18, GXTexOffset::TO_ZERO);
 
+    // Draw all instances of dCc_c
     dCc_c* currCc = dCc_c::mEntryN;
     while (currCc) {
 
@@ -231,6 +233,36 @@ void dCollisionRenderProc_c::drawXlu() {
         }
 
         currCc = currCc->prev;
+    }
+
+    // Draw all instances of dBg_ctr_c
+    dBg_ctr_c* currBgCtr = dBg_ctr_c::mEntryN;
+    while (currBgCtr) {
+
+        u32 uptr = (u32)currBgCtr;
+        u8 r = (uptr>>16) & 0xFF;
+        u8 g = (uptr>>8) & 0xFF;
+        u8 b = uptr & 0xFF;
+        u8 a = 0xFF;
+
+        // If round, draw a circle
+        if (currBgCtr->isRound)
+            DrawCircle(currBgCtr->lastPos.x, currBgCtr->lastPos.y, currBgCtr->radius, currBgCtr->radius, 9000.0f, r, g, b, a);
+
+        // Else draw a quad
+        else {
+            float tlX = currBgCtr->calcedPos[0].x;
+            float tlY = currBgCtr->calcedPos[0].y;
+            float trX = currBgCtr->calcedPos[3].x;
+            float trY = currBgCtr->calcedPos[3].y;
+            float blX = currBgCtr->calcedPos[1].x;
+            float blY = currBgCtr->calcedPos[1].y;
+            float brX = currBgCtr->calcedPos[2].x;
+            float brY = currBgCtr->calcedPos[2].y;
+            DrawQuad(tlX, tlY, trX, trY, blX, blY, brX, brY, 9000.0f, r, g, b, a, false);
+        }
+
+        currBgCtr = currBgCtr->prev;
     }
 }
 

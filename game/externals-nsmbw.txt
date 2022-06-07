@@ -237,3 +237,5 @@ SinCosFIdx__Q24nw4r4mathFPfPff=0x80237DE0
 getCurrentCamera__3m3dFv=0x80164C70
 
 GetCameraMtx__Q34nw4r3g3d6CameraCFPQ34nw4r4math5MTX34=0x802541F0
+
+mEntryN__9dBg_ctr_c=0x8042A0C0
