@@ -22,8 +22,7 @@ struct BGBuffer {
 class dBgUnit_c {
     public:
         void* vtable;
-        BGBuffer* allocatedBlocks[256];
-        u32 _404;
+        BGBuffer* allocatedBlocks[257];
         u8 usedIDs[2048];
         u16 nextID;
         // 2 bytes padding

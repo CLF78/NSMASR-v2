@@ -9,3 +9,6 @@ kmCallDefAsm(0x80077290) {
     stb r0, 0x20(r6)
     blr
 };
+
+// Disable unnecessary tile allocation, fixes zone size limit
+kmWrite32(0x800838B8, 0x480001BC);
