@@ -11,4 +11,4 @@ kmCallDefAsm(0x80077290) {
 };
 
 // Disable unnecessary tile allocation, fixes zone size limit
-kmWrite32(0x800838B8, 0x480001BC);
+kmWrite32(0x800838C4, 0x480001B0);

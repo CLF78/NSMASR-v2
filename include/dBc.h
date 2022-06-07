@@ -74,31 +74,221 @@ struct UnitType {
         BreakableBlock = 0x10,
         Slope = 0x20,
         ReverseSlope = 0x40,
-        Unk_80 = 0x80, // Unused?
-        Unk_100 = 0x100, // Unused?
-        Water = 0x200, // ??
         ClimbableFence = 0x400,
         PartialSolid = 0x800,
         Spike = 0x1000,
         SolidOnBottom = 0x2000,
-        Unk_4000 = 0x4000, // Unused?
         SolidOnTop = 0x8000,
         Pipe = 0x10000,
         DonutBlock = 0x20000,
-        Unk_40000 = 0x40000, // Unused?
         Ledge = 0x80000,
         FakeBlockMaybe = 0x100000, // ??
-        Unk_200000 = 0x200000, // Unused?
-        Unk_400000 = 0x400000, // Unused?
-        Unk_800000 = 0x800000, // Unused?
-        Unk_1000000 = 0x1000000, // Unused?
         Meltable = 0x2000000,
-        Unk_4000000 = 0x4000000, // Unused?
-        Unk_8000000 = 0x8000000, // Unused?
-        Unk_10000000 = 0x10000000, // Unused?
-        Unk_20000000 = 0x20000000, // Unused?
-        Unk_40000000 = 0x40000000, // Unused?
-        Unk_80000000 = 0x80000000, // Unused?
+    };
+};
+
+// Represents the last 4 bytes of the tileset behaviour
+struct UnitKind {
+    enum Value {
+        None,
+
+        // Generic flags
+        Icy = 0x10000,
+        Snowy = 0x20000,
+        Quicksand = 0x30000,
+        ConveyorRight = 0x40000,
+        ConveyorLeft = 0x50000,
+        HorizontalRope = 0x60000,
+        NoWallJumps = 0x70000,
+        Ledge = 0x80000,
+        Ladder = 0x90000,
+        Staircase = 0xA0000,
+        Carpet = 0xB0000,
+        Dusty = 0xC0000,
+        Grass = 0xD0000,
+        Muffled = 0xE0000,
+        BeachSand = 0xF0000,
+
+        // Unused pipe flags
+        GreenPipe = 0x200,
+        RedPipe = 0x600,
+        YellowPipe = 0xA00,
+
+        // No flag values
+        RailUpslope = 1,
+        RailDownslope = 2,
+        RailCornerFill = 3,
+        RailCorner = 4,
+        RailHorizontal = 5,
+        RailVertical = 6,
+        RailGentleUpslopeRight = 8,
+        RailGentleUpslopeLeft = 9,
+        RailGentleDownslopeRight = 0xA,
+        RailGentleDownslopeLeft = 0xB,
+        RailSteepUpslopeTop = 0xC,
+        RailSteepUpslopeBottom = 0xD,
+        RailSteepDownslopeBottom = 0xE,
+        RailSteepDownslopeTop = 0xF,
+        RailCircle = 0x10,
+        Rail2CircleTR = 0x11,
+        Rail2CircleTL = 0x12,
+        Rail2CircleBR = 0x13,
+        Rail2CircleBL = 0x14,
+        Rail4Circle00 = 0x15,
+        Rail4Circle01 = 0x16,
+        Rail4Circle02 = 0x17,
+        Rail4Circle03 = 0x18,
+        Rail4Circle10 = 0x19,
+        Rail4Circle13 = 0x1A,
+        Rail4Circle20 = 0x1B,
+        Rail4Circle23 = 0x1C,
+        Rail4Circle30 = 0x1D,
+        Rail4Circle31 = 0x1E,
+        Rail4Circle32 = 0x1F,
+        Rail4Circle33 = 0x20,
+        RailStop = 0x22,
+        BeanstalkStop = 0x23,
+        CoinOutline = 0x28,
+        CoinBattle = 0x35,
+        RedBlockOutline = 0x36,
+        RedBlockOutline2 = 0x37,
+        CaveEntranceRight = 0x38,
+        CaveEntranceLeft = 0x39,
+        Layer0Pit = 0x3B,
+
+        // Climbable Fence flag
+        FenceFree = 1,
+        FenceTL = 2,
+        FenceTop = 3,
+        FenceTR = 4,
+        FenceLeft = 5,
+        FenceMiddle = 6,
+        FenceRight = 7,
+        FenceBL = 8,
+        FenceBottom = 9,
+        FenceBR = 0xA,
+
+        // Coin flag
+        CoinGeneric = 0,
+        BlueCoin = 4,
+
+        // Explodable Block flag
+        StoneBlock = 1,
+        WoodenBlock = 2,
+        RedBlock = 3,
+
+        // Pipe flag
+        PipeVertTL = 0,
+        PipeVertTR = 1,
+        PipeVertBL = 2,
+        PipeVertBR = 3,
+        PipeVertLeft = 4,
+        PipeVertRight = 5,
+        PipeVertJunctionLeft = 6,
+        PipeVertJunctionRight = 7,
+        PipeHorzalTL = 8,
+        PipeHorzBL = 9,
+        PipeHorzTR = 0xA,
+        PipeHorzBR = 0xB,
+        PipeHorzTop = 0xC,
+        PipeHorzBottom = 0xD,
+        PipeHorzJunctionTop = 0xE,
+        PipeHorzJunctionBottom = 0xF,
+        PipeMiniVertTop = 0x10,
+        PipeMiniVertBottom = 0x12,
+        PipeMiniVertJunction = 0x16,
+        PipeMiniHorzLeft = 0x18,
+        PipeMiniHorzRight = 0x1A,
+        PipeMiniVertCenter = 0x1C,
+        PipeMiniHorzCenter = 0x1D,
+        PipeMiniHorzJunction = 0x1E,
+        PipeCorner = 0x1F,
+
+        // Question block flag
+        QBlockFireFlower = 0,
+        QBlockStar = 1,
+        QBlockCoin = 2,
+        QBlockVine = 3,
+        QBlock1UP = 4,
+        QBlockMiniShroom = 5,
+        QBlockPropeller = 6,
+        QBlockPenguinSuit = 7,
+        QBlockIceFlower = 8,
+
+        // Partial solid flag
+        PartialBlockTL = 1,
+        PartialBlockTR = 2,
+        PartialBlockTLTR = 3,
+        PartialBlockBL = 4,
+        PartialBlockTLBL = 5,
+        PartialBlockBLTR = 6,
+        PartialBlockTLTRBL = 7,
+        PartialBlockBR = 8,
+        PartialBlockTLBR = 9,
+        PartialBlockTRBR = 0xA,
+        PartialBlockTLTRBR = 0xB,
+        PartialBlockBLBR = 0xC,
+        PartialBlockTLBLBR = 0xD,
+        PartialBlockTRBLBR = 0xE,
+        PartialBlockFull = 0xF,
+
+        // Slope flag
+        SteepSlopeUp = 0,
+        SteepSlopeDown = 1,
+        SlopeUpLeft = 2,
+        SlopeUpRight = 3,
+        SlopeDownLeft = 4,
+        SlopeDownRight = 5,
+        VerySteepSlopeUpBottom = 6,
+        VerySteepSlopeUpTop = 7,
+        VerySteepSlopeDownBottom = 8,
+        VerySteepSlopeDownTop = 9,
+        SlopeEdge = 0xA,
+        GentleSlopeUp1 = 0xB,
+        GentleSlopeUp2 = 0xC,
+        GentleSlopeUp3 = 0xD,
+        GentleSlopeUp4 = 0xE,
+        GentleSlopeDown1 = 0xF,
+        GentleSlopeDown2 = 0x10,
+        GentleSlopeDown3 = 0x11,
+        GentleSlopeDown4 = 0x12,
+
+        // Reverse Slope flag
+        SteepRSlopeDown = 0,
+        SteepRSlopeUp = 1,
+        RSlopeDownLeft = 2,
+        RSlopeDownRight = 3,
+        RSlopeUpLeft = 4,
+        RSlopeUpRight = 5,
+        VerySteepRSlopeDownTop = 6,
+        VerySteepRSlopeDownBottom = 7,
+        VerySteepRSlopeUpTop = 8,
+        VerySteepRSlopeUpBottom = 9,
+        RSlopeEdge = 0xA,
+        GentleRSlopeDown1 = 0xB,
+        GentleRSlopeDown2 = 0xC,
+        GentleRSlopeDown3 = 0xD,
+        GentleRSlopeDown4 = 0xE,
+        GentleRSlopeUp1 = 0xF,
+        GentleRSlopeUp2 = 0x10,
+        GentleRSlopeUp3 = 0x11,
+        GentleRSlopeUp4 = 0x12,
+
+        // Spike flag
+        SpikeLeft = 0,
+        SpikeRight = 1,
+        SpikeUp = 2,
+        SpikeDown = 3,
+        SpikeLongDownBottom = 4,
+        SpikeLongDownTop = 5,
+        SpikeSingleDown = 6,
+        SpikeBlock = 7,
+
+        // Conveyor Belt flag
+        ConveyorLeftSlow = 0,
+        ConveyorLeftFast = 1,
+        ConveyorRightSlow = 2,
+        ConveyorRightFast = 3,
     };
 };
 
@@ -109,10 +299,10 @@ struct BgDamageFlag {
         SpikeRight = 2,
         SpikeUp = 4,
         SpikeDown = 8,
-        SpikeLongDown = 0x10,
-        SpikeLongDown2 = 0x20,
+        SpikeLongDownBottom = 0x10,
+        SpikeLongDownTop = 0x20,
         SpikeSingleDown = 0x40,
-        Unk_80 = 0x80,
+        SpikeBlock = 0x80,
     };
 };
 
@@ -145,9 +335,9 @@ class dBc_c {
         VEC3 specialSpeedOffset;
         VEC2 speedDelta;
         VEC2 ridePos;
-        VEC2 _3C;
+        VEC2 _3C; // used for players when wallsliding
 
-        // VEC2 maybe?
+        // VEC2 maybe? seemingly unused
         u32 _44;
         u32 _48;
 
@@ -155,27 +345,27 @@ class dBc_c {
 
         dRc_c* rc;
 
-        u32 _54;
+        dActor_c* ignoreActor; // collisions with this actor are ignored
 
-        dBg_ctr_c* belowCtr;
-        dBg_ctr_c* aboveCtr;
-        dBg_ctr_c* adjacentCtrLast;
-        dBg_ctr_c* adjacentCtrs[2];
+        dBg_ctr_c* collidedBelow;
+        dBg_ctr_c* collidedAbove;
+        dBg_ctr_c* collidedAdj;
+        dBg_ctr_c* collidedAdjForDirection[2];
 
-        dBc_c* _6C;
-        dBc_c* _70;
-        dBc_c* _74;
-        dBc_c* linkW_bc[2];
-        dBg_ctr_c* linkW_ctr[2];
+        dBc_c* prevTriggeredBelowSensor; // copied from collidedBelow
+        dBc_c* prevTriggeredAboveSensor; // copied from collidedAbove
+        dBc_c* prevTriggeredAdjSensor; // copied from collidedAdj
+        dBc_c* prevTriggeredAdjSensorForDirection[2]; // copied from collidedAdjForDirection
+        dBg_ctr_c* linkW[2]; // copy of collidedAdjForDirection
 
         u32 output;
         u32 prevOutput;
 
         u32 lastUnitType;
-        u32 _94;
+        u32 lastUnitKind;
 
-        u8 playerId;
-        u8 playerNo;
+        u8 playerId; // playerId of the owner/who is carrying the owner
+        u8 playerNo; // seemingly unused even if read several times
 
         u16 lastX;
         u16 lastY;
@@ -195,33 +385,33 @@ class dBc_c {
         u8 adjacentTileSubTypes[2];
         u8 lastTileAdjacentSubTypes[2];
 
-        u8 _BC; // &4 = something with slopes (?), &8 allows entering mini pipes?
+        u8 playerFlags; // only applies to player sensors, &1 = vine/fence, &2 = wall slide &4 = something with slopes (?), &8 = is mini
 
         u8 currentSlopeType;
         s16 currentSlopeAngle;
         u8 currentFlippedSlopeType;
         s16 currentFlippedSlopeAngle;
         // 1 byte padding
-        u32 _C4;
+
+        u32 _C4; // value 0/1/2
         u16 currentAdjacentSlopeAngle;
         // 2 bytes padding
 
         u32 currentFenceType; // 0 = null, 1 = ladder, 2 = fence
+        dBg_ctr_c* fenceCollision;
+        float yPosOnFence; // used to prevent movement on fence edges
 
-        dBg_ctr_c* _D0;
-
-        // VEC3 maybe?
-        float _D4;
-        float _D8;
-        float _DC;
+        // these are used for slippery surfaces
+        float iceSpeedMultiplier;
+        float iceSpeed;
 
         u8 bgDamageFlag;
         s8 maxTouchedSpikeType;
 
         u8 currentSlopeDirection;
 
-        bool _E3;
-        bool onGround; // ??
+        bool isMovingLeft;
+        bool onGround;
 
         u8 chainlinkMode;
         // 2 bytes padding
