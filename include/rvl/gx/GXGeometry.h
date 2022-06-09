@@ -14,6 +14,7 @@ void GXEnd();
 
 void GXSetNumTexGens(u8 numTexGens);
 void GXSetLineWidth(u8 width, GXTexOffset::Value texOffset);
+void GXSetPointSize(u8 width, GXTexOffset::Value texOffset);
 
 #ifdef __cplusplus
 }

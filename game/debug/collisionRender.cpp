@@ -16,6 +16,15 @@
 #include <dCc.h>
 #include "debug/collisionRender.h"
 
+// Patches to allow tracking instances of dBc_c
+static dBc_c* firstBc = NULL;
+static dBc_c* lastBc = NULL;
+
+extern "C" {
+void addBcToList(dBc_c* self);
+void removeBcFromList(dBc_c* self);
+}
+
 // Drawing helper functions
 void DrawQuad(float tlX, float tlY, float trX, float trY, float blX, float blY, float brX, float brY, float z, u8 r, u8 g, u8 b, u8 a, bool addDiagonal) {
 
@@ -66,8 +75,6 @@ void DrawCircle(float centreX, float centreY, float radiusX, float radiusY, floa
     float sin, cos, xDist, yDist;
 
     // Initialize the prev variables
-    float prevSin = 0.0f;
-    float prevCos = 1.0f;
     float prevXDist = radiusX;
     float prevYDist = 0.0f;
 
@@ -109,13 +116,31 @@ void DrawCircle(float centreX, float centreY, float radiusX, float radiusY, floa
         GXColor4u8(r,g,b,a);
 
         // Override the "previous" values
-        prevSin = sin;
-        prevCos = cos;
         prevXDist = xDist;
         prevYDist = yDist;
     }
 
     // End drawing
+    GXEnd();
+}
+
+void DrawPoint(float x, float y, float z, u8 r, u8 g, u8 b, u8 a) {
+    GXBegin(GXPrimitive::POINTS, 0, 1);
+
+    GXPosition3f32(x, y, z);
+    GXColor4u8(r,g,b,a);
+
+    GXEnd();
+}
+
+void DrawLine(float x1, float y1, float x2, float y2, float z, u8 r, u8 g, u8 b, u8 a) {
+    GXBegin(GXPrimitive::LINES, 0, 2);
+
+    GXPosition3f32(x1, y1, z);
+    GXColor4u8(r,g,b,a);
+    GXPosition3f32(x2, y2, z);
+    GXColor4u8(r,g,b,a);
+
     GXEnd();
 }
 
@@ -132,7 +157,7 @@ void dCollisionRenderProc_c::drawOpa() {
 // Actual drawing
 void dCollisionRenderProc_c::drawXlu() {
 
-    // Set up copied from 0x801717C0
+    // Setup copied from 0x801717C0
 
     // Set current vertex descriptor to enable position and color0, both provided directly
     GXClearVtxDesc();
@@ -166,15 +191,16 @@ void dCollisionRenderProc_c::drawXlu() {
     m3d::getCurrentCamera().GetCameraMtx(&mtx);
     GXLoadPosMtxImm((MTX34*)&mtx, 0);
 
-    // Set line width to 3 pixels
+    // Set line width to 3 pixels and point size to 6 pixels
     GXSetLineWidth(18, GXTexOffset::TO_ZERO);
+    GXSetPointSize(36, GXTexOffset::TO_ZERO);
 
     // Draw all instances of dCc_c
     dCc_c* currCc = dCc_c::mEntryN;
     while (currCc) {
 
         // Make sure the actor isn't dead and that its owner exists
-        if (currCc->isDead != 2 && currCc->owner != nullptr) {
+        if (currCc->isDead != 2) {
 
             u32 uptr = (u32)currCc;
             u8 r = (uptr >> 16) & 0xFF;
@@ -240,8 +266,8 @@ void dCollisionRenderProc_c::drawXlu() {
     while (currBgCtr) {
 
         u32 uptr = (u32)currBgCtr;
-        u8 r = (uptr>>16) & 0xFF;
-        u8 g = (uptr>>8) & 0xFF;
+        u8 r = (uptr >> 16) & 0xFF;
+        u8 g = (uptr >> 8) & 0xFF;
         u8 b = uptr & 0xFF;
         u8 a = 0xFF;
 
@@ -264,6 +290,67 @@ void dCollisionRenderProc_c::drawXlu() {
 
         currBgCtr = currBgCtr->prev;
     }
+
+    // Draw all instances of dBc_c
+    dBc_c* currBc = firstBc;
+    while (currBc) {
+
+        // Get the color
+        u32 uptr = (u32)currBc;
+        u8 r = (uptr >> 16) + 0x20;
+        u8 g = (uptr >> 8) + 0x30;
+        u8 b = (uptr & 0xFF) + 0x80;
+        u8 a = 0xFF;
+
+        // Get the actor's position
+        float ownerPosX = currBc->pos->x;
+        float ownerPosY = currBc->pos->y;
+
+        // Make an array of sensors
+        sensorBase_s* sensors[4] = {currBc->belowSensor, currBc->aboveSensor, currBc->adjacentSensor, currBc->adjacentSensor};
+
+        // Draw the sensors
+        for (int i = 0; i < 4; i++) {
+
+            // Check if the sensor exists
+            sensorBase_s* sensor = sensors[i];
+            if (sensor == NULL)
+                continue;
+
+            // Multiplier for the adjacent sensors
+            int mult = (i == 3) ? -1 : 1;
+            float x1, y1, x2, y2;
+            bool isLine = sensor->flags & 1;
+
+            if (isLine == false) {
+                pointSensor_s* pointSensor = (pointSensor_s*)sensor;
+
+                x1 = ownerPosX + (float)(mult * pointSensor->x / 4096);
+                y1 = ownerPosY + (float)(pointSensor->y / 4096);
+
+                DrawPoint(x1, y1, 8005.0f, r, g, b, a);
+
+            } else {
+                lineSensor_s* lineSensor = (lineSensor_s*)sensor;
+
+                if (i < 2) {
+                    x1 = ownerPosX + (float)(lineSensor->lineA / 4096);
+                    x2 = ownerPosX + (float)(lineSensor->lineB / 4096);
+                    y1 = ownerPosY + (float)(lineSensor->distanceFromCenter / 4096);
+                    y2 = ownerPosY + (float)(lineSensor->distanceFromCenter / 4096);
+                } else {
+                    x1 = ownerPosX + (float)(mult * lineSensor->distanceFromCenter / 4096);
+                    x2 = ownerPosX + (float)(mult * lineSensor->distanceFromCenter / 4096);
+                    y1 = ownerPosY + (float)(lineSensor->lineA / 4096);
+                    y2 = ownerPosY + (float)(lineSensor->lineB / 4096);
+                }
+
+                DrawLine(x1, y1, x2, y2, 8005.0f, r, g, b, a);
+            }
+        }
+
+        currBc = currBc->next;
+    }
 }
 
 // Schedule renderer for drawing
@@ -273,14 +360,6 @@ kmBranchDefCpp(0x80830BD8, NULL, int, void) {
 }
 
 // Patches to allow tracking instances of dBc_c
-static dBc_c* firstBc = NULL;
-static dBc_c* lastBc = NULL;
-
-extern "C" {
-void addBcToList(dBc_c* self);
-void removeBcFromList(dBc_c* self);
-}
-
 void addBcToList(dBc_c* self) {
 
     // If the bc was already initialized, bail
