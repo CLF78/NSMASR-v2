@@ -85,3 +85,4 @@ inline void __icbi(register const void* address) {
 }
 
 #include "kamek/hooks.h"
+#include "kamek/gekko.h"
