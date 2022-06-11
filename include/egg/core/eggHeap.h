@@ -16,6 +16,9 @@ class Heap : public Disposer {
         nw4r::ut::Link mLink;
         nw4r::ut::List mChildren;
         const char* mName;
+
+        static void* alloc(size_t size, int align, Heap* heap);
+        static void free(void* buffer, Heap* heap);
 };
 
 } // namespace EGG
