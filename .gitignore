@@ -12,3 +12,6 @@ loader/build
 
 # Ignore music because it's too big
 /assets/game/Sound/stream
+
+# Ignore debug config file
+/assets/game/config.ini

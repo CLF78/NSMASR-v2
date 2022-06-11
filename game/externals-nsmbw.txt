@@ -20,6 +20,7 @@ m_instance__10dSaveMng_c=0x8042A320
 setCollectCoin__11dMj2dGame_cFiiUc=0x800CE270
 
 saveLevelProgress__10dScStage_cFbbii=0x800FBAF0
+goToTitleScreen__10dScStage_cFbb=0x801018E0
 returnToScene__10dScStage_cFUiUiUiQ28dFader_c12fader_type_e=0x80102370
 mCollectionCoin__10dScStage_c=0x803744B0
 m_exitMode__10dScStage_c=0x8042931C
@@ -35,7 +36,10 @@ instance__9dResMng_c=0x8042A318
 snprintf=0x802E19d8
 
 memcpy=0x80004364
+memset=0x80004600
 strcmp=0x802E1DA4
+strstr=0x802E1F78
+atoi=0x802E23F8
 
 setupAnimTile__11dBgTexMng_cFiUsPcPUcb=0x80087B60
 
@@ -54,6 +58,7 @@ __nw__FUl=0x802B9350
 __nwa__FUl=0x802B9390
 __dl__FPv=0x802B93C0
 __register_global_object=0x802DCA70
+__ptmf_scall=0x802DCEEC
 _savefpr_23=0x802DCFBC
 _savefpr_24=0x802DCFC0
 _savefpr_25=0x802DCFC4
@@ -250,3 +255,21 @@ GetCameraMtx__Q34nw4r3g3d6CameraCFPQ34nw4r4math5MTX34=0x802541F0
 mEntryN__9dBg_ctr_c=0x8042A0C0
 
 mEntryN__11dRide_ctr_c=0x8042A2FC
+
+ReadNextCharUTF8__Q34nw4r2ut14CharStrmReaderFv=0x80229380
+
+OSReport=0x8015F870
+
+DVDConvertPathToEntryNum=0x801CA7C0
+DVDFastOpen=0x801CAAD0
+DVDClose=0x801CAB40
+DVDReadPrio=0x801CAC60
+
+alloc__Q23EGG4HeapFUliPQ23EGG4Heap=0x802B8E00
+free__Q23EGG4HeapFPvPQ23EGG4Heap=0x802B90B0
+
+g_archiveHeap__5mHeap=0x8042A72C
+
+GetCharOnMem___Q24nw4r2dbFPCUc=0x80235960
+XStrToU32___Q24nw4r2dbFPCUc=0x80235B50
+GetCharPtr___Q24nw4r2db=0x8042AF68
