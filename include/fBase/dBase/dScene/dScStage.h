@@ -71,4 +71,6 @@ class dScStage_c : public dScene_c {
 
         static void saveLevelProgress(bool isSecretExit, bool isSuperGuide, int world, int level); // Not actually part of the class, but it fits here so :p
         static void returnToScene(u32 profileId, u32 settings, u32 exitMode, dFader_c::fader_type_e fadeType); // Same here
+
+        static void goToTitleScreen(bool isTitleReplay, bool isReset); // unofficial name
 };

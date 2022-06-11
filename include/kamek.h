@@ -80,6 +80,18 @@ typedef struct ChainlinkMode {
     };
 };
 
+typedef struct Powerup {
+    enum Value {
+        None,
+        Mushroom,
+        FireFlower,
+        MiniShroom,
+        Propeller,
+        PenguinSuit,
+        IceFlower,
+    };
+};
+
 inline void __icbi(register const void* address) {
     asm {icbi 0, address;}
 }
