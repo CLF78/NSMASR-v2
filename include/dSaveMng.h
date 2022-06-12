@@ -10,4 +10,5 @@ class dSaveMng_c {
         static dSaveMng_c* m_instance;
 
         dMj2dGame_c* getSaveGame(s8 slot);
+        void initLoadGame(s8 slot);
 };
