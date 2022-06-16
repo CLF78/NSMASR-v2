@@ -1,6 +1,11 @@
 #include <kamek.h>
 #include <egg/core/eggHeap.h>
+#include <fBase/dBase/dScene/dScene.h>
+#include <fBase/dBase/dScene/dScCrsin.h>
+#include <fBase/dBase/dScene/dScRestartCrsin.h>
 #include <fBase/dBase/dScene/dScStage.h>
+#include <fBase/dBase/dScene/dScWMap.h>
+#include <fBase/profileid.h>
 #include <m/mHeap/mHeap.h>
 #include <nw4r/db/mapfile.h>
 #include <nw4r/ut/CharStrmReader.h>
@@ -8,6 +13,10 @@
 #include <rvl/os/OS.h>
 #include <stdlib/stdlib.h>
 #include <stdlib/string.h>
+#include <daPyMng.h>
+#include <dGameCom.h>
+#include <dInfo.h>
+#include <dSaveMng.h>
 #include "debug/config.h"
 
 #define clamp(n, lower, upper) n <= lower ? lower : n >= upper ? upper : n
@@ -23,34 +32,36 @@ const ConfigKey keys[] = {
     {ConfigKey::Area, "Area"},
     {ConfigKey::Entrance, "Entrance"},
     {ConfigKey::GameMode, "GameMode"},
+    {ConfigKey::HintMovieType, "HintMovieType"},
+    {ConfigKey::ShowPregame, "ShowPregame"},
     {ConfigKey::DrawHitboxes, "DrawHitboxes"},
     {ConfigKey::DrawColliders, "DrawColliders"},
     {ConfigKey::DrawSensors, "DrawSensors"},
     {ConfigKey::DrawRideableColliders, "DrawRideableColliders"},
-    {ConfigKey::MapNode, "MapNode"},
     {ConfigKey::MovieId, "MovieId"},
 };
 
 static dConfigManager_c instance;
+dConfigManager_c* dConfigManager_c::instancePtr = &instance;
 
 dConfigManager_c::dConfigManager_c() {
 
-    // Initialize the values to a sane default
+    // Initialize the values to sane defaults
     this->launchType = LaunchType::Normal;
 
-    this->saveNo = -1;
-    this->playerCount = 1;
-    this->world = 0;
+    this->saveNo = 0;
+    this->playerCount = 0;
     this->powerUp = Powerup::None;
     this->star = false;
 
+    this->world = 0;
     this->level = 0;
     this->area = 0;
     this->entrance = 0xFF;
     this->gameMode = LaunchGameMode::Normal;
+    this->hintMovieType = MovieType::SuperSkills;
+    this->showPregame = false;
     this->collisionDebugFlags = ColliderDisplayFlags::None;
-
-    this->mapNode = 0xFF;
 
     this->movieId = 1;
 }
@@ -86,8 +97,8 @@ void dConfigManager_c::parseConfigLine(char* key, char* param, int paramSize) {
             decodedParam = atoi(param);
 
     // If the value is not numeric, check for booleans
-    } else if (strcmp(param, "true") == 0)
-        decodedParam = 1;
+    } else
+        decodedParam = (strcmp(param, "true") == 0);
 
     // Parse the key
     int keyId = -1;
@@ -101,7 +112,7 @@ void dConfigManager_c::parseConfigLine(char* key, char* param, int paramSize) {
     // Act depending on the key we found
     switch(keyId) {
         case ConfigKey::LaunchType:
-            this->launchType = decodedParam & 3;
+            this->launchType = clamp(decodedParam, 0, 2);
             break;
 
         case ConfigKey::SaveNumber:
@@ -140,6 +151,14 @@ void dConfigManager_c::parseConfigLine(char* key, char* param, int paramSize) {
             this->gameMode = clamp(decodedParam, 0, 5);
             break;
 
+        case ConfigKey::HintMovieType:
+            this->hintMovieType = decodedParam & 3;
+            break;
+
+        case ConfigKey::ShowPregame:
+            this->showPregame = decodedParam & 1;
+            break;
+
         case ConfigKey::DrawHitboxes:
             this->collisionDebugFlags |= ((decodedParam & 1) << ColliderDisplayFlags::Hitboxes);
             break;
@@ -154,10 +173,6 @@ void dConfigManager_c::parseConfigLine(char* key, char* param, int paramSize) {
 
         case ConfigKey::DrawRideableColliders:
             this->collisionDebugFlags |= ((decodedParam & 1) << ColliderDisplayFlags::RideableColliders);
-            break;
-
-        case ConfigKey::MapNode:
-            this->mapNode = decodedParam & 0xFF;
             break;
 
         case ConfigKey::MovieId:
@@ -226,14 +241,14 @@ void dConfigManager_c::parseConfig(nw4r::ut::CharStrmReader* reader, void* buffe
 
             // Store character in the key buffer unless it's full
             else if (!isParam) {
-                if (keyBufferSize < sizeof(keyBuffer)) {
+                if (keyBufferSize < sizeof(keyBuffer) - 1) {
                     keyBuffer[keyBufferSize] = currChar;
                     keyBufferSize++;
                 }
             }
 
             // Store character in the param buffer unless it's full
-            else if (paramBufferSize < sizeof(paramBuffer)) {
+            else if (paramBufferSize < sizeof(paramBuffer) - 1) {
                 paramBuffer[paramBufferSize] = currChar;
                 paramBufferSize++;
             }
@@ -291,8 +306,67 @@ kmBranchDefCpp(0x8015D850, NULL, void, void) {
     // Load the config data
     instance.loadConfig();
 
-    // TODO actual logic
+    // If launch type is 0, do the original call and nothing else
+    u8 launchType = instance.launchType;
+    if (launchType == LaunchType::Normal) {
+        dScStage_c::goToTitleScreen(false, false);
+        return;
+    }
 
-    // original call
-    dScStage_c::goToTitleScreen(false, false);
+    // Set up the save game
+    dGameCom::InitGame();
+    u8 saveNo = (instance.saveNo > 0) ? instance.saveNo - 1 : dSaveMng_c::m_instance->save.currentFile;
+    dSaveMng_c::m_instance->initLoadGame(saveNo);
+
+    // Act depending on the launch type
+    if (launchType == LaunchType::ToStage) {
+        dScWMap_c::SetCourseTypeForce(instance.world, instance.level, dScWMap_c::StarCoins);
+        dScRestartCrsin_c::m_startGameInfo.world1 = instance.world;
+        dScRestartCrsin_c::m_startGameInfo.world2 = instance.world;
+        dScRestartCrsin_c::m_startGameInfo.level1 = instance.level;
+        dScRestartCrsin_c::m_startGameInfo.level2 = instance.level;
+        dScRestartCrsin_c::m_startGameInfo.area = instance.area;
+        dScRestartCrsin_c::m_startGameInfo.entrance = instance.entrance;
+
+        for (int i = 0; i <= instance.playerCount; i++) {
+            daPyMng_c::mPlayerEntry[i] = 1;
+            daPyMng_c::mPlayerType[i] = i;
+            daPyMng_c::mPlayerMode[i] = instance.powerUp;
+            daPyMng_c::mCreateItem[i] = instance.star;
+        }
+
+        dScCrsin_c::disablePregame = !instance.showPregame;
+
+        switch(instance.gameMode) {
+            case LaunchGameMode::CoinBattle:
+                dInfo_c::mGameFlag |= GameFlag::CoinBattle;
+
+            case LaunchGameMode::FreePlay:
+                dInfo_c::mGameFlag |= GameFlag::ExtraMode;
+                break;
+
+            case LaunchGameMode::SuperGuideReplay:
+                dScRestartCrsin_c::m_startGameInfo.isReplay = true;
+                dScRestartCrsin_c::m_startGameInfo.screenType = ScreenType::SuperGuide;
+                break;
+
+            case LaunchGameMode::HintMovieReplay:
+                dScRestartCrsin_c::m_startGameInfo.isReplay = true;
+                dScRestartCrsin_c::m_startGameInfo.screenType = ScreenType::HintMovie;
+                dScRestartCrsin_c::m_startGameInfo.movieType = instance.hintMovieType;
+                break;
+
+            case LaunchGameMode::TitleReplay:
+                dScRestartCrsin_c::m_startGameInfo.isReplay = true;
+                dScRestartCrsin_c::m_startGameInfo.screenType = ScreenType::TitleReplay;
+                break;
+
+            default:
+        }
+
+        dScene_c::setNextScene(ProfileId::RESTART_CRSIN, 0, false);
+    }
+
+    else
+        dScene_c::setNextScene(ProfileId::MOVIE, instance.movieId, false);
 }

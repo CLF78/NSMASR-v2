@@ -7,7 +7,6 @@ struct LaunchType {
     enum Value {
         Normal,
         ToStage,
-        ToWorld,
         ToMovie,
     };
 };
@@ -45,11 +44,12 @@ struct ConfigKey {
         Area,
         Entrance,
         GameMode,
+        HintMovieType,
+        ShowPregame,
         DrawHitboxes,
         DrawColliders,
         DrawSensors,
         DrawRideableColliders,
-        MapNode,
         MovieId,
     };
 
@@ -69,20 +69,22 @@ class dConfigManager_c {
         u8 launchType;
         u8 saveNo;
         u8 playerCount;
-        u8 world;
         u8 powerUp;
         bool star;
 
         // Levels only
+        u8 world;
         u8 level;
         u8 area;
         u8 entrance;
         u8 gameMode;
+        u8 hintMovieType;
+        bool showPregame;
         u8 collisionDebugFlags;
-
-        // Worldmaps only
-        u8 mapNode;
 
         // Movie only
         u8 movieId;
+
+        // Static instance
+        static dConfigManager_c* instancePtr;
 };

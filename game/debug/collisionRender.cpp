@@ -18,6 +18,7 @@
 #include <dRide_ctr.h>
 #include <dRideCircle.h>
 #include "debug/collisionRender.h"
+#include "debug/config.h"
 
 // Patches to allow tracking instances of dBc_c
 static dBc_c* firstBc = NULL;
@@ -239,199 +240,210 @@ void dCollisionRenderProc_c::drawXlu() {
     GXSetLineWidth(18, GXTexOffset::TO_ZERO);
     GXSetPointSize(36, GXTexOffset::TO_ZERO);
 
+    // Load debug flags from config
+    u32 flags = dConfigManager_c::instancePtr->collisionDebugFlags;
+
     // Draw all instances of dCc_c
-    dCc_c* currCc = dCc_c::mEntryN;
-    while (currCc) {
+    if (flags & (1 << ColliderDisplayFlags::Hitboxes)) {
+        dCc_c* currCc = dCc_c::mEntryN;
+        while (currCc) {
 
-        // Make sure the actor isn't dead and that its owner exists
-        if (currCc->isDead != 2) {
+            // Make sure the actor isn't dead and that its owner exists
+            if (currCc->isDead != 2) {
 
-            u32 uptr = (u32)currCc;
+                u32 uptr = (u32)currCc;
+                u8 r = (uptr >> 16) & 0xFF;
+                u8 g = (uptr >> 8) & 0xFF;
+                u8 b = uptr & 0xFF;
+                u8 a = 0xFF;
+
+                float centreX = currCc->getCenterPosX();
+                float centreY = currCc->getCenterPosY();
+                float edgeDistX = currCc->info.xDistToEdge;
+                float edgeDistY = currCc->info.yDistToEdge;
+                u8 collType = currCc->collisionType;
+
+                // Call DrawCircle for circles
+                if (collType == ccCollType::Circle)
+                    DrawCircle(centreX, centreY, edgeDistX, edgeDistY, 9000.0f, r, g, b, a);
+
+                // Else call DrawQuad
+                else {
+                    float tlX, tlY, trX, trY, blX, blY, brX, brY;
+                    bool addDiagonal = true;
+
+                    // Use trapezoidDist for Y coordinates if collType is 2
+                    // Else edge distance
+                    if (collType == ccCollType::TrapezoidUD) {
+                        tlY = centreY + currCc->trapezoidDist1;
+                        trY = centreY + currCc->trapezoidDist3;
+                        blY = centreY + currCc->trapezoidDist2;
+                        brY = centreY + currCc->trapezoidDist4;
+                        addDiagonal = false;
+                    } else {
+                        tlY = centreY + edgeDistY;
+                        trY = centreY + edgeDistY;
+                        blY = centreY - edgeDistY;
+                        brY = centreY - edgeDistY;
+                    }
+
+                    // Use trapezoidDist for X coordinates if collType is 3
+                    // Else edge distance
+                    if (collType == ccCollType::TrapezoidLR) {
+                        tlX = centreX + currCc->trapezoidDist1;
+                        trX = centreX + currCc->trapezoidDist2;
+                        blX = centreX + currCc->trapezoidDist3;
+                        brX = centreX + currCc->trapezoidDist4;
+                        addDiagonal = false;
+                    } else {
+                        tlX = centreX - edgeDistX;
+                        trX = centreX + edgeDistX;
+                        blX = centreX - edgeDistX;
+                        brX = centreX + edgeDistX;
+                    }
+
+                    // Draw the quad
+                    DrawQuad(tlX, tlY, trX, trY, blX, blY, brX, brY, 9000.0f, r, g, b, a, addDiagonal);
+                }
+            }
+
+            currCc = currCc->prev;
+        }
+    }
+
+    // Draw all instances of dBg_ctr_c
+    if (flags & (1 << ColliderDisplayFlags::Colliders)) {
+        dBg_ctr_c* currBgCtr = dBg_ctr_c::mEntryN;
+        while (currBgCtr) {
+
+            u32 uptr = (u32)currBgCtr;
             u8 r = (uptr >> 16) & 0xFF;
             u8 g = (uptr >> 8) & 0xFF;
             u8 b = uptr & 0xFF;
             u8 a = 0xFF;
 
-            float centreX = currCc->getCenterPosX();
-            float centreY = currCc->getCenterPosY();
-            float edgeDistX = currCc->info.xDistToEdge;
-            float edgeDistY = currCc->info.yDistToEdge;
-            u8 collType = currCc->collisionType;
+            // If round, draw a circle
+            if (currBgCtr->isRound)
+                DrawCircle(currBgCtr->lastPos.x, currBgCtr->lastPos.y, currBgCtr->radius, currBgCtr->radius, 9000.0f, r, g, b, a);
 
-            // Call DrawCircle for circles
-            if (collType == ccCollType::Circle)
-                DrawCircle(centreX, centreY, edgeDistX, edgeDistY, 9000.0f, r, g, b, a);
-
-            // Else call DrawQuad
+            // Else draw a quad
             else {
-                float tlX, tlY, trX, trY, blX, blY, brX, brY;
-                bool addDiagonal = true;
-
-                // Use trapezoidDist for Y coordinates if collType is 2
-                // Else edge distance
-                if (collType == ccCollType::TrapezoidUD) {
-                    tlY = centreY + currCc->trapezoidDist1;
-                    trY = centreY + currCc->trapezoidDist3;
-                    blY = centreY + currCc->trapezoidDist2;
-                    brY = centreY + currCc->trapezoidDist4;
-                    addDiagonal = false;
-                } else {
-                    tlY = centreY + edgeDistY;
-                    trY = centreY + edgeDistY;
-                    blY = centreY - edgeDistY;
-                    brY = centreY - edgeDistY;
-                }
-
-                // Use trapezoidDist for X coordinates if collType is 3
-                // Else edge distance
-                if (collType == ccCollType::TrapezoidLR) {
-                    tlX = centreX + currCc->trapezoidDist1;
-                    trX = centreX + currCc->trapezoidDist2;
-                    blX = centreX + currCc->trapezoidDist3;
-                    brX = centreX + currCc->trapezoidDist4;
-                    addDiagonal = false;
-                } else {
-                    tlX = centreX - edgeDistX;
-                    trX = centreX + edgeDistX;
-                    blX = centreX - edgeDistX;
-                    brX = centreX + edgeDistX;
-                }
-
-                // Draw the quad
-                DrawQuad(tlX, tlY, trX, trY, blX, blY, brX, brY, 9000.0f, r, g, b, a, addDiagonal);
+                float tlX = currBgCtr->calcedPos[0].x;
+                float tlY = currBgCtr->calcedPos[0].y;
+                float trX = currBgCtr->calcedPos[3].x;
+                float trY = currBgCtr->calcedPos[3].y;
+                float blX = currBgCtr->calcedPos[1].x;
+                float blY = currBgCtr->calcedPos[1].y;
+                float brX = currBgCtr->calcedPos[2].x;
+                float brY = currBgCtr->calcedPos[2].y;
+                DrawQuad(tlX, tlY, trX, trY, blX, blY, brX, brY, 9000.0f, r, g, b, a, false);
             }
+
+            currBgCtr = currBgCtr->prev;
         }
-
-        currCc = currCc->prev;
-    }
-
-    // Draw all instances of dBg_ctr_c
-    dBg_ctr_c* currBgCtr = dBg_ctr_c::mEntryN;
-    while (currBgCtr) {
-
-        u32 uptr = (u32)currBgCtr;
-        u8 r = (uptr >> 16) & 0xFF;
-        u8 g = (uptr >> 8) & 0xFF;
-        u8 b = uptr & 0xFF;
-        u8 a = 0xFF;
-
-        // If round, draw a circle
-        if (currBgCtr->isRound)
-            DrawCircle(currBgCtr->lastPos.x, currBgCtr->lastPos.y, currBgCtr->radius, currBgCtr->radius, 9000.0f, r, g, b, a);
-
-        // Else draw a quad
-        else {
-            float tlX = currBgCtr->calcedPos[0].x;
-            float tlY = currBgCtr->calcedPos[0].y;
-            float trX = currBgCtr->calcedPos[3].x;
-            float trY = currBgCtr->calcedPos[3].y;
-            float blX = currBgCtr->calcedPos[1].x;
-            float blY = currBgCtr->calcedPos[1].y;
-            float brX = currBgCtr->calcedPos[2].x;
-            float brY = currBgCtr->calcedPos[2].y;
-            DrawQuad(tlX, tlY, trX, trY, blX, blY, brX, brY, 9000.0f, r, g, b, a, false);
-        }
-
-        currBgCtr = currBgCtr->prev;
     }
 
     // Draw all instances of dBc_c
-    dBc_c* currBc = firstBc;
-    while (currBc) {
+    if (flags & (1 << ColliderDisplayFlags::Sensors)) {
+        dBc_c* currBc = firstBc;
+        while (currBc) {
 
-        // Get the color
-        u32 uptr = (u32)currBc;
-        u8 r = (uptr >> 16) + 0x20;
-        u8 g = (uptr >> 8) + 0x30;
-        u8 b = (uptr & 0xFF) + 0x80;
-        u8 a = 0xFF;
+            // Get the color
+            u32 uptr = (u32)currBc;
+            u8 r = (uptr >> 16) + 0x20;
+            u8 g = (uptr >> 8) + 0x30;
+            u8 b = (uptr & 0xFF) + 0x80;
+            u8 a = 0xFF;
 
-        // Get the actor's position
-        float ownerPosX = currBc->pos->x;
-        float ownerPosY = currBc->pos->y;
+            // Get the actor's position
+            float ownerPosX = currBc->pos->x;
+            float ownerPosY = currBc->pos->y;
 
-        // Make an array of sensors
-        sensorBase_s* sensors[4] = {currBc->belowSensor, currBc->aboveSensor, currBc->adjacentSensor, currBc->adjacentSensor};
+            // Make an array of sensors
+            sensorBase_s* sensors[4] = {currBc->belowSensor, currBc->aboveSensor, currBc->adjacentSensor, currBc->adjacentSensor};
 
-        // Draw the sensors
-        for (int i = 0; i < 4; i++) {
+            // Draw the sensors
+            for (int i = 0; i < 4; i++) {
 
-            // Check if the sensor exists
-            sensorBase_s* sensor = sensors[i];
-            if (sensor == NULL)
-                continue;
+                // Check if the sensor exists
+                sensorBase_s* sensor = sensors[i];
+                if (sensor == NULL)
+                    continue;
 
-            // Multiplier for the adjacent sensors
-            int mult = (i == 3) ? -1 : 1;
-            float x1, y1, x2, y2;
-            bool isLine = sensor->flags & 1;
+                // Multiplier for the adjacent sensors
+                int mult = (i == 3) ? -1 : 1;
+                float x1, y1, x2, y2;
+                bool isLine = sensor->flags & 1;
 
-            if (isLine == false) {
-                pointSensor_s* pointSensor = (pointSensor_s*)sensor;
+                if (isLine == false) {
+                    pointSensor_s* pointSensor = (pointSensor_s*)sensor;
 
-                x1 = ownerPosX + (float)(mult * pointSensor->x / 4096);
-                y1 = ownerPosY + (float)(pointSensor->y / 4096);
+                    x1 = ownerPosX + (float)(mult * pointSensor->x / 4096);
+                    y1 = ownerPosY + (float)(pointSensor->y / 4096);
 
-                DrawPoint(x1, y1, 8005.0f, r, g, b, a);
+                    DrawPoint(x1, y1, 8005.0f, r, g, b, a);
 
-            } else {
-                lineSensor_s* lineSensor = (lineSensor_s*)sensor;
-
-                if (i < 2) {
-                    x1 = ownerPosX + (float)(lineSensor->lineA / 4096);
-                    x2 = ownerPosX + (float)(lineSensor->lineB / 4096);
-                    y1 = ownerPosY + (float)(lineSensor->distanceFromCenter / 4096);
-                    y2 = ownerPosY + (float)(lineSensor->distanceFromCenter / 4096);
                 } else {
-                    x1 = ownerPosX + (float)(mult * lineSensor->distanceFromCenter / 4096);
-                    x2 = ownerPosX + (float)(mult * lineSensor->distanceFromCenter / 4096);
-                    y1 = ownerPosY + (float)(lineSensor->lineA / 4096);
-                    y2 = ownerPosY + (float)(lineSensor->lineB / 4096);
+                    lineSensor_s* lineSensor = (lineSensor_s*)sensor;
+
+                    if (i < 2) {
+                        x1 = ownerPosX + (float)(lineSensor->lineA / 4096);
+                        x2 = ownerPosX + (float)(lineSensor->lineB / 4096);
+                        y1 = ownerPosY + (float)(lineSensor->distanceFromCenter / 4096);
+                        y2 = ownerPosY + (float)(lineSensor->distanceFromCenter / 4096);
+                    } else {
+                        x1 = ownerPosX + (float)(mult * lineSensor->distanceFromCenter / 4096);
+                        x2 = ownerPosX + (float)(mult * lineSensor->distanceFromCenter / 4096);
+                        y1 = ownerPosY + (float)(lineSensor->lineA / 4096);
+                        y2 = ownerPosY + (float)(lineSensor->lineB / 4096);
+                    }
+
+                    DrawLine(x1, y1, x2, y2, 8005.0f, r, g, b, a);
                 }
-
-                DrawLine(x1, y1, x2, y2, 8005.0f, r, g, b, a);
             }
-        }
 
-        currBc = currBc->next;
+            currBc = currBc->next;
+        }
     }
 
     // Draw all instances of dRide_ctr_c
-    dRide_ctr_c* currRide = dRide_ctr_c::mEntryN;
-    while (currRide) {
+    if (flags & (1 << ColliderDisplayFlags::RideableColliders)) {
+        dRide_ctr_c* currRide = dRide_ctr_c::mEntryN;
+        while (currRide) {
 
-        u32 uptr = (u32)currRide;
-        u8 r = (uptr >> 16) & 0xFF;
-        u8 g = (uptr >> 8) & 0xFF;
-        u8 b = uptr & 0xFF;
-        u8 a = 0xFF;
+            u32 uptr = (u32)currRide;
+            u8 r = (uptr >> 16) & 0xFF;
+            u8 g = (uptr >> 8) & 0xFF;
+            u8 b = uptr & 0xFF;
+            u8 a = 0xFF;
 
-        // For dRide2Point and dRideRoll, draw a simple line
-        if (currRide->type <= 2)
-            DrawLine(currRide->left.x, currRide->left.y, currRide->right.x, currRide->right.y, 9000.0f, r, g, b, a);
+            // For dRide2Point and dRideRoll, draw a simple line
+            if (currRide->type <= 2)
+                DrawLine(currRide->left.x, currRide->left.y, currRide->right.x, currRide->right.y, 9000.0f, r, g, b, a);
 
-        // dRideCircle is a little bit more complex
-        else {
-            dRideCircle_c* currCircle = (dRideCircle_c*)currRide;
-
-            // Get centre and radius
-            float centreX = currCircle->owner->pos.x + currCircle->centreOffset.x;
-            float centreY = currCircle->owner->pos.y + currCircle->centreOffset.y;
-            float radius = currCircle->radius;
-
-            // If the circle is full, use the regular circle method
-            if (currCircle->leftAngleOffset + currCircle->rightAngleOffset == 0x10000)
-                DrawCircle(centreX, centreY, radius, radius, 9000.0f, r, g, b, a);
-
-            // Else draw a partial circle
+            // dRideCircle is a little bit more complex
             else {
-                u16 minAngle = currCircle->rotation - currCircle->rightAngleOffset;
-                u16 maxAngle = minAngle + currCircle->leftAngleOffset;
-                DrawPartialCircle(centreX, centreY, radius, 9000.0f, minAngle, maxAngle, r, g, b, a);
-            }
-        }
+                dRideCircle_c* currCircle = (dRideCircle_c*)currRide;
 
-        currRide = currRide->prev;
+                // Get centre and radius
+                float centreX = currCircle->owner->pos.x + currCircle->centreOffset.x;
+                float centreY = currCircle->owner->pos.y + currCircle->centreOffset.y;
+                float radius = currCircle->radius;
+
+                // If the circle is full, use the regular circle method
+                if (currCircle->leftAngleOffset + currCircle->rightAngleOffset == 0x10000)
+                    DrawCircle(centreX, centreY, radius, radius, 9000.0f, r, g, b, a);
+
+                // Else draw a partial circle
+                else {
+                    u16 minAngle = currCircle->rotation - currCircle->rightAngleOffset;
+                    u16 maxAngle = minAngle + currCircle->leftAngleOffset;
+                    DrawPartialCircle(centreX, centreY, radius, 9000.0f, minAngle, maxAngle, r, g, b, a);
+                }
+            }
+
+            currRide = currRide->prev;
+        }
     }
 }
 

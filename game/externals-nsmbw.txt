@@ -12,9 +12,11 @@ m_startGameInfo__7dInfo_c=0x80315E90
 m_instance__7dInfo_c=0x8042A25C
 mGameFlag__7dInfo_c=0x8042A260
 
+SetCourseTypeForce__9dScWMap_cFiiQ29dScWMap_c12CourseType_e=0x80102810
 m_PrevWorldNo__9dScWMap_c=0x80429355
 
 getSaveGame__10dSaveMng_cFSc=0x800E0470
+initLoadGame__10dSaveMng_cFSc=0x800E1930
 m_instance__10dSaveMng_c=0x8042A320
 
 setCollectCoin__11dMj2dGame_cFiiUc=0x800CE270
@@ -124,7 +126,7 @@ postExecute__12dBaseActor_cFQ27fBase_c12MAIN_STATE_e=0x8006C980
 preDraw__12dBaseActor_cFv=0x8006C9F0
 postDraw__12dBaseActor_cFQ27fBase_c12MAIN_STATE_e=0x8006CA40
 draw2D__12dBaseActor_cFv=0x8006CA50
-draw2DSpecial__12dBaseActor_cFv=0x8006CA60
+draw2D_lyt2__12dBaseActor_cFv=0x8006CA60
 
 m_instance__16dSwitchFlagMng_c=0x8042A358
 
@@ -196,6 +198,7 @@ poisonSplashEffect__8dActor_cFRC7mVec3_cf=0x80065EC0
 removeCc__8dActor_cFv=0x80066080
 reviveCc__8dActor_cFv=0x80066090
 
+InitGame__8dGameComFv=0x800B2FB0
 CalcLayoutPos__8dGameComFP4VEC2=0x800B33D0
 
 FindPaneByName__Q34nw4r3lyt4PaneFPCcb=0x802ABA30
@@ -273,3 +276,10 @@ g_archiveHeap__5mHeap=0x8042A72C
 GetCharOnMem___Q24nw4r2dbFPCUc=0x80235960
 XStrToU32___Q24nw4r2dbFPCUc=0x80235B50
 GetCharPtr___Q24nw4r2db=0x8042AF68
+
+mPlayerEntry__9daPyMng_c=0x80355150
+mPlayerType__9daPyMng_c=0x80355160
+mPlayerMode__9daPyMng_c=0x80355170
+mCreateItem__9daPyMng_c=0x80355180
+
+disablePregame__10dScCrsin_c=0x8042A490
