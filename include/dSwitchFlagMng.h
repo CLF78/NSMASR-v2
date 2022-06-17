@@ -14,5 +14,8 @@ class dSwitchFlagMng_c {
         s8 playerId; // player who triggered the event, -1 if none, 0-3 otherwise
         // 7 bytes padding
 
+        // Unofficial name
+        void set(u32 eventId, int timer, bool activateEvent, bool resetEvent, bool isTimed, bool musicInterruption);
+
         static dSwitchFlagMng_c* m_instance;
 };

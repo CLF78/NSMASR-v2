@@ -2,6 +2,9 @@
 
 class daPyMng_c {
     public:
+        static u32 getNumInGame();
+        static u32 getEntryNum();
+
         static u32 mPlayerEntry[4];
         static u32 mPlayerType[4];
         static u32 mPlayerMode[4];

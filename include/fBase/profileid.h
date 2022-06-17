@@ -504,6 +504,7 @@ enum Value {
     FX_CREATE = OriginalNum + 0,
     PROF_CREATE = OriginalNum + 1,
     MSG_DISPLAY = OriginalNum + 2,
+    PCNTSWICH = OriginalNum + 3,
 
     // End of custom entries, do NOT remove
     Num,
@@ -1283,6 +1284,7 @@ enum Value {
     FX_CREATE = OriginalNum + 0,
     PROF_CREATE = OriginalNum + 1,
     MSG_DISPLAY = OriginalNum + 2,
+    PCNTSWICH = OriginalNum + 3,
 
     // End of custom entries, do NOT remove
     Num,

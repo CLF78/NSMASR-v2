@@ -128,6 +128,7 @@ postDraw__12dBaseActor_cFQ27fBase_c12MAIN_STATE_e=0x8006CA40
 draw2D__12dBaseActor_cFv=0x8006CA50
 draw2D_lyt2__12dBaseActor_cFv=0x8006CA60
 
+set__16dSwitchFlagMng_cFUiibbbb=0x800E42B0
 m_instance__16dSwitchFlagMng_c=0x8042A358
 
 breffIndexOf__Q24nw4r2efFPQ34nw4r2ef13EffectProjectUs=0x80294EA0
@@ -277,6 +278,7 @@ GetCharOnMem___Q24nw4r2dbFPCUc=0x80235960
 XStrToU32___Q24nw4r2dbFPCUc=0x80235B50
 GetCharPtr___Q24nw4r2db=0x8042AF68
 
+getNumInGame__9daPyMng_cFv=0x8005FEF0
 mPlayerEntry__9daPyMng_c=0x80355150
 mPlayerType__9daPyMng_c=0x80355160
 mPlayerMode__9daPyMng_c=0x80355170

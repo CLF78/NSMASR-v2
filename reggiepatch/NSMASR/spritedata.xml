@@ -10,7 +10,7 @@
       <entry value="0">Normal</entry>
       <entry value="1">Tumble</entry>
       <entry value="2">Pipe Generator</entry>
-      <entry value="3">Hesitates</entry>
+      <entry value="3">Small Jump</entry>
       <entry value="4">Medium Jump</entry>
       <entry value="5">Large Jump</entry>
     </list>
@@ -265,5 +265,18 @@
     <checkbox nybble="8.4" title="Disable Letterbox" comment="Disables the pink box around the message, leaving only text." />
     <checkbox nybble="8.2" title="Permanent Event" comment="Doesn't despawn the message when the event is deactivated." />
   </sprite> <!-- #485: Message Spawner -->
+  <sprite id="486" name="Event Controller - Player Count" notes="Triggers different Event IDs based on the player count.">
+    <value nybble="1-2" title="Triggering Event ID" comment="When this Event ID is activated, the controller will act." comment2="Set to 0 to activate on zone enter." idtype="Triggering Event" />
+    <value nybble="5.1-6.2" title="Target Event ID 1" comment="Single player only." idtype="Target Event" />
+    <value nybble="6.3-7.4" title="Target Event ID 2" comment="Two players only." idtype="Target Event" />
+    <value nybble="8.1-9.2" title="Target Event ID 3" comment="Three players only." idtype="Target Event" />
+    <value nybble="9.3-10.4" title="Target Event ID 4" comment="Four players only." idtype="Target Event" />
+    <list nybble="12.2-12.3" title="Usage Mode" comment="This will determine how often the Target Event ID will be modified." comment2="Single Use: When all Triggering Events become active, the Target Event will be modified, and the controller will not affect the Target Event again.&lt;br&gt;&lt;br&gt;Multi-Use: Each time all Triggering Events become active, the Target Event will be modified.&lt;br&gt;&lt;br&gt;Only While Active: Each time all Triggering Events become active, the Target Event will be modified. When this condition is no longer met, the Target Event will have the opposite state applied to it.">
+      <entry value="0">Single Use</entry>
+      <entry value="1">Multi-Use</entry>
+      <entry value="2">Only While Active</entry>
+    </list>
+    <dualbox nybble="12.4" title1="Activates Target Event" title2="Deactivates Target Event" comment="This determines how the Target Events are set when the conditions for this controller are activated."/>
+  </sprite> <!-- #486: Event Controller - Player Count -->
 </sprites>
 <!-- Thank you so much for a-playing my game! -->
