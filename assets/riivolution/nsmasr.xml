@@ -17,8 +17,8 @@
 		<folder external="Sound/stream" disc="/Sound/stream" create="true"/>
 		<folder external="Stages" disc="/Stage" create="true"/>
 		<folder external="Tilesets" disc="/Stage/Texture" create="true"/>
-		<file disc="/EU/EngEU/Message/Message.arc" external="Message/MessageENG.arc" />
-		<file disc="/config.ini" external="config.ini" create="true" />
+		<file disc="/EU/EngEU/Message/Message.arc" external="Message/MessageENG.arc"/>
+		<file disc="/config.ini" external="config.ini" create="true"/>
 		<memory offset="0x800046E4" valuefile="Loader.bin"/>
 		<memory offset="0x80004320" value="480005B4"/>
 	</patch>

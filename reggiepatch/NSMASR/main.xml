@@ -1,17 +1,15 @@
 <?xml version="1.0"?>
-<game name="Newer Super Mario All Stars Revived" version="0.0.1" description="Retro games galore!">
-
-    <!-- Folders -->
-    <folder name="external" path="external" />
-    <folder name="sprites" path="sprites" />
+<game name="Newer Super Mario All Stars Revived" version="0.0.1" description="Retro games galore!"><!-- Folders -->
+    <folder name="external" path="external"/>
+    <folder name="sprites" path="sprites"/>
 
     <!-- Files -->
-    <file name="bga" path="bga.txt" />
-    <file name="bgb" path="bgb.txt" />
-    <file name="levelnames" path="levelnames.xml" patch="False" />
-    <file name="music" path="music.txt" />
-    <file name="spritedata" path="spritedata.xml" />
-    <file name="sprites" path="sprites.py" />
-    <file name="tilesets" path="tilesets.xml" />
-    <file name="tilesetinfo" path="tilesetinfo.xml" />
+    <file name="bga" path="bga.txt"/>
+    <file name="bgb" path="bgb.txt"/>
+    <file name="levelnames" path="levelnames.xml" patch="False"/>
+    <file name="music" path="music.txt"/>
+    <file name="spritedata" path="spritedata.xml"/>
+    <file name="sprites" path="sprites.py"/>
+    <file name="tilesets" path="tilesets.xml"/>
+    <file name="tilesetinfo" path="tilesetinfo.xml"/>
 </game>

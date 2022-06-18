@@ -106,9 +106,9 @@
       <entry value="2">Multiplayer only</entry>
       <entry value="3">Never</entry>
     </list>
+    <checkbox nybble="9.4" title="Permeable Scroll Limit" advancedcomment="Allows the camera to stay beyond the limit if it's passed."/>
     <value nybble="11-12" title="Scroll Limit Shifting in Restricted Direction" comment="Determines how far the screen can scroll past the scroll limit. Value in pixels."/>
     <value nybble="10" title="Group ID" advanced="True" advancedcomment="Places the limiter in a specific group. Use when there&apos;s more than 16 limit pairs with the same Group ID in a zone."/>
-    <checkbox nybble="9.4" title="Permeable Scroll Limit" advancedcomment="Has no effect when used with Horizontal Scroll Limiters."/>
   </sprite><!-- #248: Horizontal Scroll Limiter - Top -->
   <sprite id="249" name="Horizontal Scroll Limiter - Bottom" notes="This sprite allows you to limit how far the camera will scroll horizontally by creating an imaginary horizontal border between a matching pair of Scroll Limiters. This can be used to create a deeper kill zone, hide secret areas, or otherwise restrict the camera in certain sections of a level.">
     <dependency notes="Place this at the bottom of the area you want to limit, and place an identical [248] at the top (same X position). This will create an independent, vertical zone border located at the X position of the Limit pair&apos;s placement.">
@@ -121,9 +121,9 @@
       <entry value="2">Multiplayer only</entry>
       <entry value="3">Never</entry>
     </list>
+    <checkbox nybble="9.4" title="Permeable Scroll Limit" advancedcomment="Allows the camera to stay beyond the limit if it's passed."/>
     <value nybble="11-12" title="Scroll Limit Shifting in Restricted Direction" comment="Determines how far the screen can scroll past the scroll limit. Value in pixels."/>
     <value nybble="10" title="Group ID" advanced="True" advancedcomment="Places the limiter in a specific group. Use when there&apos;s more than 16 limit pairs with the same Group ID in a zone."/>
-    <checkbox nybble="9.4" title="Permeable Scroll Limit" advancedcomment="Has no effect when used with Horizontal Scroll Limiters."/>
   </sprite><!-- #249: Horizontal Scroll Limiter - Bottom -->
   <sprite id="253" name="Rotation Controlled Coin" notes="A standard coin that can be paired with rotation controllers. It does not have any additional features like [147] Coin.">
     <dependency notes="This coin does not function and cannot be collected unless actually paired to a rotation controller.">
