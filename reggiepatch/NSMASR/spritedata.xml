@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <sprites>
   <sprite id="20" name="Goomba" notes="Your standard Goomba. Place it in the level and it will walk towards Mario when it loads.">
     <list nybble="7" title="Color" comment="This determines the color and style of the Goomba.">
       <entry value="0">Normal</entry>
       <entry value="1">Gloomba</entry>
     </list>
-    <list nybble="12" title="Load-In Animation" comment="This determines what animation state is used by the Goomba when it is first loaded. This is useful for Goombas within range of a nearby Entrance." comment2="Jumps and 'Tumble' will result in it landing on the next platform below where it was initially placed.">
+    <list nybble="12" title="Load-In Animation" comment="This determines what animation state is used by the Goomba when it is first loaded. This is useful for Goombas within range of a nearby Entrance." comment2="Jumps and &apos;Tumble&apos; will result in it landing on the next platform below where it was initially placed.">
       <entry value="0">Normal</entry>
       <entry value="1">Tumble</entry>
       <entry value="2">Pipe Generator</entry>
@@ -14,7 +13,7 @@
       <entry value="4">Medium Jump</entry>
       <entry value="5">Large Jump</entry>
     </list>
-    <checkbox nybble="8.4" title="Place Behind Other Sprites" comment="When enabled, this changes the relative Z-Order of the Goomba placing it further behind other sprites." requirednybble="12" requiredval="2" />
+    <checkbox nybble="8.4" title="Place Behind Other Sprites" comment="When enabled, this changes the relative Z-Order of the Goomba placing it further behind other sprites." requirednybble="12" requiredval="2"/>
     <list nybble="11" title="Pipe Exit Direction" comment="This determines which direction the pipe exit animation will play." requirednybble="12" requiredval="2">
       <entry value="0">Up</entry>
       <entry value="1">Down</entry>
@@ -39,25 +38,24 @@
       <entry value="14">1720.0</entry>
       <entry value="15">1736.0</entry>
     </list>
-    <value nybble="6" title="Starting Speed" comment="This makes the Goomba move in different directions at spawn. Value 0-3." requirednybble="12" requiredval="4-5" />
-  </sprite> <!-- #20: Goomba -->
+    <value nybble="6" title="Starting Speed" comment="This makes the Goomba move in different directions at spawn. Value 0-3." requirednybble="12" requiredval="4-5"/>
+  </sprite><!-- #20: Goomba -->
   <sprite id="21" name="Paragoomba" notes="A Goomba with wings that will flutter towards Mario when it loads.">
     <list nybble="7" title="Color" comment="This determines the color and style of the Paragoomba.">
       <entry value="0">Normal</entry>
       <entry value="1">Gloomba</entry>
     </list>
     <checkbox nybble="8.4" title="Place Behind Other Sprites" comment="When enabled, this changes the relative Z-Order of the Paragoomba placing it further behind other sprites."/>
-  </sprite> <!-- #21: Paragoomba -->
+  </sprite><!-- #21: Paragoomba -->
   <sprite id="113" name="Goal Pole and Fortress" notes="The invisible wall does not extend below the Goal Pole.">
     <dualbox nybble="5.4" title1="Normal Exit" title2="Secret Exit"/>
     <dualbox nybble="6.4" title1="Enable Invisible Wall" title2="Disable Invisible Wall"/>
     <value nybble="7" title="Style" comment="This determines the style of the flagpole."/>
     <checkbox nybble="12.4" title="Snowy Castle"/>
-  </sprite> <!-- #113: Goal Pole and Fortress -->
-
+  </sprite><!-- #113: Goal Pole and Fortress -->
   <sprite id="191" name="Tile God Event" notes="The Tile God can Create / Change / Destroy tiles within a specified area when an Event is activated.">
     <dependency notes="The Tile God sprite can be placed no more than one block outside of the Zone it is being activated in for it to function."/>
-    <value nybble="3-4" title="Triggering Event ID" comment="When this Event ID is activated, the tiles affected by the Tile God's area will be created or destroyed, depending on the Mode." idtype="Triggering Event"/>
+    <value nybble="3-4" title="Triggering Event ID" comment="When this Event ID is activated, the tiles affected by the Tile God&apos;s area will be created or destroyed, depending on the Mode." idtype="Triggering Event"/>
     <value nybble="11" title="Width" comment="This determines the width of the area that is affected."/>
     <value nybble="12" title="Height" comment="This determines the height of the area that is affected."/>
     <list nybble="16" title="Target Layer" comment="This determines which terrain layer is affected.">
@@ -69,7 +67,7 @@
     <dualbox nybble="5.4" title1="Reverse Action when Deactivated" title2="Permanent" comment="This determines how the Tile God will act when the Triggering Event is deactivated" comment2="When set to Reverse, previously created tiles will be destroyed, and locations where tiles were destroyed will be filled by the creation settings of the Tile God."/>
     <checkbox nybble="8.2" title="Disable Effects" comment="When enabled, the visual effect for Tile Creation/Destruction will be removed." comment2="You can use the Effect/Sound Spawner (483) to add your own effect in its place."/>
     <checkbox nybble="8.1" title="Disable Sounds" comment="When enabled, the sound effect for Tile Creation/Destruction will be removed." comment2="You can use the Effect/Sound Spawner (483) to add your own sound in its place."/>
-    <list nybble="8.3-8.4" title="Pattern" comment="This determines the fill pattern for the Tile God's selected area." comment2="A checkered pattern and reverse checked pattern overlapping will create the same effect as a regular fill. This is sometimes useful for its visual effect.">
+    <list nybble="8.3-8.4" title="Pattern" comment="This determines the fill pattern for the Tile God&apos;s selected area." comment2="A checkered pattern and reverse checked pattern overlapping will create the same effect as a regular fill. This is sometimes useful for its visual effect.">
       <entry value="0">Fill</entry>
       <entry value="1">Checkers</entry>
       <entry value="2">Reverse Checkers</entry>
@@ -84,7 +82,7 @@
       <entry value="6">Red Block</entry>
       <entry value="7">Used Block</entry>
     </list>
-    <list nybble="9" title="Tile" comment="This determines what terrain tile will appear at the Tile God's selected area">
+    <list nybble="9" title="Tile" comment="This determines what terrain tile will appear at the Tile God&apos;s selected area">
       <entry value="0">Red Block (Pa0 3,7) (Object #57)</entry>
       <entry value="1">Brick Block (Pa0 3,0) (Object #26)</entry>
       <entry value="3">Stone Block (Pa0 3,4) (Object #51)</entry>
@@ -94,10 +92,39 @@
       <entry value="10">Tile from Pa2</entry>
       <entry value="11">Tile from Pa3</entry>
     </list>
-    <value nybble="6" title="Tileset Row" comment="When using [Tile: Tile from Pa(x)], you can spawn every tile from the tileset by selecting it from a grid formation. Each tileset contains 16 Rows (0-15), and 16 Columns (0-15). The first tile in the top left is 0,0 and the last tile in the bottom right is 15,15." comment2="Some common examples for Pa0: &lt;br&gt; &lt;i&gt;Coin: 1,14 | Coin Outline: 1,15 | ?-Block: 3,1 | Used Block: 3,2 | Wooden Block: 3,3 | Stone Block: 3,4 | Donut Lift: 3,5 | Steel Block: 3,6" requirednybble="9" requiredval="8-11"/> <!-- Appears only if Block Type (Tile) = 8-11 -->
-    <value nybble="7" title="Tileset Column" comment="When using [Block Type: Tile from Pa(x)], you can spawn every tile from the tileset by selecting it from a grid formation. Each tileset contains 16 Rows (0-15), and 16 Columns (0-15). The first tile in the top left is 0,0 and the last tile in the bottom right is 15,15." comment2="Some common examples for Pa0: &lt;br&gt; &lt;i&gt;Coin: 1,14 | Coin Outline: 1,15 | ?-Block: 3,1 | Used Block: 3,2 | Wooden Block: 3,3 | Stone Block: 3,4 | Donut Lift: 3,5 | Steel Block: 3,6" requirednybble="9" requiredval="8-11"/> <!-- Appears only if Block Type (Tile) = 8-11 -->
-  </sprite> <!-- #191: Tile God Event -->
-
+    <value nybble="6" title="Tileset Row" comment="When using [Tile: Tile from Pa(x)], you can spawn every tile from the tileset by selecting it from a grid formation. Each tileset contains 16 Rows (0-15), and 16 Columns (0-15). The first tile in the top left is 0,0 and the last tile in the bottom right is 15,15." comment2="Some common examples for Pa0: &lt;br&gt; &lt;i&gt;Coin: 1,14 | Coin Outline: 1,15 | ?-Block: 3,1 | Used Block: 3,2 | Wooden Block: 3,3 | Stone Block: 3,4 | Donut Lift: 3,5 | Steel Block: 3,6" requirednybble="9" requiredval="8-11"/><!-- Appears only if Block Type (Tile) = 8-11 -->
+    <value nybble="7" title="Tileset Column" comment="When using [Block Type: Tile from Pa(x)], you can spawn every tile from the tileset by selecting it from a grid formation. Each tileset contains 16 Rows (0-15), and 16 Columns (0-15). The first tile in the top left is 0,0 and the last tile in the bottom right is 15,15." comment2="Some common examples for Pa0: &lt;br&gt; &lt;i&gt;Coin: 1,14 | Coin Outline: 1,15 | ?-Block: 3,1 | Used Block: 3,2 | Wooden Block: 3,3 | Stone Block: 3,4 | Donut Lift: 3,5 | Steel Block: 3,6" requirednybble="9" requiredval="8-11"/><!-- Appears only if Block Type (Tile) = 8-11 -->
+  </sprite><!-- #191: Tile God Event -->
+  <sprite id="248" name="Horizontal Scroll Limiter - Top" notes="This sprite allows you to limit how far the camera will scroll horizontally by creating an imaginary horizontal border between a matching pair of Scroll Limiters. This can be used to create a deeper kill zone, hide secret areas, or otherwise restrict the camera in certain sections of a level.">
+    <dependency notes="Place this at the top of the area you want to limit, and place an identical [249] at the bottom (same X position). This will create an independent, vertical zone border located at the X position of the Limit pair&apos;s placement.">
+      <required sprite="249"/>
+    </dependency>
+    <dualbox nybble="5.4" title1="Create Right Boundary" title2="Create Left Boundary" comment="This determines which camera boundary will be restricted by this Limit pair."/>
+    <list nybble="6" title="Usage Mode" comment="This determines when the scroll limiter will be activated.">
+      <entry value="0">Any player count</entry>
+      <entry value="1">Single player only</entry>
+      <entry value="2">Multiplayer only</entry>
+      <entry value="3">Never</entry>
+    </list>
+    <value nybble="11-12" title="Scroll Limit Shifting in Restricted Direction" comment="Determines how far the screen can scroll past the scroll limit. Value in pixels."/>
+    <value nybble="10" title="Group ID" advanced="True" advancedcomment="Places the limiter in a specific group. Use when there&apos;s more than 16 limit pairs with the same Group ID in a zone."/>
+    <checkbox nybble="9.4" title="Permeable Scroll Limit" advancedcomment="Has no effect when used with Horizontal Scroll Limiters."/>
+  </sprite><!-- #248: Horizontal Scroll Limiter - Top -->
+  <sprite id="249" name="Horizontal Scroll Limiter - Bottom" notes="This sprite allows you to limit how far the camera will scroll horizontally by creating an imaginary horizontal border between a matching pair of Scroll Limiters. This can be used to create a deeper kill zone, hide secret areas, or otherwise restrict the camera in certain sections of a level.">
+    <dependency notes="Place this at the bottom of the area you want to limit, and place an identical [248] at the top (same X position). This will create an independent, vertical zone border located at the X position of the Limit pair&apos;s placement.">
+      <required sprite="248"/>
+    </dependency>
+    <dualbox nybble="5.4" title1="Create Right Boundary" title2="Create Left Boundary" comment="This determines which camera boundary will be restricted by this Limit pair."/>
+    <list nybble="6" title="Usage Mode" comment="This determines when the scroll limiter will be activated.">
+      <entry value="0">Any player count</entry>
+      <entry value="1">Single player only</entry>
+      <entry value="2">Multiplayer only</entry>
+      <entry value="3">Never</entry>
+    </list>
+    <value nybble="11-12" title="Scroll Limit Shifting in Restricted Direction" comment="Determines how far the screen can scroll past the scroll limit. Value in pixels."/>
+    <value nybble="10" title="Group ID" advanced="True" advancedcomment="Places the limiter in a specific group. Use when there&apos;s more than 16 limit pairs with the same Group ID in a zone."/>
+    <checkbox nybble="9.4" title="Permeable Scroll Limit" advancedcomment="Has no effect when used with Horizontal Scroll Limiters."/>
+  </sprite><!-- #249: Horizontal Scroll Limiter - Bottom -->
   <sprite id="253" name="Rotation Controlled Coin" notes="A standard coin that can be paired with rotation controllers. It does not have any additional features like [147] Coin.">
     <dependency notes="This coin does not function and cannot be collected unless actually paired to a rotation controller.">
       <suggested sprite="96"/>
@@ -105,8 +132,7 @@
     </dependency>
     <value nybble="11-12" title="Rotation ID" comment="This pairs the Coin to a matching rotation controller." idtype="Rotation"/>
     <dualbox nybble="7.4" title1="Enable Tilt" title2="Disable Tilt" comment="If disabled, the coin will maintain its Z-rotation while under the effect of a controller."/>
-  </sprite> <!-- #253: Rotation Controlled Coin -->
-
+  </sprite><!-- #253: Rotation Controlled Coin -->
   <sprite id="255" name="Rotation Controlled ? Block" notes="A ?-Block that can either be moved by rotation controllers or manually angled.">
     <dependency notes="A rotation controller is not required for this sprite to function. You can, instead, set a manual angle for the block.">
       <suggested sprite="96"/>
@@ -132,7 +158,7 @@
       <entry value="15">45°</entry>
     </list>
     <dualbox nybble="8.4" title1="Tilts Right" title2="Tilts Left"/>
-    <list nybble="10" title="Block Contains" comment="This determines what item the block contains." comment2="This block will release as many items as there are players. Some items, such as the Spring, won't appear if the player strikes the Block while it is actively rotating.">
+    <list nybble="10" title="Block Contains" comment="This determines what item the block contains." comment2="This block will release as many items as there are players. Some items, such as the Spring, won&apos;t appear if the player strikes the Block while it is actively rotating.">
       <entry value="0">Empty</entry>
       <entry value="1">1 Coin</entry>
       <entry value="10">10-Coin</entry>
@@ -151,8 +177,7 @@
       <entry value="13">Spring</entry>
     </list>
     <dualbox nybble="7.4" title1="Enable Tilt" title2="Disable Tilt" comment="If disabled, the block will maintain its Z-rotation while under the effect of a controller." requirednybble="9" requiredval="0"/>
-  </sprite> <!-- #255: Rotation Controlled ? Block -->
-
+  </sprite><!-- #255: Rotation Controlled ? Block -->
   <sprite id="256" name="Rotation Controlled Brick Block" notes="A Brick Block that can either be moved by rotation controllers or manually angled.">
     <dependency notes="A rotation controller is not required for this sprite to function. You can, instead, set a manual angle for the block.">
       <suggested sprite="96"/>
@@ -178,7 +203,7 @@
       <entry value="15">45°</entry>
     </list>
     <dualbox nybble="8.4" title1="Tilts Right" title2="Tilts Left"/>
-    <list nybble="10" title="Block Contains" comment="This determines what item the block contains." comment2="This block will only release one power-up item. Some items, such as the Spring, won't appear if the player strikes the Block while it is actively rotating.">
+    <list nybble="10" title="Block Contains" comment="This determines what item the block contains." comment2="This block will only release one power-up item. Some items, such as the Spring, won&apos;t appear if the player strikes the Block while it is actively rotating.">
       <entry value="0">Empty</entry>
       <entry value="1">1 Coin</entry>
       <entry value="10">10-Coin</entry>
@@ -197,9 +222,7 @@
       <entry value="13">Spring</entry>
     </list>
     <dualbox nybble="7.4" title1="Enable Tilt" title2="Disable Tilt" comment="If disabled, the block will maintain its Z-rotation while under the effect of a controller." requirednybble="9" requiredval="0"/>
-  </sprite> <!-- #256: Rotation Controlled Brick Block -->
-
-  <!-- Check if it crashes from using more than one different type of ambiance / more than one of the same type of ambiance -->
+  </sprite><!-- #256: Rotation Controlled Brick Block --><!-- Check if it crashes from using more than one different type of ambiance / more than one of the same type of ambiance -->
   <sprite id="465" name="Effect - Ambiance Sound Effects" notes="This generates various ambiance effects for the Zone, such as birds and thunder.">
     <dependency notes="If this sprite is placed more than once in the same Zone, the game will crash."/>
     <list nybble="12" title="Type" comment="This determines the ambiance used in the Zone.">
@@ -210,73 +233,70 @@
       <entry value="4">Dripping</entry>
       <entry value="5">Waterfall</entry>
     </list>
-  </sprite> <!-- #465: Effect - Ambiance Sound Effects -->
-
-  <sprite id="483" name="Sound/Graphic Effects Spawner" phonebook="Effects" notes="Enables event-driven spawning of Sound Effects and Graphic Effects.&lt;br&gt;&lt;u&gt;Limitations&lt;/u&gt;&lt;br&gt; 1) Do not use 1000 or more sounds/effects per area.&lt;br&gt; 2) A single Event ID can only trigger one sound/effect per area&lt;br&gt; 3) Only a specific number of sounds/effects can be active at the same time&lt;br&gt; 4) Only two BRSTMs can be active at the same time." advancednotes="If spawning a Sound Effect, the placement of the sprite is crucial, as the sound is emitted from that position. If the player is ~3 screens away from the sprite, then they won't hear it anymore. Placing multiple sprites with the same settings at different locations is possible.">
-      <value nybble="1-2" title="Triggering Event ID" comment="When this Event ID is activated, the associated sound or affect will be played." idtype="Triggering Event"/>
-      <external type="sfx" nybble="10-12" title="Sfx ID" comment="Use this external window to select your Sound Effect." requirednybble="8.4" requiredval="0"/>
-      <external type="gfx" nybble="10-12" title="Gfx ID" comment="Use this external window to select your Graphic Effect." requirednybble="8.4" requiredval="1"/>
-      <dualbox nybble="8.4" title1="Sound Effect" title2="Graphical Effect" comment="This determines if you are spawning a sound effect or a graphical effect. The volume of the sound effect is relative to the distance of the placement of the spawner."/>
-      <list nybble="7" title="Effect Scale" requirednybble="8.4">
-          <entry value="1">x0.25 (25%)</entry>
-          <entry value="2">x0.5 (50%)</entry>
-          <entry value="3">x0.75 (75%)</entry>
-          <entry value="0">x1.0 (100%)</entry>
-          <entry value="5">x1.25</entry>
-          <entry value="6">x1.5</entry>
-          <entry value="7">x1.75</entry>
-          <entry value="8">x2.0 (200%)</entry>
-          <entry value="9">x2.25</entry>
-          <entry value="10">x2.5</entry>
-          <entry value="11">x2.75</entry>
-          <entry value="12">x3.0 (300%)</entry>
-          <entry value="13">x3.25</entry>
-          <entry value="14">x3.5</entry>
-          <entry value="15">x3.75</entry>
-      </list>
-      <value nybble="9" title="Loop Delay" comment="This determines the number of seconds between activations of the sound or graphic effect." comment2="The effect will only activate once if the delay is left at 0."/>
-  </sprite> <!-- #483: Effect/Sound Spawner -->
-
+  </sprite><!-- #465: Effect - Ambiance Sound Effects -->
+  <sprite id="483" name="Sound/Graphic Effects Spawner" phonebook="Effects" notes="Enables event-driven spawning of Sound Effects and Graphic Effects.&lt;br&gt;&lt;u&gt;Limitations&lt;/u&gt;&lt;br&gt; 1) Do not use 1000 or more sounds/effects per area.&lt;br&gt; 2) A single Event ID can only trigger one sound/effect per area&lt;br&gt; 3) Only a specific number of sounds/effects can be active at the same time&lt;br&gt; 4) Only two BRSTMs can be active at the same time." advancednotes="If spawning a Sound Effect, the placement of the sprite is crucial, as the sound is emitted from that position. If the player is ~3 screens away from the sprite, then they won&apos;t hear it anymore. Placing multiple sprites with the same settings at different locations is possible.">
+    <value nybble="1-2" title="Triggering Event ID" comment="When this Event ID is activated, the associated sound or affect will be played." idtype="Triggering Event"/>
+    <external type="sfx" nybble="10-12" title="Sfx ID" comment="Use this external window to select your Sound Effect." requirednybble="8.4" requiredval="0"/>
+    <external type="gfx" nybble="10-12" title="Gfx ID" comment="Use this external window to select your Graphic Effect." requirednybble="8.4" requiredval="1"/>
+    <dualbox nybble="8.4" title1="Sound Effect" title2="Graphical Effect" comment="This determines if you are spawning a sound effect or a graphical effect. The volume of the sound effect is relative to the distance of the placement of the spawner."/>
+    <list nybble="7" title="Effect Scale" requirednybble="8.4">
+      <entry value="1">x0.25 (25%)</entry>
+      <entry value="2">x0.5 (50%)</entry>
+      <entry value="3">x0.75 (75%)</entry>
+      <entry value="0">x1.0 (100%)</entry>
+      <entry value="5">x1.25</entry>
+      <entry value="6">x1.5</entry>
+      <entry value="7">x1.75</entry>
+      <entry value="8">x2.0 (200%)</entry>
+      <entry value="9">x2.25</entry>
+      <entry value="10">x2.5</entry>
+      <entry value="11">x2.75</entry>
+      <entry value="12">x3.0 (300%)</entry>
+      <entry value="13">x3.25</entry>
+      <entry value="14">x3.5</entry>
+      <entry value="15">x3.75</entry>
+    </list>
+    <value nybble="9" title="Loop Delay" comment="This determines the number of seconds between activations of the sound or graphic effect." comment2="The effect will only activate once if the delay is left at 0."/>
+  </sprite><!-- #483: Effect/Sound Spawner -->
   <sprite id="484" name="Actor Spawner" notes="Spawns a given sprite with the given settings, if the given event ID is triggered.">
-    <value nybble="1" title="Nybble 1" />
-    <value nybble="2" title="Nybble 2" />
-    <value nybble="3" title="Nybble 3" />
-    <value nybble="4" title="Nybble 4" />
-    <value nybble="5" title="Nybble 5" />
-    <value nybble="6" title="Nybble 6" />
-    <value nybble="7" title="Nybble 7" />
-    <value nybble="8" title="Nybble 8" />
-    <value nybble="9" title="Nybble 9" />
-    <value nybble="10" title="Nybble 10" />
-    <value nybble="11" title="Nybble 11" />
-    <value nybble="12" title="Nybble 12" />
+    <value nybble="1" title="Nybble 1"/>
+    <value nybble="2" title="Nybble 2"/>
+    <value nybble="3" title="Nybble 3"/>
+    <value nybble="4" title="Nybble 4"/>
+    <value nybble="5" title="Nybble 5"/>
+    <value nybble="6" title="Nybble 6"/>
+    <value nybble="7" title="Nybble 7"/>
+    <value nybble="8" title="Nybble 8"/>
+    <value nybble="9" title="Nybble 9"/>
+    <value nybble="10" title="Nybble 10"/>
+    <value nybble="11" title="Nybble 11"/>
+    <value nybble="12" title="Nybble 12"/>
     <list nybble="16" title="Target Layer" comment="This determines which layer the sprite is spawned on.">
       <entry value="2">Layer 0</entry>
       <entry value="0">Layer 1</entry>
       <entry value="1">Layer 2</entry>
     </list>
-    <value nybble="17.1-18.2" title="Triggering Event ID" comment="This event will spawn the sprite if triggered. Subtract 1 from the event ID you want to use!" idtype="Triggering Event" />
-    <value nybble="18.3-20.4" title="Sprite Number"  comment="The sprite will be spawned in place of this one."/>
-  </sprite> <!-- #484: Actor Spawner -->
+    <value nybble="17.1-18.2" title="Triggering Event ID" comment="This event will spawn the sprite if triggered. Subtract 1 from the event ID you want to use!" idtype="Triggering Event"/>
+    <value nybble="18.3-20.4" title="Sprite Number" comment="The sprite will be spawned in place of this one."/>
+  </sprite><!-- #484: Actor Spawner -->
   <sprite id="485" name="Message Spawner" notes="Spawns a textbox containing the given message, if the given event ID is triggered.">
-    <value nybble="1-2" title="Triggering Event ID" comment="When this Event ID is activated, this message will appear." comment2="Set to 0 to always activate." idtype="Triggering Event" />
-    <value nybble="9-12" title="Message ID" comment="BMG ID of the message to spawn." />
-    <checkbox nybble="8.3" title="Disable Sound" comment="Disables the jingle that plays when the message appears." />
-    <checkbox nybble="8.4" title="Disable Letterbox" comment="Disables the pink box around the message, leaving only text." />
-    <checkbox nybble="8.2" title="Permanent Event" comment="Doesn't despawn the message when the event is deactivated." />
-  </sprite> <!-- #485: Message Spawner -->
+    <value nybble="1-2" title="Triggering Event ID" comment="When this Event ID is activated, this message will appear." comment2="Set to 0 to always activate." idtype="Triggering Event"/>
+    <value nybble="9-12" title="Message ID" comment="BMG ID of the message to spawn."/>
+    <checkbox nybble="8.3" title="Disable Sound" comment="Disables the jingle that plays when the message appears."/>
+    <checkbox nybble="8.4" title="Disable Letterbox" comment="Disables the pink box around the message, leaving only text."/>
+    <checkbox nybble="8.2" title="Permanent Event" comment="Doesn&apos;t despawn the message when the event is deactivated."/>
+  </sprite><!-- #485: Message Spawner -->
   <sprite id="486" name="Event Controller - Player Count" notes="Triggers different Event IDs based on the player count.">
-    <value nybble="1-2" title="Triggering Event ID" comment="When this Event ID is activated, the controller will act." comment2="Set to 0 to activate on zone enter." idtype="Triggering Event" />
-    <value nybble="5.1-6.2" title="Target Event ID 1" comment="Single player only." idtype="Target Event" />
-    <value nybble="6.3-7.4" title="Target Event ID 2" comment="Two players only." idtype="Target Event" />
-    <value nybble="8.1-9.2" title="Target Event ID 3" comment="Three players only." idtype="Target Event" />
-    <value nybble="9.3-10.4" title="Target Event ID 4" comment="Four players only." idtype="Target Event" />
+    <value nybble="1-2" title="Triggering Event ID" comment="When this Event ID is activated, the controller will act." comment2="Set to 0 to activate on zone enter." idtype="Triggering Event"/>
+    <value nybble="5.1-6.2" title="Target Event ID 1" comment="Single player only." idtype="Target Event"/>
+    <value nybble="6.3-7.4" title="Target Event ID 2" comment="Two players only." idtype="Target Event"/>
+    <value nybble="8.1-9.2" title="Target Event ID 3" comment="Three players only." idtype="Target Event"/>
+    <value nybble="9.3-10.4" title="Target Event ID 4" comment="Four players only." idtype="Target Event"/>
     <list nybble="12.2-12.3" title="Usage Mode" comment="This will determine how often the Target Event ID will be modified." comment2="Single Use: When all Triggering Events become active, the Target Event will be modified, and the controller will not affect the Target Event again.&lt;br&gt;&lt;br&gt;Multi-Use: Each time all Triggering Events become active, the Target Event will be modified.&lt;br&gt;&lt;br&gt;Only While Active: Each time all Triggering Events become active, the Target Event will be modified. When this condition is no longer met, the Target Event will have the opposite state applied to it.">
       <entry value="0">Single Use</entry>
       <entry value="1">Multi-Use</entry>
       <entry value="2">Only While Active</entry>
     </list>
     <dualbox nybble="12.4" title1="Activates Target Event" title2="Deactivates Target Event" comment="This determines how the Target Events are set when the conditions for this controller are activated."/>
-  </sprite> <!-- #486: Event Controller - Player Count -->
-</sprites>
-<!-- Thank you so much for a-playing my game! -->
+  </sprite><!-- #486: Event Controller - Player Count -->
+</sprites><!-- Thank you so much for a-playing my game! -->
