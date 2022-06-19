@@ -279,9 +279,11 @@ XStrToU32___Q24nw4r2dbFPCUc=0x80235B50
 GetCharPtr___Q24nw4r2db=0x8042AF68
 
 getNumInGame__9daPyMng_cFv=0x8005FEF0
+m_playerID__9daPyMng_c=0x80355110
 mPlayerEntry__9daPyMng_c=0x80355150
 mPlayerType__9daPyMng_c=0x80355160
 mPlayerMode__9daPyMng_c=0x80355170
 mCreateItem__9daPyMng_c=0x80355180
+mKinopioMode__9daPyMng_c=0x80429FA4
 
 disablePregame__10dScCrsin_c=0x8042A490
