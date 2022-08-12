@@ -3,7 +3,7 @@
 @@ -49,11 +49,27 @@
          self.createBGSettings(z)
          self.createBGViewers(z)
- 
+
 +        self.fixedBgALabel = QtWidgets.QLabel('Fixed BGA ID:')
 +        self.fixedBgASetting = HexSpinBox()
 +        self.fixedBgASetting.setRange(0, 0xFFFF)

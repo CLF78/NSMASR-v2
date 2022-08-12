@@ -9,7 +9,7 @@ Newer Super Mario All-Stars Revived is a New Super Mario Bros. Wii mod which aim
 
 ### Requirements
 - [CodeWarrior for MPC55xx/MPC56xx v2.10 Special Edition](https://cache.nxp.com/lgfiles/devsuites/PowerPC/CW55xx_v2_10_SE.exe)
-- [Kamek](https://github.com/Lord-Giganticus/Kamek/releases) (pick according to your OS)
+- [Kamek](https://github.com/Treeki/Kamek/releases) (pick according to your OS)
 
 ### Installation - Windows
 * Clone the GitHub repo to a folder of choice;

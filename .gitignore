@@ -15,3 +15,7 @@ loader/build
 
 # Ignore debug config file
 /assets/game/config.ini
+
+# Python cache/compiled modules
+*.pyc
+__pycache__/
