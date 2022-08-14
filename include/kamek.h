@@ -6,10 +6,6 @@
 
 #ifndef __MWERKS__
 #error "Kamek requires the CodeWarrior compiler!"
-#else
-#pragma cpp_extensions on
-#pragma cpp1x on
-#pragma no_static_dtors on
 #endif
 
 #define NULL 0
@@ -92,6 +88,7 @@ typedef struct Powerup {
     };
 };
 
+// Custom intrinsics
 inline void __icbi(register const void* address) {
     asm {icbi 0, address;}
 }

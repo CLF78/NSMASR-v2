@@ -1,60 +1,37 @@
-# Original script: https://github.com/RoadrunnerWMC/NSMBW-Updated/blob/master/code/build_code.py
+#!/usr/bin/env python3
+
+# Build script for game code.
+# Original: https://github.com/RoadrunnerWMC/NSMBW-Updated/blob/master/code/build_code.py
+
 from pathlib import Path
 import subprocess
 import sys
 
-# Set up region list
+# Region list
 DEFAULT_REGION_LIST = ['P1', 'P2', 'E1', 'E2', 'J1', 'J2', 'K', 'W']
 REGION_LIST = []
 
-# Parse arguments
-for arg in sys.argv[1:]:
-    if arg == '--help':
-        print('build.py [LIST OF REGIONS]\nAccepted values (separated by space, case insensitive): P1, P2, E1, E2, J1, J2, K, W')
-        exit()
-    elif arg.upper() not in DEFAULT_REGION_LIST:
-        print('Invalid argument', arg, flush=True)
-    else:
-        REGION_LIST.append(arg.upper())
-
-# If the resulting list is empty, compile for all regions
-if not REGION_LIST:
-    REGION_LIST = DEFAULT_REGION_LIST
-
-# Set up paths
-KAMEK = 'Kamek'
-EXCLUDE_LIST = Path('excludes.txt')
-SYMBOL_MAP = Path('externals-nsmbw.txt')
-PORT_MAP = Path('versions-nsmbw.txt')
-OUTPUT_DIR = Path('build')
-SRC_DIR = Path.cwd()
+# Compilation folders
+SRC_DIR = Path(__file__).parent
 ROOT_DIR = SRC_DIR.parent
+KAMEK = 'Kamek' # Kamek assumes the program is on PATH!
+EXCLUDE_FILE = Path(SRC_DIR, 'excludes.txt')
+SYMBOL_MAP = Path(SRC_DIR, 'externals-nsmbw.txt')
+PORT_MAP = Path(SRC_DIR, 'versions-nsmbw.txt')
+OUTPUT_DIR = Path(SRC_DIR, 'build')
 CODEWARRIOR = Path(ROOT_DIR, 'cw', 'mwcceppc.exe')
 INCLUDE_DIR = Path(ROOT_DIR, 'include')
 OUTPUT_BIN_DIR = Path(ROOT_DIR, 'assets', 'game', 'Code')
-OUTPUT_BIN_DIR.mkdir(exist_ok=True)
-
-# Look for source files
-CPP_FILES = list(SRC_DIR.glob('**/*.cpp'))
-
-# Filter out excluded files according to the list
-if EXCLUDE_LIST.is_file():
-    with EXCLUDE_LIST.open() as f:
-        ex = f.read().splitlines()
-    for file in CPP_FILES[:]:
-        if str(file.relative_to(SRC_DIR)) in ex:
-            CPP_FILES.remove(file)
 
 # Add wine if not on Windows
-CC = [str(CODEWARRIOR)]
-if sys.platform != 'win32':
-    CC = ['wine'] + CC
+CC = [] if sys.platform == 'win32' else ['wine']
+CC.append(CODEWARRIOR)
 
-# Set up compilation flags
+# Compilation flags
 CFLAGS = [
     '-i', '.',
     '-I-',
-    '-i', str(INCLUDE_DIR),
+    '-i', INCLUDE_DIR,
     '-Cpp_exceptions', 'off',
     '-enum', 'int',
     '-fp', 'fmadd',
@@ -63,37 +40,83 @@ CFLAGS = [
     '-nostdinc',
     '-O4,s',
     '-once',
+    '-pragma', '"cpp_extensions on"',
+    '-pragma', '"cpp1x on"',
+    '-pragma', '"gprfloatcopy on"',
+    '-pragma', '"no_static_dtors on"',
     '-rostr',
     '-RTTI', 'off',
+    '-schedule', 'on',
     '-sdata', '0',
     '-sdata2', '0',
     '-use_lmw_stmw', 'on']
 
-# Set up linking flags
+# Linking flags
 KAMEK_FLAGS = [
     '-dynamic',
-    '-externals=' + str(SYMBOL_MAP),
-    '-versions=' + str(PORT_MAP),
-    '-output-kamek=' + str(Path(OUTPUT_BIN_DIR, 'code$KV$.bin'))]
+    f'-externals={SYMBOL_MAP}',
+    f'-versions={PORT_MAP}',
+    f'-output-kamek={Path(OUTPUT_BIN_DIR, "code$KV$.bin")}']
+
+
+# Print helper function so output isn't all over the place when redirecting it
+def printFlush(*args, **kwargs):
+	kwargs['flush'] = True
+	print(*args, **kwargs)
+
+# Parse arguments
+for arg in sys.argv[1:]:
+    if arg == '--help' or arg == '-h':
+        printFlush('build.py [LIST OF REGIONS]\nAccepted values (separated by space, case insensitive): P1, P2, E1, E2, J1, J2, K, W, ALL')
+        exit()
+    elif arg.upper() == 'ALL':
+        REGION_LIST = DEFAULT_REGION_LIST
+    elif arg.upper() not in DEFAULT_REGION_LIST:
+        printFlush('Invalid argument', arg)
+    else:
+        REGION_LIST.append(arg.upper())
+
+# If the resulting list is empty, bail
+if not REGION_LIST:
+    printFlush('No valid regions provided!')
+    exit()
+
+# Make output folder
+OUTPUT_BIN_DIR.mkdir(exist_ok=True)
+
+# Look for source files
+CPP_FILES = set(SRC_DIR.rglob('*.cpp'))
+
+# Filter out excluded files according to the list
+if EXCLUDE_FILE.is_file():
+    with EXCLUDE_FILE.open() as f:
+        ex = set(map(lambda x: Path(SRC_DIR, x), f.read().splitlines()))
+        CPP_FILES -= ex
 
 # Compile the code for each region
 for region in REGION_LIST:
-    print(f'Compiling region {region}...', flush=True)
+    printFlush('Compiling region', region, end='...\n')
     O_FILES = []
 
     # Compile each CPP file, exit on failure
     for fp in CPP_FILES:
-        print(f'Compiling {fp.name}...', flush=True)
+        printFlush('Compiling', fp.name, end='...\n')
+
+        # Make its destination path since CW isn't able to for some reason
         destpath = Path(OUTPUT_DIR, fp.relative_to(SRC_DIR)).with_suffix('.o')
         destpath.parent.mkdir(parents=True, exist_ok=True)
-        out = subprocess.run(CC + CFLAGS + [f'-DREGION_{region}', '-c', '-o', str(destpath), str(fp)])
+
+        # Run CW, exit on failure
+        out = subprocess.run([*CC, *CFLAGS, f'-DREGION_{region}', '-c', '-o', destpath, fp])
         if out.returncode != 0:
             exit()
-        O_FILES.append(str(destpath))
+
+        # Else append successful result
+        O_FILES.append(destpath)
 
     # Link, exit on failure
     if O_FILES:
-        out = subprocess.run([str(KAMEK), *O_FILES, f'-select-version={region}'] + KAMEK_FLAGS)
+        out = subprocess.run([KAMEK, *O_FILES, f'-select-version={region}', *KAMEK_FLAGS])
         if out.returncode != 0:
             break
-        print('Linked successfully!', flush=True)
+        printFlush('Linked successfully!')
