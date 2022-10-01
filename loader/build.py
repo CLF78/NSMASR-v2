@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Build script for code loader.
-# Original: https://github.com/RoadrunnerWMC/NSMBW-Updated/blob/master/code/build_code.py
+# Original: https://github.com/RoadrunnerWMC/NSMBW-Updated/blob/efdfea0b4ff29366b19d49b39fcf4e7ea148981c/code/build_code.py
 
 from pathlib import Path
 import subprocess

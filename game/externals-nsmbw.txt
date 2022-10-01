@@ -287,3 +287,9 @@ mCreateItem__9daPyMng_c=0x80355180
 mKinopioMode__9daPyMng_c=0x80429FA4
 
 disablePregame__10dScCrsin_c=0x8042A490
+
+Exception_Printf___Q24nw4r2dbFPCce=0x80234BC0
+ShowMainInfo___Q24nw4r2dbFUsPC9OSContextUlUl=0x80235080
+dashes=0x8034D5F0
+
+AXSetMasterVolume=0x801A1A30
